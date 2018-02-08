@@ -30,7 +30,7 @@ public class FørsteSjekkInn {
 	public void test() {
 		String name = "Gruppe-23";
 		
-		int tall = 10;
+		int tall = 9;
 		
 		assertEquals("Gruppe-23", name);
 		
