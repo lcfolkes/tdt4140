@@ -25,6 +25,7 @@ unittest-job:
     - build-job
   script:
     - "mvn package -f pom.xml $MAVEN_CLI_OPTS"
+    - "cat tdt4140-gr1800/app.core/target/site/jacoco/index.html"
 
 integrationtest-job:
   stage: test
