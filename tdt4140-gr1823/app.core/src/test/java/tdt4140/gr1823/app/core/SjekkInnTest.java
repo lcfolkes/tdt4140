@@ -32,6 +32,10 @@ public class SjekkInnTest {
 		
 		int tall = 10;
 		
+		String test = "test";
+		
+		assertEquals("test", test);
+		
 		assertEquals("Gruppe-23", name);
 		
 		assertEquals(10,tall);
