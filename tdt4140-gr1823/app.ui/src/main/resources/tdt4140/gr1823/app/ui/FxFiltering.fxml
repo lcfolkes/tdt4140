@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<Pane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="tdt4140.gr1823.app.ui.FxFilteringController"
+            prefHeight="750" prefWidth="1000">
+            
+            <Label text="I love bacon"/>
+    			<Button text="Submit" fx:id="button" onAction="#handleButtonClick"/>
+            
+</Pane>
