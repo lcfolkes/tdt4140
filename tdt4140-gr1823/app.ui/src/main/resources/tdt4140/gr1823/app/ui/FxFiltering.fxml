@@ -1,32 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.VBox?>
 
-<!--<Pane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="tdt4140.gr1823.app.ui.FxFilteringController"
-            prefHeight="750" prefWidth="1000">    -->
-<!-- </Pane> -->
 
-<VBox prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="tdt4140.gr1823.app.ui.FxFilteringController">
-
-            <fx:define>
-            		<ToggleGroup fx:id="toggleGroup" />
-            </fx:define>
-            
-            <Label text="Difficulty" />
-            
-            <RadioButton text="Easy">
-      <toggleGroup>
-         <ToggleGroup fx:id="toggleGroup" />
-      </toggleGroup></RadioButton>
-            <RadioButton text="Medium" toggleGroup="$toggleGroup" />
-            <RadioButton text="Hard" toggleGroup="$toggleGroup" />
-            
-    			<Button fx:id="button" layoutX="138.0" layoutY="226.0" onAction="#handleButtonClick" text="Submit" />
-   <ChoiceBox prefWidth="150.0" />
-    	</VBox>
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141"
+fx:controller="tdt4140.gr1823.app.ui.FxFilteringController"> 
+	<top>
+		<VBox alignment="center">
+	            
+	            <Label fx:id="gender"/>
+	            <ChoiceBox fx:id="choiceBox"/>
+ 
+	    	</VBox>
+    	</top>
+</BorderPane>
