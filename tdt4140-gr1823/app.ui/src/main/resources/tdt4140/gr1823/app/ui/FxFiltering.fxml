@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
-
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141"
-fx:controller="tdt4140.gr1823.app.ui.FxFilteringController"> 
-	<top>
-		<VBox alignment="center">
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" 
+fx:controller="tdt4140.gr1823.app.ui.FxFilteringController">
+   
+   <center>
+		<VBox alignment="center" BorderPane.alignment="CENTER">
+   	            
+      	        <Label fx:id="gender"/>
+	            <ChoiceBox fx:id="cbGender" />
 	            
-	            <Label fx:id="gender"/>
-	            <ChoiceBox fx:id="choiceBox"/>
+	            <Label fx:id="ageGroup" />
+	            <ChoiceBox fx:id="cbAgeGroup" /> 
  
 	    	</VBox>
-    	</top>
+   </center>
+   
+   <top>
+      <Label alignment="BOTTOM_CENTER" prefHeight="18.0" prefWidth="205.0" text="Demografisk gjennomsnitt" BorderPane.alignment="CENTER" />
+   </top>
+   
 </BorderPane>

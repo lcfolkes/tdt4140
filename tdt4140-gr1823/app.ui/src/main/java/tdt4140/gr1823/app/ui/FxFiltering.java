@@ -29,24 +29,8 @@ public static void main(String[] args) {
     public void start(Stage primaryStage) throws Exception {
     		
     		window = primaryStage; 
-    		window.setTitle("FilterFunc");
+    		window.setTitle("FilterFunc"); //title of window
     		Parent root = FXMLLoader.load(getClass().getResource("FxFiltering.fxml"));
-    		
-    		//Separator separator = new Separator();
-    		//FlowPane root = new FlowPane(); 
-    		/*Label label = new Label("Select gender:");
-    		
-    		ObservableList<String> genders 
-            = FXCollections.observableArrayList("MALE", "FEMALE"); //get from Gender() enum/class
- 
-    		ChoiceBox<String> choiceBox = new ChoiceBox<String>(FXCollections.observableArrayList(genders));
-    		*/
-    		/*root.setPadding(new Insets(10));
-    		 
-            root.getChildren().addAll(label, choiceBox);
-            root.setPadding(new Insets(10));
-            root.setHgap(10);
-    */
         
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
