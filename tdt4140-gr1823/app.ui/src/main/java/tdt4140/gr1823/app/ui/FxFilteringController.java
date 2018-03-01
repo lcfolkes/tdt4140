@@ -14,7 +14,7 @@ import javafx.scene.text.*;
 
 public class FxFilteringController implements Initializable {
 	
-	public Button button;
+	
 	public ToggleGroup toggleGroup;
 	
 	ObservableList<String> genders = FXCollections.observableArrayList("MALE", "FEMALE"); 
@@ -22,6 +22,9 @@ public class FxFilteringController implements Initializable {
 	
 	ObservableList<String> ages = FXCollections.observableArrayList("Under 25", "25-50", "Over 50");
 	//choices in choicebox for selecting age group
+	
+	@FXML
+	private Button buttonDemographic;
 	
 	@FXML 
 	private ChoiceBox<String> cbGender; //references id:cbGender in FXML
@@ -40,32 +43,26 @@ public class FxFilteringController implements Initializable {
 		
 		gender.setText("Specify gender:"); //connects to id:gender in FXML
 		cbGender.setItems(genders);
-		/*cbGender.getSelectionModel().selecte
 		
-		selectedIndexProperty().addListener(new 
-				Changelistener<Number>() {
-			public void changed(ObservableValue ov, Number value, Number new_balue) {
-				label.setText(genders[new_value.intValue()]);
-			}
-		});*/
-		//SingleSelectionModel<String> selectedGender = cbGender.getSelectionModel();
-		//System.out.println(selectedGender.toString());
 		
-		ageGroup.setText("Specify age group:");
-		cbAgeGroup.setItems(ages);
+		ageGroup.setText("Specify age group:"); //connects to id:ageGroup in fxml
+		cbAgeGroup.setItems(ages); 
 		
+		buttonDemographic.setText("Submit"); 
+		buttonDemographic.setOnAction(e -> getChoice(cbGender, cbAgeGroup)); 
+		//when pressing button getChoice gets called
 		
 	}
 	
-	public void handleButtonClick() {
-		System.out.println("Run some code the user doesn't see");
-		button.setText("Never gonna give you up\n" + 
-				"Never gonna let you down\n" + 
-				"Never gonna run around and desert you\n" + 
-				"Never gonna make you cry\n" + 
-				"Never gonna say goodbye\n" + 
-				"Never gonna tell a lie and hurt you!");
+	//To get the values of the selected items. Both gender and age
+	//Need to implement method that returns enum Gender object? 
+	private void getChoice(ChoiceBox<String> choiceBox1, ChoiceBox<String> choiceBox2 ) {
+		String gender = choiceBox1.getValue();
+		String age = choiceBox2.getValue(); 
+		System.out.println(gender);
+		System.out.println(age);
 	}
+
 	
 
 	
