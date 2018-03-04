@@ -9,7 +9,7 @@ public class DBManager {
 	private Statement myStatement;
 	private ResultSet myResultSet;
 	
-	public DBManager() {
+	public void DBManager() {
 		connect();
 	}
 	
