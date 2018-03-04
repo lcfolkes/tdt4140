@@ -2,7 +2,7 @@ package tdt4140.gr1823.app.core;
 
 import java.sql.*;
 import java.util.ArrayList;
-
+import java.util.Properties;
 public class DBManager {
 	
 	private Connection myCon;
@@ -13,12 +13,18 @@ public class DBManager {
 		connect();
 	}
 	
-	public void connect() {
+	private void connect() {
 		try {
-			myCon = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/erlenhst_Database","erlenhst_DB","gruppe23");
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			Properties p = new Properties ();
+			 p.put("user","erlenhst_DB");
+			 p.put("password","gruppe23");
+			 myCon = DriverManager.getConnection(
+			 "jdbc:mysql://mysql.stud.ntnu.no:3306/erlenhst_Database?useSSL=false",p); 
 			System.out.println("Succsessfully connected");
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			throw new RuntimeException("Unable to connect", e);
 		}
 	}
 	
@@ -86,10 +92,15 @@ public class DBManager {
 	public static void main(String[] args) {
 		
 		DBManager myCon = new DBManager();
-		myCon.connect();
 		
-		
-		//myCon.delete("DELETE FROM Person WHERE ID=1");
+		/*
+		try {
+			myCon.retrieve("SELECT COUNT(*) FROM Person");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//myCon.delete("DELETE FROM Person WHERE ID=1"); */
 	}
 	 
 
