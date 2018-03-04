@@ -25,6 +25,7 @@ public class UserManager {
     		ArrayList insideFirstArray = (ArrayList) ret.get(0);
     		String insideSecondArray = (String) insideFirstArray.get(0);
     		return Integer.parseInt(insideSecondArray);
+ 
     }
     
     
