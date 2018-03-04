@@ -12,12 +12,11 @@ public class UserManager {
 	}
     
     public void addUser(User user) {
-    myCon.insert("INSERT INTO Person (Name, Gender, B_Date, Email, Username, Password)\n" + 
-                "VALUES ('user.getName()', 'user.getGender()', 'user.getDateOfBirth()', 'user.getEmail()', 'user.getUsername()', 'user.getPassword()');");
+    myCon.execute("INSERT INTO Person VALUES ('"+ user.getName() +"', "+ user.getGender() +"', '"+ user.getb_Date() +"', '"+ user.getEmail()+"', '"+ user.getUsername()+ "', '"+ user.getPassword());
     }
  
     public void deleteUser(User user) {
-        myCon.delete("DELETE FROM Person WHERE 'ID=user.getID()'");
+        myCon.execute("DELETE FROM Person WHERE 'ID="+ user.getID()+"'");
     }
    
     public int getNumberOfUsers() throws SQLException {

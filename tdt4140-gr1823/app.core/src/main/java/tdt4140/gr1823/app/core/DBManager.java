@@ -56,29 +56,7 @@ public class DBManager {
 	        return returnList;
 		}
 		
-		public void insert(String query) {
-			
-	        try {
-	            myStatement = myCon.createStatement();
-	            myStatement.executeUpdate(query);
-	            System.out.println("Success.");
-	        } catch (Exception e) {
-	            System.out.println("The query failed. Check your sql syntax.");
-	        }
-	    }
-		
-		public void delete(String query) {
-			try {
-	            myStatement = myCon.createStatement();
-	            myStatement.executeUpdate(query);
-	            System.out.println("Success.");
-	        } catch (Exception e) {
-	            System.out.println("The query failed. Check your sql syntax.");
-	        }
-		}
-		
-		public void update(String query){
-			
+		public void execute(String query){
 			try {
 	            myStatement = myCon.createStatement();
 	            myStatement.executeUpdate(query);
@@ -93,15 +71,6 @@ public class DBManager {
 		
 		DBManager myCon = new DBManager();
 		
-		/*
-		try {
-			myCon.retrieve("SELECT COUNT(*) FROM Person");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//myCon.delete("DELETE FROM Person WHERE ID=1"); */
 	}
-	 
 
 }
