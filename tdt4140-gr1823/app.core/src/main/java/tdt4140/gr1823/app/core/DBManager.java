@@ -13,7 +13,7 @@ public class DBManager {
 		connect();
 	}
 	
-	public void connect() {
+	private void connect() {
 		try {
 			myCon = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/erlenhst_Database","erlenhst_DB","gruppe23");
 			System.out.println("Succsessfully connected");
