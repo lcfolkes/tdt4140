@@ -14,7 +14,7 @@ public class User {
 	
 	private int ID;
 	private String name; //
-	private LocalDate dateOfBrith; //er på formatet til localDate(year, month, day)
+	private LocalDate b_Date; //er på formatet til localDate(year, month, day)
 	private Gender gender; //getGender and in constructor
 	private String email; //getEmail and setEmail with encapsulation
 	private String username; //get and set
@@ -23,10 +23,10 @@ public class User {
 	//CONSTRUCTORS
 	
 	//Constructor for creating and setting up new user
-	public User (String name, LocalDate dateOfBrith, Gender gender, String email, String username,
+	public User (String name, LocalDate b_Date, Gender gender, String email, String username,
 			String password) throws Exception {
 		this.name = name;
-		this.dateOfBrith = dateOfBrith;
+		this.b_Date = b_Date;
 		this.gender = gender;
 		setEmail(email);
 		setUsername(username);
@@ -39,7 +39,7 @@ public class User {
 		super();
 		this.ID = ID;
 		this.name = name;
-		this.dateOfBrith = dateOfBrith;
+		this.b_Date = dateOfBrith;
 		this.gender = gender;
 		this.email = email;
 		this.username = username;
@@ -60,10 +60,15 @@ public class User {
 	//Age
 	public int getAge() {
 		LocalDate now = LocalDate.now();
-		Period age = Period.between(dateOfBrith, now);
+		Period age = Period.between(b_Date, now);
 		return age.getYears();
 	}
 	
+	//B_Date
+		public LocalDate getB_Date() {
+			return b_Date;
+		}
+		
 	//Gender
 	public Gender getGender() {
 		return gender;

@@ -7,7 +7,7 @@ public class UserManager {
 	
 	DBManager myCon;
 	
-	public void UserManager() {
+	public UserManager() {
 		myCon = new DBManager();
 	}
     
