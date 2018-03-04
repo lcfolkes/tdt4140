@@ -88,12 +88,7 @@ public class DBManager {
 		DBManager myCon = new DBManager();
 		myCon.connect();
 		
-		try {
-			myCon.retrieve("SELECT COUNT(*) FROM Person");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		//myCon.delete("DELETE FROM Person WHERE ID=1");
 	}
 	 
