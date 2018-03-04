@@ -1,6 +1,9 @@
 package tdt4140.gr1823.app.ui;
 
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,7 +35,15 @@ public static void main(String[] args) {
         
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        
+        //String stylePath = getPath() + "/gui.css";
+        primaryStage.getScene().getStylesheets().add("gui.css");
         primaryStage.show();
     }
+/*public static String getPath() {
+	Path currentRelativePath = Paths.get("");
+	String dirPath = currentRelativePath.toAbsolutePath().toString();
+	return dirPath + "/src/main/resources/tdt4140/gr1823/app/ui";
+}*/
 	
 }
