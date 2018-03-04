@@ -1,8 +1,6 @@
 package tdt4140.gr1823.app.core;
-
-
+import static org.junit.Assert.fail;
 import java.time.LocalDate;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
