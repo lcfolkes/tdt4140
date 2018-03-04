@@ -1,4 +1,4 @@
-package tdt4140.gr1823.app.core;
+package tdt4140.gr1823.web.server;
 
 import static org.junit.Assert.*;
 
@@ -8,7 +8,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class SjekkInnTest {
+import tdt4140.gr1823.web.server.MyClass;
+public class TestMyClass {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -28,17 +29,7 @@ public class SjekkInnTest {
 
 	@Test
 	public void test() {
-		String name = "Gruppe-23";
-		
-		int tall = 10;
-		
-		String test = "test";
-		
-		assertEquals("test", test);
-		
-		assertEquals("Gruppe-23", name);
-		
-		assertEquals(10,tall);
+		assertEquals("Hello", MyClass.tekst);
 	}
 
 }
