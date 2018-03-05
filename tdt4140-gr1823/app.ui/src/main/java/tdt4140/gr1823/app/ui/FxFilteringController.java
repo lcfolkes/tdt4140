@@ -16,20 +16,18 @@ public class FxFilteringController implements Initializable {
 	
 	public ToggleGroup toggleGroup;
 	
-	ObservableList<String> genders = FXCollections.observableArrayList(null,"MALE", "FEMALE"); 
 	//get from Gender() enum/class, choices in choicebox for gender selection
-	
-	ObservableList<String> ages = FXCollections.observableArrayList(null, "Under 25", "25-50", "Over 50");
-	//choices in choicebox for selecting age group
-	
+	ObservableList<String> genders = FXCollections.observableArrayList(null,"MALE", "FEMALE"); 
+
 	@FXML
 	protected Button submitButton;
 	
 	@FXML 
-	protected ChoiceBox<String> cbGender; //references id:cbGender in FXML
+	//protected ChoiceBox<String> cbGender; //references id:cbGender in FXML
+	protected ComboBox<String> cbGender;
 	
 	@FXML 
-	protected TextField textInput1;
+	protected TextField textInput1; //referenced id: textInput1 in FXML
 	
 	@FXML 
 	protected TextField textInput2;
@@ -49,7 +47,7 @@ public class FxFilteringController implements Initializable {
 		textInput2.setText(""); //default value
 		
 		errorLabel.setVisible(false);
-		errorLabel.setTextFill(Color.RED);
+		errorLabel.setTextFill(Color.RED);  //css styling of error label
 		
 		submitButton.setOnAction(e -> getChoice(cbGender, textInput1, textInput2));
 		//when pressing button getChoice gets called
@@ -77,7 +75,8 @@ public class FxFilteringController implements Initializable {
 
 	//To get the values of the selected items. Both gender and age
 	//Need to implement method that returns enum Gender object? 
-	private String getChoice(ChoiceBox<String> choiceBox1, TextField input1, TextField input2) {
+	//private String getChoice(ChoiceBox<String> choiceBox, TextField input1, TextField input2) {
+	private String getChoice(ComboBox<String> comboBox, TextField input1, TextField input2) {
 		textInput1.getStyleClass().remove("error");
 		textInput2.getStyleClass().remove("error");
 		
@@ -88,7 +87,7 @@ public class FxFilteringController implements Initializable {
 			if (!isValidInput(input2)){
 				textInput2.getStyleClass().add("error");
 			}
-			errorLabel.setVisible(true);
+			errorLabel.setVisible(true); //error label gets displayed
 			System.out.println("Invalid input. Please try again");
 			return null;
 		
@@ -99,7 +98,7 @@ public class FxFilteringController implements Initializable {
 			textInput1.getStyleClass().remove("error");
 			textInput2.getStyleClass().remove("error");
 			
-			String gender = choiceBox1.getValue();
+			String gender = comboBox.getValue();
 			String fromAge = input1.getText();
 			String toAge = input2.getText();
 			System.out.println(gender + " " + fromAge +" " + toAge);

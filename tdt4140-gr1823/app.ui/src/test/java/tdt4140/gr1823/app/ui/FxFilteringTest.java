@@ -1,23 +1,25 @@
 package tdt4140.gr1823.app.ui;
 
+//import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import java.util.concurrent.TimeoutException;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
 import org.testfx.matcher.control.ComboBoxMatchers;
 import org.testfx.util.WaitForAsyncUtils;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
@@ -30,7 +32,9 @@ import tdt4140.gr1823.app.ui.FxFilteringController;
 public class FxFilteringTest extends ApplicationTest {
 	
 	 private FxFilteringController testController; 
-	 ChoiceBox<String> choiceBox;
+	 public ExpectedException exception; 
+	 //ChoiceBox<String> choiceBox;
+	 ComboBox<String> comboBox;
 	 TextField text1;
 	 TextField text2;
 	 Button button;
@@ -64,8 +68,10 @@ public class FxFilteringTest extends ApplicationTest {
 	@Before
     public void setUp() {
         /* Just retrieving the tested widgets from the GUI. */    
-        //testController.textInput1.setText("33");
-        //testController.textInput2.setText("100");	
+		comboBox = (ComboBox) find("#cbGender");
+		text1 = (TextField) find("#textInput1");
+		text2 = (TextField) find("#textInput2");
+		button = (Button) find("#submitButton");
     }
 	 
 	@After
@@ -87,26 +93,50 @@ public class FxFilteringTest extends ApplicationTest {
 
 		Assert.assertTrue(find("#textInput1") instanceof TextField);
 		Assert.assertTrue(find("#textInput2") instanceof TextField);
-		Assert.assertTrue(find("#cbGender") instanceof ChoiceBox);
+		Assert.assertTrue(find("#cbGender") instanceof ComboBox);
 		Assert.assertTrue(find("#submitButton") instanceof Button);
     }
 	
     @Test
+    public void hasItems() {
+    		/*correct number of items*/
+    		assertThat(comboBox, ComboBoxMatchers.hasItems(3));
+    } 
+
+    @Test
+    public void containsItems() {
+ 	   //in order
+ 	   assertThat(comboBox, ComboBoxMatchers.containsItems(null,"MALE", "FEMALE"));
+ 	   //not in order
+ 	   assertThat(comboBox, ComboBoxMatchers.containsItems("MALE","FEMALE", null));
+ 	   //partial
+ 	   assertThat(comboBox, ComboBoxMatchers.containsItems(null, "FEMALE"));
+    }
+     
+    @Test
+    public void containsExactlyItems() {
+ 	   //in order
+ 	   assertThat(comboBox, ComboBoxMatchers.containsExactlyItems(null,"MALE", "FEMALE"));
+ 	   //not in order
+ 	   assertThat(comboBox, ComboBoxMatchers.containsExactlyItems("MALE","FEMALE", null));
+    }
+    
+    @Test
     public void testControllerConnection() {
     	
 	    	try {
-	    		choiceBox = (ChoiceBox) find("#cbGender");
+	    		comboBox = (ComboBox) find("#cbGender");
 	    		text1 = (TextField) find("#textInput1");
 	    		text2 = (TextField) find("#textInput2");
 	    		button = (Button) find("#submitButton");
 	    		
 	    		
 	    		/* Testing selected item choicebox*/
-	    		clickOn(choiceBox);
+	    		clickOn(comboBox);
 	        	type(KeyCode.DOWN);
 	        	type(KeyCode.DOWN);
 	        	type(KeyCode.ENTER);
-	        	Assert.assertEquals("MALE", choiceBox.getValue());
+	        	Assert.assertEquals("MALE", comboBox.getValue());
 	        	
 	        /*Testing text field show correct String on input*/
 	        	clickOn(text1).write("33");
@@ -115,49 +145,11 @@ public class FxFilteringTest extends ApplicationTest {
 	    		clickOn(text2).write("100");
 	    		Assert.assertEquals("100", text2.getText());
 	    		
-	    		
+	        clickOn(button);   
 	    	}
 	    	catch(ClassCastException e) {
 	    		System.out.println(e);
-	    		//System.out.println(text1.getText());
 	    		Assert.assertFalse(true);
-	    	}
-	    	
+	    	}   	
     }
-
-    
-   /* @Test
-    public void testClickOnButtonSubmit() {
-        String command = FxFilteringController.getChoice(choiceBox, text1, text2);
-        clickOn(button);
-        WaitForAsyncUtils.waitForFxEvents();
-
-        assertEquals(darker, picker.getValue());
-    } */
-    
-   
-
-    
-    
-   /* @Test
-    public void ensureNotEmptyChoiceBoxHasItems() {
-    	verifyThat(ComboBoxMatchers.containsExactlyItems("","MALE", "FEMALE"),"#cbGender");
-    }    
-   */
-    
-   /* @Test
-    public void testChoiceBox() {
-    	clickOn("#cbGender");
-    	type(KeyCode.DOWN);
-    	type(KeyCode.ENTER);
-    }*/
-    
-    //@Test
-    //public void testTextField() {
-    	//	TextField textField1 = (TextField) lookup("#textInput1");
-    //		String text = "hei";
-    //		clickOn(textField1).write(text);
-    	
-
-    //}
 }
