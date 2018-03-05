@@ -13,8 +13,8 @@ public class DailyActivityTest extends TestCase {
 		
 	//Attributtes
 	protected DailyActivity da1;
-	protected User user;
-	protected User testUser;
+	protected User user1;
+	protected User user2;
 	protected LocalDate date;
 	protected int steps;
 	
@@ -29,7 +29,7 @@ public class DailyActivityTest extends TestCase {
 
 	@After
 	public void tearDown() throws Exception {
-		user = null;
+		user1 = null;
 	}
 
 	
@@ -37,14 +37,14 @@ public class DailyActivityTest extends TestCase {
 	protected void setUp() {
 		date = LocalDate.of(2018, 03, 04);
 		try {
-			user = new User("Ola Nordmann", LocalDate.of(1995, 11, 11), Gender.MALE, "ola@gmail.com", "brukernavn", "Passord1");
-			testUser = new User ("Kari Nordmann", LocalDate.of(1996, 05, 11), Gender.FEMALE, "kari@gmail.com", "brukernavn", "Passord2");
+			user1 = new User("Ola Nordmann", LocalDate.of(1995, 11, 11), Gender.MALE, "ola@gmail.com", "brukernavn", "Passord1");
+			user2 = new User ("Kari Nordmann", LocalDate.of(1996, 05, 11), Gender.FEMALE, "kari@gmail.com", "brukernavn", "Passord2");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		steps = 10000;
-		da1 = new DailyActivity(user, steps, date);
+		da1 = new DailyActivity(user1, steps, date);
 	}
 	
 	//Testing getters and setters (including encapsulation helping methods)
@@ -60,7 +60,7 @@ public class DailyActivityTest extends TestCase {
 
 	@Test
 	public void testGetUser() {
-		assertEquals(user, da1.getUser());
+		assertEquals(user1, da1.getUser());
 	}	
 	
 	@Test
@@ -79,9 +79,9 @@ public class DailyActivityTest extends TestCase {
 
 	@Test
 	public void testSetUser() {
-		assertEquals(user, da1.getUser());
-		da1.setUser(testUser);
-		assertEquals(testUser, da1.getUser());
+		assertEquals(user1, da1.getUser());
+		da1.setUser(user2);
+		assertEquals(user2, da1.getUser());
 	}	
 	
 }
