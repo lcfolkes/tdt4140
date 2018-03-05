@@ -23,27 +23,21 @@ public class FxFiltering extends Application {
 	Stage window;
 	Stage scene;
 	
-public static void main(String[] args) {
-        launch(args);
-    }
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-    		
-    		window = primaryStage; 
-    		window.setTitle("FilterFunc"); //title of window
-    		Parent root = FXMLLoader.load(getClass().getResource("FxFiltering.fxml")); //decides fxml file to run
-        
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        
-        //String stylePath = getPath() + "/gui.css";
-        primaryStage.getScene().getStylesheets().add("gui.css");
-        primaryStage.show();
-    }
-/*public static String getPath() {
-	Path currentRelativePath = Paths.get("");
-	String dirPath = currentRelativePath.toAbsolutePath().toString();
-	return dirPath + "/src/main/resources/tdt4140/gr1823/app/ui";
-}*/
+	public static void main(String[] args) {
+	        launch(args);
+	    }
+	    @Override
+	    public void start(Stage primaryStage) throws Exception {
+	    		
+	    		window = primaryStage; 
+	    		window.setTitle("FilterFunc"); //title of window
+	    		Parent root = FXMLLoader.load(getClass().getResource("FxFiltering.fxml")); //decides fxml file to run
+	        
+	        Scene scene = new Scene(root);
+	        primaryStage.setScene(scene);
+	
+	        primaryStage.getScene().getStylesheets().add("gui.css");
+	        primaryStage.show();
+	    }
 	
 }

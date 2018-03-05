@@ -14,7 +14,6 @@ import javafx.scene.text.*;
 
 public class FxFilteringController implements Initializable {
 	
-	
 	public ToggleGroup toggleGroup;
 	
 	ObservableList<String> genders = FXCollections.observableArrayList(null,"MALE", "FEMALE"); 
@@ -24,19 +23,19 @@ public class FxFilteringController implements Initializable {
 	//choices in choicebox for selecting age group
 	
 	@FXML
-	private Button submitButton;
+	protected Button submitButton;
 	
 	@FXML 
-	private ChoiceBox<String> cbGender; //references id:cbGender in FXML
-	
-	@FXML
-	private TextField textInput1;
+	protected ChoiceBox<String> cbGender; //references id:cbGender in FXML
 	
 	@FXML 
-	private TextField textInput2;
+	protected TextField textInput1;
+	
+	@FXML 
+	protected TextField textInput2;
 	
 	@FXML
-	private Label errorLabel;
+	protected Label errorLabel;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -78,21 +77,33 @@ public class FxFilteringController implements Initializable {
 
 	//To get the values of the selected items. Both gender and age
 	//Need to implement method that returns enum Gender object? 
-	private void getChoice(ChoiceBox<String> choiceBox1, TextField input1, TextField input2) {
+	private String getChoice(ChoiceBox<String> choiceBox1, TextField input1, TextField input2) {
+		textInput1.getStyleClass().remove("error");
+		textInput2.getStyleClass().remove("error");
+		
 		if(!(isValidInput(input1) && isValidInput(input2))){
-			textInput1.getStyleClass().add("error");
-			textInput2.getStyleClass().add("error");
+			if (!isValidInput(input1)){
+				textInput1.getStyleClass().add("error");
+			}
+			if (!isValidInput(input2)){
+				textInput2.getStyleClass().add("error");
+			}
 			errorLabel.setVisible(true);
-			System.out.println("Invalid input. Please try again");//popup invalid input. try again
+			System.out.println("Invalid input. Please try again");
+			return null;
+		
 		}
+		
 		else {
 			errorLabel.setVisible(false);
 			textInput1.getStyleClass().remove("error");
 			textInput2.getStyleClass().remove("error");
+			
 			String gender = choiceBox1.getValue();
 			String fromAge = input1.getText();
 			String toAge = input2.getText();
 			System.out.println(gender + " " + fromAge +" " + toAge);
+			return gender + " " + fromAge +" " + toAge;
 			//DBmanager.calculateSteps(gender, fromAge, toAge);
 		}
 		
