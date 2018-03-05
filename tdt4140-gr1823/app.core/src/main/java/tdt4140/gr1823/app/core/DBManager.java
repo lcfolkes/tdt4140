@@ -37,10 +37,10 @@ public class DBManager {
 				e.printStackTrace();}
 			
 		
-			ArrayList<ArrayList<String>> returnList = new ArrayList();
+			ArrayList<ArrayList<String>> returnList = new ArrayList<>();
 			while (myResultSet.next()) {
 	            int index = 1;
-	            ArrayList<String> innerList = new ArrayList();
+	            ArrayList<String> innerList = new ArrayList<>();
 	            while (true) {
 	                try {
 	                    String temp = myResultSet.getString(index);

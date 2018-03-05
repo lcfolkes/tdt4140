@@ -35,11 +35,11 @@ public class User {
 	
 	// Constructor for setting up temporary user.
 	//Difference is in password and takes in ID
-	public User(int ID, String name, LocalDate dateOfBrith, Gender gender, String email, String username) {
+	public User(int ID, String name, LocalDate b_Date, Gender gender, String email, String username) {
 		super();
 		this.ID = ID;
 		this.name = name;
-		this.b_Date = dateOfBrith;
+		this.b_Date = b_Date;
 		this.gender = gender;
 		this.email = email;
 		this.username = username;
