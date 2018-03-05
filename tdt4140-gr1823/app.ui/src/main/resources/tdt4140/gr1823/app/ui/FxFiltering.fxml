@@ -20,7 +20,6 @@
 			</HBox>
 		
 			<HBox alignment="center" prefHeight="27.0" prefWidth="410.0" spacing="30" BorderPane.alignment="CENTER">
-				<!--<HBox> <ChoiceBox fx:id="cbGender" /> </HBox> -->
 				<HBox> <ComboBox fx:id="cbGender"/> </HBox>
 	            <HBox spacing="15"> 
 	            		<TextField fx:id="textInput1" alignment="CENTER" prefHeight="27.0" prefWidth="50.0" promptText="From" GridPane.columnIndex="1" GridPane.rowIndex="1" />

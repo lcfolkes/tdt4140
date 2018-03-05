@@ -23,7 +23,6 @@ public class FxFilteringController implements Initializable {
 	protected Button submitButton;
 	
 	@FXML 
-	//protected ChoiceBox<String> cbGender; //references id:cbGender in FXML
 	protected ComboBox<String> cbGender;
 	
 	@FXML 
@@ -39,7 +38,6 @@ public class FxFilteringController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("Loading user data...");
 		
-		//gender.setText("Specify gender:"); //connects to id:gender in FXML
 		cbGender.setItems(genders);
 		cbGender.setValue(null); //default value
 		
@@ -75,7 +73,6 @@ public class FxFilteringController implements Initializable {
 
 	//To get the values of the selected items. Both gender and age
 	//Need to implement method that returns enum Gender object? 
-	//private String getChoice(ChoiceBox<String> choiceBox, TextField input1, TextField input2) {
 	private String getChoice(ComboBox<String> comboBox, TextField input1, TextField input2) {
 		textInput1.getStyleClass().remove("error");
 		textInput2.getStyleClass().remove("error");
