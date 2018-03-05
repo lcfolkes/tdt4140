@@ -31,6 +31,7 @@ public class User {
 		setEmail(email);
 		setUsername(username);
 		setPassword(password);
+		this.ID = generateID();
 	}
 	
 	// Constructor for setting up temporary user.
@@ -114,7 +115,21 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
+	
+	//Advanced methods for number of users and id generation
 
+	protected int generateID() {
+		//Must generate the next integer in static variable
+		numberOfUsers ++;
+		return getNumberOfUsers();
+	}
+	
+	public static int getNumberOfUsers() {
+		return numberOfUsers;
+	}
+	public static void restartUserCounting() {
+		numberOfUsers = 0;
+	}
 	
 
 }
