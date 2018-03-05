@@ -16,11 +16,20 @@ DBManager myCon;
     }
     
    //This method is not done yet
-    public int getNationalAverage() throws SQLException {
-    		ArrayList<ArrayList<Integer>> ret = myCon.retrieve("SELECT AVG(Steps) AS AverageSteps FROM DailySteps");
-    		ArrayList<Integer> insideFirstArray = (ArrayList) ret.get(0);
-    		int insideSecondArray = (Integer) insideFirstArray.get(0);
-    		return insideSecondArray;
+    public double getNationalAverage() throws SQLException {
+    	ArrayList<ArrayList<String>>ret = myCon.retrieve("SELECT AVG(Steps) AS AverageSteps FROM DailySteps");
+			ArrayList<String> insideFirstArray = ret.get(0);
+    		String insideSecondArray = (String) insideFirstArray.get(0);
+    		return Double.parseDouble(insideSecondArray);
  
     }
+    public static void main(String[] args) {
+		ActivityManager am = new ActivityManager();
+		try {
+			System.out.println(am.getNationalAverage());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

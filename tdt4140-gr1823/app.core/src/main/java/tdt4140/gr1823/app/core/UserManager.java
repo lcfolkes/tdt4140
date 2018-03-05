@@ -1,7 +1,6 @@
 package tdt4140.gr1823.app.core;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class UserManager {
@@ -21,16 +20,17 @@ public class UserManager {
     }
    
    public int getNumberOfUsers() throws SQLException {
-    		ArrayList<ArrayList<Integer>> ret = myCon.retrieve("SELECT COUNT(*) FROM Person");
-    		ArrayList insideFirstArray = (ArrayList) ret.get(0);
+	   ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT COUNT(*) FROM Person");
+    			ArrayList<String> insideFirstArray = ret.get(0);
     		String insideSecondArray = (String) insideFirstArray.get(0);
     		return Integer.parseInt(insideSecondArray);
     }
     
     public static void main(String[] args) throws Exception {
 	UserManager um = new UserManager();
-	User user = new User("Andreas", LocalDate.of(1995, 06,10), Gender.MALE, "test@mail.com", "username", "password");
-	um.addUser(user);
+	//User user = new User("Andreas", LocalDate.of(1995, 06,10), Gender.MALE, "test@mail.com", "username", "password");
+	//um.addUser(user);
+	System.out.println(um.getNumberOfUsers());
     }
     
 }

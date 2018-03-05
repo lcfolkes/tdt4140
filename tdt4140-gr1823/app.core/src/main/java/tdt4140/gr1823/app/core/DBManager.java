@@ -1,6 +1,7 @@
 package tdt4140.gr1823.app.core;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Properties;
 public class DBManager {
@@ -28,7 +29,7 @@ public class DBManager {
 		}
 	}
 	
-		public ArrayList retrieve(String query) throws SQLException {
+		public ArrayList<ArrayList<String>> retrieve(String query) throws SQLException {
 			try {
 				myStatement = myCon.createStatement();
 				myStatement.executeQuery(query);
@@ -36,7 +37,6 @@ public class DBManager {
 			} catch (SQLException e) {
 				e.printStackTrace();}
 			
-		
 			ArrayList<ArrayList<String>> returnList = new ArrayList<>();
 			while (myResultSet.next()) {
 	            int index = 1;
@@ -67,9 +67,18 @@ public class DBManager {
 			
 		}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
 		DBManager myCon = new DBManager();
+		User user = new User("Andreas", LocalDate.of(1995, 06,10), Gender.MALE, "test@mail.com", "username", "Password1");
+		System.out.println("INSERT INTO Person(Name, B_Date, Gender, Email) VALUES('"+user.getName()+"','"+user.getb_Date()+"','"+user.getGender()+"','"+user.getEmail()+"')");
+		myCon.execute("INSERT INTO Person(Name, B_Date, Gender, Email) VALUES('"+user.getName()+"','"+user.getb_Date()+"','"+user.getGender()+"','"+user.getEmail()+"')");
+		try {
+			myCon.retrieve("SELECT * FROM Person");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
