@@ -12,8 +12,11 @@
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1823.app.ui.FxFilteringController">
    
-   <center>
+   <top>
+   
 		<VBox alignment="center" spacing="10" BorderPane.alignment="CENTER">
+			<Label alignment="BOTTOM_CENTER" prefHeight="18.0" prefWidth="205.0" 
+				text="Demografic average" BorderPane.alignment="CENTER" />
 			<HBox alignment="center" spacing="25" BorderPane.alignment="CENTER">	
 				<Label text="Specify gender:" />	           
 	            <Label text="Specify age groups" />
@@ -34,10 +37,12 @@
 	        <Button fx:id="submitButton" text="Submit" />
  
 	    	</VBox>
-   </center>
-   
-   <top>
-      <Label alignment="BOTTOM_CENTER" prefHeight="18.0" prefWidth="205.0" text="Demografisk gjennomsnitt" BorderPane.alignment="CENTER" />
    </top>
+   <center>
+   	<VBox alignment="center" spacing="10" BorderPane.alignment="CENTER">
+   		<Label text="Average steps"/>
+   		<Label fx:id="averageLabel"/>
+   	</VBox>
+   </center>
    
 </BorderPane>

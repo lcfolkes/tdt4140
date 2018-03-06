@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
@@ -38,8 +39,7 @@ public class FxFilteringTest extends ApplicationTest {
 	 TextField text1;
 	 TextField text2;
 	 Button button;
-	 //Parent mainNode;
-	
+	 Label errorLabel;
 	
 	@BeforeClass
 	public static void headless() {
@@ -72,6 +72,7 @@ public class FxFilteringTest extends ApplicationTest {
 		text1 = (TextField) find("#textInput1");
 		text2 = (TextField) find("#textInput2");
 		button = (Button) find("#submitButton");
+		errorLabel = (Label) find("#errorLabel");
     }
 	 
 	@After
@@ -95,6 +96,7 @@ public class FxFilteringTest extends ApplicationTest {
 		Assert.assertTrue(find("#textInput2") instanceof TextField);
 		Assert.assertTrue(find("#cbGender") instanceof ComboBox);
 		Assert.assertTrue(find("#submitButton") instanceof Button);
+		Assert.assertTrue(find("#errorLabel") instanceof Label);
     }
 	
     @Test
@@ -106,34 +108,33 @@ public class FxFilteringTest extends ApplicationTest {
     @Test
     public void containsItems() {
  	   //in order
- 	   assertThat(comboBox, ComboBoxMatchers.containsItems(null,"MALE", "FEMALE"));
+ 	   assertThat(comboBox, ComboBoxMatchers.containsItems("","MALE", "FEMALE"));
  	   //not in order
- 	   assertThat(comboBox, ComboBoxMatchers.containsItems("MALE","FEMALE", null));
+ 	   assertThat(comboBox, ComboBoxMatchers.containsItems("MALE","FEMALE", ""));
  	   //partial
- 	   assertThat(comboBox, ComboBoxMatchers.containsItems(null, "FEMALE"));
+ 	   assertThat(comboBox, ComboBoxMatchers.containsItems("", "FEMALE"));
     }
      
     @Test
     public void containsExactlyItems() {
  	   //in order
- 	   assertThat(comboBox, ComboBoxMatchers.containsExactlyItems(null,"MALE", "FEMALE"));
+ 	   assertThat(comboBox, ComboBoxMatchers.containsExactlyItems("","MALE", "FEMALE"));
  	   //not in order
- 	   assertThat(comboBox, ComboBoxMatchers.containsExactlyItems("MALE","FEMALE", null));
+ 	   assertThat(comboBox, ComboBoxMatchers.containsExactlyItems("MALE","FEMALE", ""));
     }
     
     @Test
     public void testControllerConnection() {
-    	
 	    	try {
 	    		comboBox = (ComboBox) find("#cbGender");
 	    		text1 = (TextField) find("#textInput1");
 	    		text2 = (TextField) find("#textInput2");
 	    		button = (Button) find("#submitButton");
+	    		errorLabel = (Label) find("#errorLabel");
 	    		
 	    		
 	    		/* Testing selected item choicebox*/
 	    		clickOn(comboBox);
-	        	type(KeyCode.DOWN);
 	        	type(KeyCode.DOWN);
 	        	type(KeyCode.ENTER);
 	        	Assert.assertEquals("MALE", comboBox.getValue());
@@ -151,5 +152,41 @@ public class FxFilteringTest extends ApplicationTest {
 	    		System.out.println(e);
 	    		Assert.assertFalse(true);
 	    	}   	
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testErrorLabel(){
+    		/*valid values*/
+    		clickOn(text1).write("3");
+    		clickOn(text2).write("65");
+		clickOn(button);
+		Assert.assertEquals(false, errorLabel.isVisible());
+		
+		clickOn(text2).write("65");
+		clickOn(button);
+		Assert.assertEquals(false, errorLabel.isVisible());
+		
+		/*valid values, invalid order*/
+		clickOn(text1).write("65");
+		clickOn(text2).write("3");
+		clickOn(button);
+		Assert.assertEquals(true, errorLabel.isVisible());
+		
+		/*textfield1 invalid values*/
+    		clickOn(text1).write("-1");
+    		clickOn(button);
+    		Assert.assertEquals(true, errorLabel.isVisible());
+    		clickOn(text1).write("123");
+    		clickOn(button);
+    		Assert.assertEquals(true, errorLabel.isVisible());
+    		
+    		/*textfield2 invalid values*/
+    		Assert.assertEquals(true, errorLabel.isVisible());
+    		clickOn(text2).write("-5");
+    		clickOn(button);
+    		Assert.assertEquals(true, errorLabel.isVisible());
+    		clickOn(text2).write("153");
+    		clickOn(button);
+    		Assert.assertEquals(true, errorLabel.isVisible());
     }
 }
