@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class ActivityManager {
 
-DBManager myCon;
+	DBManager myCon;
 	
 	public ActivityManager() {
 		myCon = new DBManager();
