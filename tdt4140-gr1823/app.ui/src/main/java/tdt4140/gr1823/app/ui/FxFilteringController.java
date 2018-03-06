@@ -89,7 +89,6 @@ public class FxFilteringController implements Initializable {
 	}
 	
 	private boolean isValidOrder(TextField textInput1, TextField textInput2) {
-		if(isValidInput(textInput1) && isValidInput(textInput2)) {
 			try {
 				return Integer.parseInt(textInput1.getText()) < Integer.parseInt(textInput2.getText());
 				}
@@ -98,7 +97,7 @@ public class FxFilteringController implements Initializable {
 					return true;
 				}
 			}
-		}
+		
 		return false;
 	}
 
@@ -115,11 +114,12 @@ public class FxFilteringController implements Initializable {
 			if (!isValidInput(input2)){
 				textInput2.getStyleClass().add("error");
 			}
-			else{
+			else if(!isValidOrder(input1, input2)){
 				textInput1.getStyleClass().add("error");
 				textInput2.getStyleClass().add("error");
 			}
 			errorLabel.setVisible(true); //error label gets displayed
+			averageLabel.setText("");
 			System.out.println("Invalid input. Please try again");
 		}
 		else {
@@ -131,7 +131,6 @@ public class FxFilteringController implements Initializable {
 			String fromAge = input1.getText();
 			String toAge = input2.getText();
 			System.out.println(gender + " " + fromAge +" " + toAge);
-			//return gender + " " + fromAge +" " + toAge;
 			Double average = activityManager.filter(fromAge, toAge, gender);
 			System.out.println(average);
 			if(average != 0){
