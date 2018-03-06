@@ -28,24 +28,28 @@ public class ActivityManager {
     //Delegater
     public double filter(String ageFrom, String ageTo, String gender) throws NumberFormatException, SQLException{
     	
-    	if(ageFrom.equals("") && ageTo.equals("") && gender.equals("")) {
-    		return getNationalAverage();
-    	}
-    	else if(gender.equals("")){
-    		return filterByAge(ageFrom,ageTo);
-    	}
-    	else if(ageFrom.equals("") && ageTo.equals("")) {
-    		return filterByGender(gender);
-    	}
-    	else {
-    		return filterByGenderAge(ageFrom, ageTo, gender);
-    	}
+	    	if(ageFrom.equals("") && ageTo.equals("") && gender.equals("")) {
+	    		return getNationalAverage();
+	    	}
+	    	else if(gender.equals("")){
+	    		return filterByAge(ageFrom,ageTo);
+	    	}
+	    	else if(ageFrom.equals("") && ageTo.equals("")) {
+	    		return filterByGender(gender);
+	    	}
+	    	else {
+	    		return filterByGenderAge(ageFrom, ageTo, gender);
+	    	}
     }
     
   //Helper-method to accsess the string placed inside retrieveArray from DB
   	private static String getElementInArray(ArrayList<ArrayList<String>> retrieveArray) {
       	ArrayList<String> insideFirstArray = retrieveArray.get(0);
-      	String insideSecondArray = (String) insideFirstArray.get(0);
+      	String insideSecondArray;
+      	insideSecondArray = insideFirstArray.get(0);
+      	if(insideSecondArray == null) {
+      		return"0";
+      	}
       	return insideSecondArray;	
       }
     
@@ -63,6 +67,7 @@ public class ActivityManager {
     		}
     		String result = getElementInArray(ret);
     		return Double.parseDouble(result);
+    		
 	}
     
     
