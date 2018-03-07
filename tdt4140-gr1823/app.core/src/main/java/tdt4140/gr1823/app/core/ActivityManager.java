@@ -16,7 +16,6 @@ public class ActivityManager {
     myCon.execute("INSERT INTO DailyActivity VALUES ('"+ activity.getUser().getID() +"',"+ activity.getDate()+", "+ activity.getSteps());
     }
     
-   //This method is not done yet
     public double getNationalAverage() throws SQLException {
     		ArrayList<ArrayList<String>>ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps");
 		ArrayList<String> insideFirstArray = ret.get(0);
@@ -43,7 +42,7 @@ public class ActivityManager {
     }
     
   //Helper-method to accsess the string placed inside retrieveArray from DB
-  	private static String getElementInArray(ArrayList<ArrayList<String>> retrieveArray) {
+  	public static String getElementInArray(ArrayList<ArrayList<String>> retrieveArray) {
       	ArrayList<String> insideFirstArray = retrieveArray.get(0);
       	String insideSecondArray;
       	insideSecondArray = insideFirstArray.get(0);
