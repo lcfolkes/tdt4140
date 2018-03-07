@@ -11,10 +11,9 @@ public class DBManager {
 	private ResultSet myResultSet;
 	
 	public DBManager() {
-		connect();
 	}
 	
-	private void connect() {
+	public void connect() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			Properties p = new Properties ();
@@ -27,6 +26,10 @@ public class DBManager {
 			e.printStackTrace();
 			throw new RuntimeException("Unable to connect", e);
 		}
+	}
+	
+	public void disconnect() throws SQLException {
+		myCon.close();
 	}
 	
 		public ArrayList<ArrayList<String>> retrieve(String query) throws SQLException {
