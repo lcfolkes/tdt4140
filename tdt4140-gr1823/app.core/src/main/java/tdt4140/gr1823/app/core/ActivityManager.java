@@ -22,7 +22,6 @@ public class ActivityManager {
 	}
     }
     
-   //This method is not done yet
     public double getNationalAverage() throws SQLException {
     		myCon.connect();
     		ArrayList<ArrayList<String>>ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps");
