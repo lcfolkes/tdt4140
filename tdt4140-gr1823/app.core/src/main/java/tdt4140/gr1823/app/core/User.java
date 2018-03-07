@@ -5,16 +5,16 @@ import java.time.Period;
 import java.util.regex.*;
 
 public class User {
+	
 	//Attributes
 	public static int numberOfUsers = 0;
-
 	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
 		    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE); 
 	public static final Pattern VALID_PASSWORD_REGEX = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$");
 	
 	private int ID;
 	private String name; //
-	private LocalDate dateOfBrith; //er på formatet til localDate(year, month, day)
+	private LocalDate b_Date; //er på formatet til localDate(year, month, day)
 	private Gender gender; //getGender and in constructor
 	private String email; //getEmail and setEmail with encapsulation
 	private String username; //get and set
@@ -23,10 +23,10 @@ public class User {
 	//CONSTRUCTORS
 	
 	//Constructor for creating and setting up new user
-	public User (String name, LocalDate dateOfBrith, Gender gender, String email, String username,
+	public User (String name, LocalDate b_Date, Gender gender, String email, String username,
 			String password) throws Exception {
 		this.name = name;
-		this.dateOfBrith = dateOfBrith;
+		this.b_Date = b_Date;
 		this.gender = gender;
 		setEmail(email);
 		setUsername(username);
@@ -36,11 +36,11 @@ public class User {
 	
 	// Constructor for setting up temporary user.
 	//Difference is in password and takes in ID
-	public User(int ID, String name, LocalDate dateOfBrith, Gender gender, String email, String username) {
+	public User(int ID, String name, LocalDate b_Date, Gender gender, String email, String username) {
 		super();
 		this.ID = ID;
 		this.name = name;
-		this.dateOfBrith = dateOfBrith;
+		this.b_Date = b_Date;
 		this.gender = gender;
 		this.email = email;
 		this.username = username;
@@ -61,10 +61,15 @@ public class User {
 	//Age
 	public int getAge() {
 		LocalDate now = LocalDate.now();
-		Period age = Period.between(dateOfBrith, now);
+		Period age = Period.between(b_Date, now);
 		return age.getYears();
 	}
 	
+	//B_Date
+		public LocalDate getb_Date() {
+			return b_Date;
+		}
+		
 	//Gender
 	public Gender getGender() {
 		return gender;
