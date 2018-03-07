@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ComboBox?>
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="tdt4140.gr1823.app.ui.FxFilteringController">
+   <top>
+   		<Label alignment="BOTTOM_CENTER" prefHeight="18.0" prefWidth="205.0" 
+				text="Demografic average" BorderPane.alignment="CENTER" />
+   </top>
+   <center>
+		<VBox alignment="center" spacing="10" BorderPane.alignment="CENTER">
+			<HBox alignment="center" spacing="25" BorderPane.alignment="CENTER">	
+				<Label text="Specify gender:" />	           
+	            <Label text="Specify age groups" />
+			</HBox>
+			<HBox alignment="center" prefHeight="27.0" prefWidth="410.0" spacing="30" BorderPane.alignment="CENTER">
+				<HBox> <ComboBox fx:id="cbGender"/> </HBox>
+	            <HBox spacing="15"> 
+	            		<TextField fx:id="textInput1" alignment="CENTER" prefHeight="27.0" prefWidth="50.0" promptText="From" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+	           	 	<TextField fx:id="textInput2" alignment="CENTER" prefHeight="27.0" prefWidth="50.0" promptText="To" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         	 	</HBox>
+	           	 
+			</HBox>
+	           	<HBox alignment="CENTER" spacing="15">
+	           		<Label fx:id="errorLabel" text="Invalid input! Input must be a number between 0 and 120." />
+	           	</HBox>   
+	        <Button fx:id="submitButton" text="Submit" />
+ 			<VBox alignment="center" spacing="10" BorderPane.alignment="CENTER">
+ 				<Label text="Average steps"/>
+   				<Label fx:id="averageLabel"/>
+   			</VBox>
+	    	</VBox>
+   </center>
+   <!--<center>
+   	<VBox alignment="center" spacing="10" BorderPane.alignment="CENTER">
+   		<Label text="Average steps"/>
+   		<Label fx:id="averageLabel"/>
+   	</VBox>
+   </center> -->
+   
+</BorderPane>

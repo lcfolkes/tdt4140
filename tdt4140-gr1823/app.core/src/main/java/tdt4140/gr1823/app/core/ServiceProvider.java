@@ -2,27 +2,25 @@ package tdt4140.gr1823.app.core;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 public class ServiceProvider {
 
-	
-	private DBManager DBManagerObject;
+	DBManager MyCon;
 
     public ServiceProvider() {
-    	DBManagerObject = new DBManager();
+    	MyCon = new DBManager();
     }
     
     public void setRecommendedDailyActivity(int newRecommendedDailyActivity) {
-    	DBManagerObject.execute("UPDATE RecommendedDailyActivity SET Steps =" + newRecommendedDailyActivity);
+    	MyCon.execute("UPDATE RecommendedDailyActivity SET Steps =" + newRecommendedDailyActivity);
     }
     
     public int getRecommendedDailyActivity() {
     	try {
-			 ArrayList list = DBManagerObject.retrieve("SELECT * FROM RecommendedDailyActivity");
-			 ArrayList insideFirstArray = (ArrayList) list.get(0);
-			 String insideSecondArray = (String) insideFirstArray.get(0);
-			 return Integer.parseInt(insideSecondArray);
+			ArrayList<ArrayList<String>> list = MyCon.retrieve("SELECT * FROM RecommendedDailyActivity");
+				ArrayList<String> insideFirstArray = list.get(0);
+	    			String insideSecondArray = (String) insideFirstArray.get(0);
+	    		return Integer.parseInt(insideSecondArray);
 		} catch (SQLException e) {
 			System.out.println("ERROR: Can't retrieve data. Check syntax..");
 			e.printStackTrace();

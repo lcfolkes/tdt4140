@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1823.app.ui.MainScreenController">
+   <children>
+      <Pane prefHeight="636.0" prefWidth="933.0">
+         <children>
+            <Text layoutX="47.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recommended daily activity level: ">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text layoutX="47.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Set new recommended activity level: ">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="getRecDailyActivity" layoutX="379.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <TextField fx:id="setValueField" layoutX="399.0" layoutY="122.0" prefHeight="27.0" prefWidth="78.0" />
+            <Button fx:id="setValueButton" layoutX="487.0" layoutY="122.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="135.0" text="SET VALUE">
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
+            <Text layoutX="47.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of users:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="getNumOfUsers" layoutX="222.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text layoutX="48.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="National average:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="getNationalAverage" layoutX="225.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text layoutX="48.0" layoutY="396.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter steps by age and/or gender:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Button fx:id="filterStepsButton" layoutX="386.0" layoutY="375.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="126.0" text="FILTER STEPS">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
+

@@ -52,7 +52,7 @@ public class DBManager {
 	            }
 	            returnList.add(innerList);
 	        }
-	        System.out.println(returnList);
+	       //System.out.println(returnList);
 	        return returnList;
 		}
 		
@@ -71,14 +71,15 @@ public class DBManager {
 		
 		DBManager myCon = new DBManager();
 		User user = new User("Andreas", LocalDate.of(1995, 06,10), Gender.MALE, "test@mail.com", "username", "Password1");
-		System.out.println("INSERT INTO Person(Name, B_Date, Gender, Email) VALUES('"+user.getName()+"','"+user.getb_Date()+"','"+user.getGender()+"','"+user.getEmail()+"')");
-		myCon.execute("INSERT INTO Person(Name, B_Date, Gender, Email) VALUES('"+user.getName()+"','"+user.getb_Date()+"','"+user.getGender()+"','"+user.getEmail()+"')");
+		//System.out.println("INSERT INTO Person(Name, B_Date, Gender, Email) VALUES('"+user.getName()+"','"+user.getb_Date()+"','"+user.getGender()+"','"+user.getEmail()+"')");
+		//myCon.execute("INSERT INTO Person(Name, B_Date, Gender, Email) VALUES('"+user.getName()+"','"+user.getb_Date()+"','"+user.getGender()+"','"+user.getEmail()+"')");
 		try {
-			myCon.retrieve("SELECT * FROM Person");
+			System.out.println(myCon.retrieve("SELECT * FROM Person"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		
 	}
 
