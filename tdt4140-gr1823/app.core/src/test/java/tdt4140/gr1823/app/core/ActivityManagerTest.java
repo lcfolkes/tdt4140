@@ -75,7 +75,9 @@ public class ActivityManagerTest {
 	
 	@Test
 	public void testGetElementInArray() throws SQLException {
+		A_Manager.myCon.connect();
 		ArrayList<ArrayList<String>>ret = A_Manager.myCon.retrieve("SELECT AVG(Steps) FROM DailySteps");
+		A_Manager.myCon.disconnect();
 		String element = ActivityManager.getElementInArray(ret);
 		Double a = (double) Double.parseDouble(element);
 		Assert.assertTrue(a instanceof Double);
