@@ -32,7 +32,8 @@ public class FxAppTest extends ApplicationTest {
         stage.show();
     }
 
-    @Test
+    /*@Test
     public void testFxApp() {
     }
+    */
 }
