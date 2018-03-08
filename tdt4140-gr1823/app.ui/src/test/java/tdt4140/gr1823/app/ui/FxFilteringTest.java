@@ -34,7 +34,6 @@ public class FxFilteringTest extends ApplicationTest {
 	
 	 private FxFilteringController testController; 
 	 public ExpectedException exception; 
-	 //ChoiceBox<String> choiceBox;
 	 ComboBox<String> comboBox;
 	 TextField text1;
 	 TextField text2;
@@ -53,8 +52,7 @@ public class FxFilteringTest extends ApplicationTest {
 		ApplicationTest.launch(FxFiltering.class);
 	} 
 	
-   
-	
+   	
 	@Override
     public void start(Stage stage) throws Exception {
 		FXMLLoader loader= new FXMLLoader(getClass().getResource("FxFiltering.fxml"));
