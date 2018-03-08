@@ -130,9 +130,7 @@ public class FxFilteringController implements Initializable {
 			String gender = comboBox.getValue();
 			String fromAge = input1.getText();
 			String toAge = input2.getText();
-			System.out.println(gender + " " + fromAge +" " + toAge);
 			Double average = activityManager.filter(fromAge, toAge, gender);
-			System.out.println(average);
 			if(average != 0){
 				averageLabel.setText(average.toString());
 			}
