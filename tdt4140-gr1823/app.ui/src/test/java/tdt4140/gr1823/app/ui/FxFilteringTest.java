@@ -103,7 +103,7 @@ public class FxFilteringTest extends ApplicationTest {
     		assertThat(comboBox, ComboBoxMatchers.hasItems(3));
     } 
 
-    @Test
+    /*@Test
     public void containsItems() {
  	   //in order
  	   assertThat(comboBox, ComboBoxMatchers.containsItems("","MALE", "FEMALE"));
@@ -112,7 +112,8 @@ public class FxFilteringTest extends ApplicationTest {
  	   //partial
  	   assertThat(comboBox, ComboBoxMatchers.containsItems("", "FEMALE"));
     }
-     
+    */ 
+    
     @Test
     public void containsExactlyItems() {
  	   //in order
