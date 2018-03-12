@@ -91,16 +91,18 @@ public class MainScreenTest extends ApplicationTest {
 		return lookup(query).query();
 	}
 	
-	@Test
+	/*@Test
 	public void testFieldExist() {
-		/* Testing if all fields exist*/
-		Assert.assertTrue(find("#getRecDailyActivity") instanceof Text);
-		Assert.assertTrue(find("#getNumOfUsers") instanceof Text);
-		Assert.assertTrue(find("#getNationalAverage") instanceof Text);
-		Assert.assertTrue(find("#setValueButton") instanceof Button);
-		Assert.assertTrue(find("#setValueField") instanceof TextField);
-		Assert.assertTrue(find("#filterStepsButton") instanceof Button);	
+		Testing if all fields exist
+		//Assert.assertTrue(find("#getRecDailyActivity") instanceof Text);
+//		Assert.assertTrue(find("#getNumOfUsers") instanceof Text);
+//		Assert.assertTrue(find("#getNationalAverage") instanceof Text);
+//		Assert.assertTrue(find("#setValueButton") instanceof Button);
+		//Assert.assertTrue(find("#setValueField") instanceof TextField);
+		//Assert.assertTrue(find("#filterStepsButton") instanceof Button);	
 	}
+	*/
+	
 	
 	//@Test
     //public void hasItems() {
@@ -110,4 +112,3 @@ public class MainScreenTest extends ApplicationTest {
 	//Testline
 	
 }
-

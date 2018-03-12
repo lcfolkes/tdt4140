@@ -25,10 +25,5 @@ public ServiceProvider SP;
 		assertEquals(SP.getRecommendedDailyActivity(), 6969);
 	}
 	
-	@Test
-	public void testGetRecommendedDailyActivity() {
-		SP.setRecommendedDailyActivity(1234);		
-		assertEquals(SP.getRecommendedDailyActivity(), 1234);
-	}
 
 }

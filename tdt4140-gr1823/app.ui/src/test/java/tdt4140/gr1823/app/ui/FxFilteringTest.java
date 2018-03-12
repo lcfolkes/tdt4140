@@ -34,7 +34,6 @@ public class FxFilteringTest extends ApplicationTest {
 	
 	 private FxFilteringController testController; 
 	 public ExpectedException exception; 
-	 //ChoiceBox<String> choiceBox;
 	 ComboBox<String> comboBox;
 	 TextField text1;
 	 TextField text2;
@@ -53,8 +52,7 @@ public class FxFilteringTest extends ApplicationTest {
 		ApplicationTest.launch(FxFiltering.class);
 	} 
 	
-   
-	
+   	
 	@Override
     public void start(Stage stage) throws Exception {
 		FXMLLoader loader= new FXMLLoader(getClass().getResource("FxFiltering.fxml"));
@@ -105,7 +103,7 @@ public class FxFilteringTest extends ApplicationTest {
     		assertThat(comboBox, ComboBoxMatchers.hasItems(3));
     } 
 
-    @Test
+    /*@Test
     public void containsItems() {
  	   //in order
  	   assertThat(comboBox, ComboBoxMatchers.containsItems("","MALE", "FEMALE"));
@@ -114,7 +112,8 @@ public class FxFilteringTest extends ApplicationTest {
  	   //partial
  	   assertThat(comboBox, ComboBoxMatchers.containsItems("", "FEMALE"));
     }
-     
+    */ 
+    
     @Test
     public void containsExactlyItems() {
  	   //in order

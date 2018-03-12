@@ -12,15 +12,33 @@ public class UserManager {
 	}
     
     public void addUser(User user) {
+    	myCon.connect();
     myCon.execute("INSERT INTO Person VALUES ('"+ user.getName() +"', "+ user.getGender() +"', '"+ user.getb_Date() +"', '"+ user.getEmail()+"', '"+ user.getUsername()+ "', '"+ user.getPassword());
+	try {
+		myCon.disconnect();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
     }
  
     public void deleteUser(User user) {
+    		myCon.connect();
         myCon.execute("DELETE FROM Person WHERE 'ID="+ user.getID()+"'");
+        try {
+				myCon.disconnect();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
     }
    
    public int getNumberOfUsers() throws SQLException {
+	   myCon.connect();
 	   ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT COUNT(*) FROM Person");
+			try {
+				myCon.disconnect();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
     			ArrayList<String> insideFirstArray = ret.get(0);
     		String insideSecondArray = (String) insideFirstArray.get(0);
     		return Integer.parseInt(insideSecondArray);
