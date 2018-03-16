@@ -34,12 +34,16 @@ public class DBManager {
 	
 		public ArrayList<ArrayList<String>> retrieve(String query) throws SQLException {
 			try {
+				connect();
 				myStatement = myCon.createStatement();
 				myStatement.executeQuery(query);
 				myResultSet = myStatement.getResultSet();
+				System.out.println(myResultSet);
 			} catch (SQLException e) {
-				e.printStackTrace();}
-			
+				e.printStackTrace();
+			} finally {
+				disconnect();
+			}
 			ArrayList<ArrayList<String>> returnList = new ArrayList<>();
 			while (myResultSet.next()) {
 	            int index = 1;
@@ -59,22 +63,24 @@ public class DBManager {
 	        return returnList;
 		}
 		
-		public void execute(String query){
+		public void execute(String query) throws SQLException{
 			try {
+				connect();
 	            myStatement = myCon.createStatement();
 	            myStatement.executeUpdate(query);
-	            System.out.println("Success.");
+	            System.out.println("Success.");	            
 	        } catch (Exception e) {
 	            System.out.println("The query failed. Check your sql syntax.");
+	        } finally {
+	        		disconnect();
 	        }
-			
 		}
 	
 	public static void main(String[] args) throws Exception {
 		
 		DBManager myCon = new DBManager();
-		User user = new User("Andreas", LocalDate.of(1995, 06,10), Gender.MALE, "test@mail.com", "username", "Password1");
-		//System.out.println("INSERT INTO Person(Name, B_Date, Gender, Email) VALUES('"+user.getName()+"','"+user.getb_Date()+"','"+user.getGender()+"','"+user.getEmail()+"')");
+		User user = new User("Andreas@hotmail.com","Password12","Andreas", LocalDate.of(1995, 06,10), Gender.MALE, 1);
+		System.out.println("INSERT INTO Person(Name, B_Date, Gender, Email) VALUES('"+user.getName()+"','"+user.getb_Date()+"','"+user.getGender()+"','"+user.getEmail()+"')");
 		//myCon.execute("INSERT INTO Person(Name, B_Date, Gender, Email) VALUES('"+user.getName()+"','"+user.getb_Date()+"','"+user.getGender()+"','"+user.getEmail()+"')");
 		try {
 			System.out.println(myCon.retrieve("SELECT * FROM Person"));

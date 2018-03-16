@@ -11,37 +11,26 @@ public class UserManager {
 		myCon = new DBManager();
 	}
     
+	//Adds a user on the format User(Username, password, name, b_date, gender, share)
     public void addUser(User user) {
-    	myCon.connect();
-    myCon.execute("INSERT INTO Person VALUES ('"+ user.getName() +"', "+ user.getGender() +"', '"+ user.getb_Date() +"', '"+ user.getEmail()+"', '"+ user.getUsername()+ "', '"+ user.getPassword());
-	try {
-		myCon.disconnect();
+    try {
+        myCon.execute("INSERT INTO Person VALUES ('"+ user.getUsername() +"', "+ user.getPassword()+"', "+ user.getName() +"', "+ user.getb_Date() +"', '"+ user.getGender() +"', '"+ user.getSharing()),
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
     }
  
     public void deleteUser(User user) {
-    		myCon.connect();
-        myCon.execute("DELETE FROM Person WHERE 'ID="+ user.getID()+"'");
-        try {
-				myCon.disconnect();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+    try {
+    			myCon.execute("DELETE FROM Person WHERE 'Username="+ user.getUsername()+"'");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
     }
    
    public int getNumberOfUsers() throws SQLException {
-	   myCon.connect();
-	   ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT COUNT(*) FROM Person");
-			try {
-				myCon.disconnect();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-    			ArrayList<String> insideFirstArray = ret.get(0);
-    		String insideSecondArray = (String) insideFirstArray.get(0);
-    		return Integer.parseInt(insideSecondArray);
+		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT COUNT(*) FROM Person");
+    		return Integer.parseInt(ActivityManager.getElementInArray(ret));
     }
     
     public static void main(String[] args) throws Exception {
