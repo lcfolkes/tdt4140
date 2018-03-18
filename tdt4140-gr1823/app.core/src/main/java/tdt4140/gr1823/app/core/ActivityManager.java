@@ -13,7 +13,7 @@ public class ActivityManager {
 	public ActivityManager() {
 		myCon = new DBManager();
 	}
-	 //Method for getting daily steps based on users ID
+	 //Method for getting daily steps based on username
 	public double getDailyActivity(String Username, LocalDate Date) throws SQLException {
 		myCon.connect();
 		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT Steps FROM DailySteps WHERE Username = '"+ Username + "' AND Date = '" + Date + "';");
@@ -34,13 +34,11 @@ public class ActivityManager {
 	
     
     public void addActivity(DailyActivity activity) {
-    	myCon.connect();
-    myCon.execute("INSERT INTO DailyActivity VALUES ('"+ activity.getUser().getID() +"',"+ activity.getDate()+", "+ activity.getSteps());
 	try {
-		myCon.disconnect();
+		 myCon.execute("INSERT INTO DailyActivity VALUES ('"+ activity.getUser().getUsername() +"',"+ activity.getDate()+", "+ activity.getSteps()+"',"+ activity.getUser().getSharing()+");");
 	} catch (SQLException e) {
 		e.printStackTrace();
-	}
+		}
     }
     
     public double getNationalAverage() throws SQLException {

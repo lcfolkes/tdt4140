@@ -12,36 +12,23 @@ public class ServiceProvider {
     }
     
     public void setRecommendedDailyActivity(int newRecommendedDailyActivity) {
-    	MyCon.connect();
-    	MyCon.execute("UPDATE RecommendedDailyActivity SET Steps =" + newRecommendedDailyActivity);
     	try {
-			MyCon.disconnect();
+    			MyCon.execute("UPDATE RecommendedDailyActivity SET Steps =" + newRecommendedDailyActivity);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
     }
     
     public int getRecommendedDailyActivity() {
-    	MyCon.connect();
     	try {
 			ArrayList<ArrayList<String>> list = MyCon.retrieve("SELECT * FROM RecommendedDailyActivity");
-				ArrayList<String> insideFirstArray = list.get(0);
-	    			String insideSecondArray = (String) insideFirstArray.get(0);
-	    			try {
-	    				MyCon.disconnect();
-	    			} catch (SQLException e) {
-	    				e.printStackTrace();
-	    			}
-	    		return Integer.parseInt(insideSecondArray);
+			int a = Integer.parseInt(ActivityManager.getElementInArray(list));
+			System.out.println(a);
+			return Integer.parseInt(ActivityManager.getElementInArray(list));
 		} catch (SQLException e) {
 			System.out.println("ERROR: Can't retrieve data. Check syntax..");
 			e.printStackTrace();
 		} 
-    	try {
-			MyCon.disconnect();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
     	return 0; //Just need this for syntax
 		}
     
