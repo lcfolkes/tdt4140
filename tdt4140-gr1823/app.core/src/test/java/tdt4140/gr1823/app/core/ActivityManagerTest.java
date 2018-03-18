@@ -102,7 +102,7 @@ public class ActivityManagerTest {
 	//The following two steps will only run when this step instance exists in the database
 	@Test
 	public void testGetDailyActivity() throws SQLException{
-		Double a = A_Manager.getDailyActivity(37, LocalDate.of(2018, 03, 12));
+		Double a = A_Manager.getDailyActivity("hilde@gmail.com", LocalDate.of(2018, 04, 23));
 		Assert.assertTrue(a instanceof Double);
 	}
 	

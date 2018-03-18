@@ -43,6 +43,7 @@ public class UserManager {
     		String insideSecondArray = (String) insideFirstArray.get(0);
     		return Integer.parseInt(insideSecondArray);
     }
+   
     
     public static void main(String[] args) throws Exception {
 	UserManager um = new UserManager();
