@@ -14,7 +14,7 @@ public class UserManager {
 	//Adds a user on the format User(Username, password, name, b_date, gender, share)
     public void addUser(User user) {
     try {
-        myCon.execute("INSERT INTO Person VALUES ('"+ user.getUsername() +"', "+ user.getPassword()+"', "+ user.getName() +"', "+ user.getb_Date() +"', '"+ user.getGender() +"', '"+ user.getSharing()),
+        myCon.execute("INSERT INTO Person VALUES ('"+ user.getUsername() +"', "+ user.getPassword()+"', "+ user.getName() +"', "+ user.getb_Date() +"', '"+ user.getGender() +"', '"+ user.getSharing());
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
