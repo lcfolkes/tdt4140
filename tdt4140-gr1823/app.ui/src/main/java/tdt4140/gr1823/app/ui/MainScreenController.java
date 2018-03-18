@@ -1,5 +1,6 @@
 package tdt4140.gr1823.app.ui;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -12,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
@@ -32,7 +34,6 @@ public class MainScreenController implements Initializable {
 	private ServiceProvider serviceProvider = new ServiceProvider();
 	private UserManager userManager = new UserManager();
 	private ActivityManager activityManager = new ActivityManager();
-	private FxFiltering fxFiltering = new FxFiltering();
 	
 	// Denne klassen er ikke helt ferdig, men pusher den til branchen for at Tor skal kunne jobbe pÃ¥ den. 
 	
@@ -94,9 +95,20 @@ public class MainScreenController implements Initializable {
 		//Create method to connect to FxFiltering.java, in order to run the applications when pushing the "FILTER STEPS" button
 		
 		filterStepsButton.setOnAction((e) -> {
+			/*Pane FxFilteringPane = null;
+			try {
+				FxFilteringPane = (Pane) FXMLLoader.load(getClass().getResource("FxFiltering.fxml"));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+    			Scene FxFilteringScene = new Scene(FxFilteringPane);
+			FxApp.window.setScene(FxFilteringScene);
+	        FxApp.window.getScene().getStylesheets().add("gui.css");
+
+			FxApp.window.show();*/
 			
-			
-			
+			SceneNavigator.loadScene(SceneNavigator.FILTER);
 			}
 		);
 			
