@@ -11,6 +11,23 @@ public class ActivityManager {
 	public ActivityManager() {
 		myCon = new DBManager();
 	}
+	 //Method for getting daily steps based on users ID
+	public double getDailyActivity(int PersonID, LocalDate Date) throws SQLException {
+		myCon.connect();
+		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT Steps FROM DailySteps WHERE PersonID = '"+ PersonID + "' AND Date = '" + Date + "'");
+		try {
+			myCon.disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		String result = getElementInArray(ret);
+		return Double.parseDouble(result);
+	}
+	
+	public double getTodaySteps(int PersonID) throws SQLException {
+		return getDailyActivity(PersonID, LocalDate.now());
+	}
+	
     
     public void addActivity(DailyActivity activity) {
     	myCon.connect();
@@ -157,8 +174,8 @@ public class ActivityManager {
     }
     public static void main(String[] args) throws NumberFormatException, SQLException {
 		ActivityManager am = new ActivityManager();
+		System.out.println(am.getDailyActivity(37, LocalDate.of(2018, 03, 12)));
 		
-		System.out.println(am.filter("", "22", "MALE"));
 	
 		// System.out.println(am.("22","44",Gender.MALE));
 	}
