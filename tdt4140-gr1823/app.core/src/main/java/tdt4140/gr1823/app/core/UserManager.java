@@ -27,13 +27,12 @@ public class UserManager {
 			e.printStackTrace();
 		}
     }
-   
+    
    public int getNumberOfUsers() throws SQLException {
 		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT COUNT(*) FROM Person");
     		return Integer.parseInt(ActivityManager.getElementInArray(ret));
     }
    
-    
     public static void main(String[] args) throws Exception {
 	UserManager um = new UserManager();
 	//User user = new User("Andreas", LocalDate.of(1995, 06,10), Gender.MALE, "test@mail.com", "username", "password");

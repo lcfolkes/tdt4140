@@ -37,8 +37,8 @@ public class DailyActivityTest extends TestCase {
 	protected void setUp() {
 		date = LocalDate.of(2018, 03, 04);
 		try {
-			user1 = new User("Ola Nordmann", LocalDate.of(1995, 11, 11), Gender.MALE, "ola@gmail.com", "brukernavn", "Passord1");
-			user2 = new User ("Kari Nordmann", LocalDate.of(1996, 05, 11), Gender.FEMALE, "kari@gmail.com", "brukernavn", "Passord2");
+			user1 = new User("ola@gmail.com","Password1","Ola Nordmann", LocalDate.of(1995, 11, 11), Gender.MALE,1);
+			user2 = new User ("kari@gmail.com","Password1","Kari Nordmann", LocalDate.of(1996, 05, 11), Gender.FEMALE,1);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
