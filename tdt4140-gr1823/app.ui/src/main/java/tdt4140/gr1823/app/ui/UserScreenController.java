@@ -43,12 +43,16 @@ public class UserScreenController implements Initializable{
 	protected CheckBox yesBox;
 	
 	@FXML
+	protected CheckBox noBox;
+	
+	@FXML
 	protected Text acceptDataSharingText;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		acceptDataSharingText.setVisible(false);
 		yesBox.setVisible(false);
+		noBox.setVisible(false);
 		//getDailyActivity.setText("Enter user ID below to see your step count for the day");
 		getRecActivity.setText("The recommended activity level is " + serviceProvider.getRecommendedDailyActivity() + " steps");
 		try {
@@ -67,25 +71,60 @@ public class UserScreenController implements Initializable{
 				e1.printStackTrace();
 				getDailyActivity.setText("You have no recorded data for today. Are you sure you entered the correct ID?");
 			}
-			/*
+			
 			try {
-				yesBox.setSelected(userManager.getShareValue(username));
+				if (userManager.getShareValue(username) == true) {
+					yesBox.setSelected(true);
+					noBox.setSelected(false);
+				} else if (userManager.getShareValue(username) == false) {
+					yesBox.setSelected(false);
+					noBox.setSelected(true);
+				}
 				acceptDataSharingText.setVisible(true);
 				yesBox.setVisible(true);
-		} catch (Exception e2) {
+				noBox.setVisible(true);
+		} 
+			catch (Exception e2) {
 				e2.printStackTrace();
 			}
-			 */		
-		}
-				);
+		});
 		
 		
 	}
 	
 	@FXML
 	private void handleYesBox() {
-		if(yesBox.isSelected()) {
-			userManager.setShareValue(username, true);
+		try {
+			if ((userManager.getShareValue(username) == true)) {
+				noBox.setSelected(true);
+				yesBox.setSelected(false);
+				userManager.setShareValue(username, 0);
+			} else if ((userManager.getShareValue(username) == false)) {
+				noBox.setSelected(false);
+				yesBox.setSelected(true);
+				userManager.setShareValue(username, 1);
+			}
+	} 
+		catch (Exception e2) {
+			e2.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private void handleNoBox() {
+		try {
+			if ((userManager.getShareValue(username) == true)) {
+				noBox.setSelected(true);
+				yesBox.setSelected(false);
+				userManager.setShareValue(username, 0);
+			} else if ((userManager.getShareValue(username) == false)) {
+				noBox.setSelected(false);
+				yesBox.setSelected(true);
+				userManager.setShareValue(username, 1);
+			}
+	} 
+		catch (Exception e2) {
+			e2.printStackTrace();
 		}
 	}
 	

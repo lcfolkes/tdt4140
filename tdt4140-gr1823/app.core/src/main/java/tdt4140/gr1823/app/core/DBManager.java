@@ -65,6 +65,7 @@ public class DBManager {
 	            myStatement.executeUpdate(query);
 	            System.out.println("Success.");
 	        } catch (Exception e) {
+	        		e.printStackTrace();
 	            System.out.println("The query failed. Check your sql syntax.");
 	        }
 			

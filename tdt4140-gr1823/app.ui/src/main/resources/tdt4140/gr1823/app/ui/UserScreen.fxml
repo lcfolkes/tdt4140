@@ -43,7 +43,12 @@
                <font>
                   <Font size="18.0" />
                </font>
-            </Text> 
+            </Text>
+            <CheckBox fx:id="noBox" layoutX="386.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleNoBox" text="NO">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </CheckBox> 
 			</children>
 		</Pane>
 	</children>
