@@ -1,25 +1,44 @@
 package tdt4140.gr1823.app.core;
 
 import java.sql.SQLException;
+import java.math.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ActivityManager {
 
 	DBManager myCon;
+	int acceptDataSharing;
 	
 	public ActivityManager() {
 		myCon = new DBManager();
 	}
+	 //Method for getting daily steps based on username
+	public double getDailyActivity(String Username, LocalDate Date) throws SQLException {
+		myCon.connect();
+		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT Steps FROM DailySteps WHERE Username = '"+ Username + "' AND Date = '" + Date + "';");
+		try {
+			myCon.disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//String result = getElementInArray(ret);
+		ArrayList<String> result = ret.get(0);
+		return Math.floor(Double.parseDouble(result.get(0)));
+	}
+	
+	
+	public double getTodaySteps(String Username) throws SQLException {
+		return getDailyActivity(Username, LocalDate.now());
+	}
+	
     
     public void addActivity(DailyActivity activity) {
-    	myCon.connect();
-    myCon.execute("INSERT INTO DailyActivity VALUES ('"+ activity.getUser().getID() +"',"+ activity.getDate()+", "+ activity.getSteps());
 	try {
-		myCon.disconnect();
+		 myCon.execute("INSERT INTO DailyActivity VALUES ('"+ activity.getUser().getUsername() +"',"+ activity.getDate()+", "+ activity.getSteps()+"',"+ activity.getUser().getSharing()+");");
 	} catch (SQLException e) {
 		e.printStackTrace();
-	}
+		}
     }
     
     public double getNationalAverage() throws SQLException {
@@ -32,7 +51,7 @@ public class ActivityManager {
     		} catch (SQLException e) {
     			e.printStackTrace();
     		}
-    		return Double.parseDouble(insideSecondArray);
+    		return Math.floor(Double.parseDouble(insideSecondArray));
  
     }
     
@@ -70,7 +89,7 @@ public class ActivityManager {
     		ArrayList<ArrayList<String>> ret;
     		if(ageFrom.isEmpty()) {
     			myCon.connect();
-    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.PersonID = Person.ID WHERE B_Date >= '" + convertAgeToDate(Integer.parseInt(ageTo)+1)+"' AND Gender = '"+genderEnum +"'");
+    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.Username = Person.Username WHERE B_Date >= '" + convertAgeToDate(Integer.parseInt(ageTo)+1)+"' AND Gender = '"+genderEnum +"'");
     			try {
     				myCon.disconnect();
     			} catch (SQLException e) {
@@ -79,7 +98,7 @@ public class ActivityManager {
     		}
     		else if(ageTo.isEmpty()) {
     			myCon.connect();
-    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.PersonID = Person.ID WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) +"' AND Gender = '"+genderEnum + "'");
+    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.Username = Person.Username WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) +"' AND Gender = '"+genderEnum + "'");
     			try {
     				myCon.disconnect();
     			} catch (SQLException e) {
@@ -87,7 +106,7 @@ public class ActivityManager {
     			}
     		} else {
     			myCon.connect();
-    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.PersonID = Person.ID WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) + "' AND B_Date > '" + convertAgeToDate(Integer.parseInt(ageTo)) + "' AND Gender = '"+genderEnum+"'");
+    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.Username = Person.Username WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) + "' AND B_Date > '" + convertAgeToDate(Integer.parseInt(ageTo)) + "' AND Gender = '"+genderEnum+"'");
     			try {
     				myCon.disconnect();
     			} catch (SQLException e) {
@@ -95,7 +114,7 @@ public class ActivityManager {
     			}
     		}
     		String result = getElementInArray(ret);
-    		return Double.parseDouble(result);
+    		return Math.floor(Double.parseDouble(result));
     		
 	}
     
@@ -105,7 +124,7 @@ public class ActivityManager {
     		ArrayList<ArrayList<String>> ret;
     		if(ageFrom.isEmpty()) {
     			myCon.connect();
-    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.PersonID = Person.ID WHERE B_Date >= '" + convertAgeToDate(Integer.parseInt(ageTo)+1)+"'");
+    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.Username = Person.Username WHERE B_Date >= '" + convertAgeToDate(Integer.parseInt(ageTo)+1)+"'");
     			try {
     				myCon.disconnect();
     			} catch (SQLException e) {
@@ -114,7 +133,7 @@ public class ActivityManager {
     		}
     		else if(ageTo.isEmpty()) {
     			myCon.connect();
-    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.PersonID = Person.ID WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) +"'");
+    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.Username = Person.Username WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) +"'");
     			try {
     				myCon.disconnect();
     			} catch (SQLException e) {
@@ -122,7 +141,7 @@ public class ActivityManager {
     			}
     		} else {
     			myCon.connect();
-    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.PersonID = Person.ID WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) + "' AND B_Date > '" + convertAgeToDate(Integer.parseInt(ageTo)) + "'");
+    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.Username = Person.Username WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) + "' AND B_Date > '" + convertAgeToDate(Integer.parseInt(ageTo)) + "'");
     			try {
     				myCon.disconnect();
     			} catch (SQLException e) {
@@ -131,7 +150,7 @@ public class ActivityManager {
     		}
     		String result = getElementInArray(ret);
     		System.out.println(result);
-    		return Double.parseDouble(result);
+    		return Math.floor(Double.parseDouble(result));
     	
     }
     
@@ -139,14 +158,14 @@ public class ActivityManager {
     		Gender genderEnum = gender.equals("MALE") ? Gender.MALE : Gender.FEMALE;
     		ArrayList<ArrayList<String>> ret;
     		myCon.connect();
-    		ret = myCon.retrieve("SELECT AVG(Steps) FROM Person INNER JOIN DailySteps ON DailySteps.PersonID = Person.ID WHERE Gender = '"+genderEnum+"'");
+    		ret = myCon.retrieve("SELECT AVG(Steps) FROM Person INNER JOIN DailySteps ON DailySteps.Username = Person.Username WHERE Gender = '"+genderEnum+"'");
     		try {
     			myCon.disconnect();
     		} catch (SQLException e) {
     			e.printStackTrace();
     		}
     		String result = getElementInArray(ret);
-    		return Double.parseDouble(result);
+    		return Math.floor(Double.parseDouble(result));
     }
     
     //Helper-method to convert specified age to date-intervals
@@ -156,10 +175,7 @@ public class ActivityManager {
     		return returnDate;
     }
     public static void main(String[] args) throws NumberFormatException, SQLException {
-		ActivityManager am = new ActivityManager();
-		
-		System.out.println(am.filter("", "22", "MALE"));
-	
+		// ActivityManager am = new ActivityManager();
 		// System.out.println(am.("22","44",Gender.MALE));
 	}
 }

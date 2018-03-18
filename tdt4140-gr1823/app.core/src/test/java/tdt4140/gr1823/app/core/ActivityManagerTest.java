@@ -1,5 +1,7 @@
 package tdt4140.gr1823.app.core;
 
+import static org.junit.Assert.assertEquals;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 
 public class ActivityManagerTest {
 	
@@ -34,15 +37,9 @@ public class ActivityManagerTest {
 
 	
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		A_Manager  = new ActivityManager();
-				try {
-					user = new User("Andreas", LocalDate.of(1995, 06, 20), Gender.MALE, "andreas@gmail.com", "brukernavn", "Passord1");
-					DailyActivity activity =  new DailyActivity(user, 10000, LocalDate.of(2018, 02, 20));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		user = new User("andreas@gmail.com","Password1","Andreas", LocalDate.of(1995, 06, 20), Gender.MALE,1);
 	}
 	
 	@Test
@@ -95,6 +92,20 @@ public class ActivityManagerTest {
 		LocalDate today = LocalDate.now();
 		Assert.assertEquals(LocalDate.of(today.getYear() -20, today.getMonthValue(), today.getDayOfMonth()),ld);
 	}
+	
+	//The following two steps will only run when this step instance exists in the database
+	@Test
+	public void testGetDailyActivity() throws SQLException{
+		Double a = A_Manager.getDailyActivity("hilde@gmail.com", LocalDate.of(2018, 04, 23));
+		Assert.assertTrue(a instanceof Double);
+	}
+	
+	//since this will only run successfully when 37 has value for todays date I comment it out (Amanda)
+	/*@Test
+	public void testGetTodaySteps() throws SQLException {
+		Double a = A_Manager.getTodaySteps(37);
+		Assert.assertTrue(a instanceof Double);
+	}*/
 	
 	
 }
