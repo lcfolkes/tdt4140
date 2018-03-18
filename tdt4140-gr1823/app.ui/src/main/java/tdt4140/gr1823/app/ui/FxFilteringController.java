@@ -41,6 +41,9 @@ public class FxFilteringController implements Initializable {
 	@FXML
 	protected Label averageLabel;
 	
+	@FXML 
+	protected Button backButton;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("Loading user data...");
@@ -65,8 +68,10 @@ public class FxFilteringController implements Initializable {
 				e1.printStackTrace();
 			}
 		});
-		//when pressing button getChoice gets called
 		
+		backButton.setOnAction(e -> {
+			SceneNavigator.loadScene(SceneNavigator.MAINSCREEN);
+		});
 	}
 	
 	//checking if age group input is valid. ie. not a string unless empty string and not invalid integer

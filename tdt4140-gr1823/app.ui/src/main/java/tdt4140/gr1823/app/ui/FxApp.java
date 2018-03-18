@@ -18,20 +18,8 @@ public class FxApp extends Application {
     		
     		//window = primaryStage;
     		primaryStage.setTitle("National step database"); //title of window
-    		
     		primaryStage.setScene(createScene(loadMainPane()));
-    		//Pane MainScreenPane = (Pane) FXMLLoader.load(getClass().getResource("FxApp.fxml"));
-    		//Scene MainScreenScene = new Scene(MainScreenPane);
-    		//primaryStage.setScene(MainScreenScene);
-    		//primaryStage.getScene().getStylesheets().add("gui.css");
-    		//createscene og loadmainpane gjør alt dette
-    		
-    		primaryStage.show();
-    		
-    		
-    		
-    		//Parent root = FXMLLoader.load(getClass().getResource("FxFiltering.fxml")); //decides fxml file to run
-        
+    		primaryStage.show();        
     }
     
     private Scene createScene(Pane pane) {
@@ -49,7 +37,6 @@ public class FxApp extends Application {
 	    	SceneNavigator.setMainController(fxAppController);
 	    	SceneNavigator.loadScene(SceneNavigator.MAINSCREEN);
 	    	return mainPane;
-    	
     }
     
     public static void main(String[] args) {
