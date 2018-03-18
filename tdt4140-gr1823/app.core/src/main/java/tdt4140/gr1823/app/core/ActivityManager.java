@@ -1,6 +1,7 @@
 package tdt4140.gr1823.app.core;
 
 import java.sql.SQLException;
+import java.math.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -21,19 +22,9 @@ public class ActivityManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		String result = getElementInArray(ret);
-		return Double.parseDouble(result);
-	}
-	
-	public boolean getShareValueFromDB(String username) throws SQLException {
-		ArrayList<ArrayList<String>> personTable = myCon.retrieve("SELECT Share FROM Person WHERE Username = '"+username+"';");
-		ArrayList<String> rad = personTable.get(0);
-		int acceptDataSharing = Integer.parseInt(rad.get(0)); //lagrer verdien som står den personen som logger inn sin Share-kolonne i variabelen acceptDataSharing.
-		if (acceptDataSharing == 0) {
-			return false;
-		} else {
-			return true; 
-		}
+		//String result = getElementInArray(ret);
+		ArrayList<String> result = ret.get(0);
+		return Math.floor(Double.parseDouble(result.get(0)));
 	}
 	
 	
@@ -62,7 +53,7 @@ public class ActivityManager {
     		} catch (SQLException e) {
     			e.printStackTrace();
     		}
-    		return Double.parseDouble(insideSecondArray);
+    		return Math.floor(Double.parseDouble(insideSecondArray));
  
     }
     
@@ -125,7 +116,7 @@ public class ActivityManager {
     			}
     		}
     		String result = getElementInArray(ret);
-    		return Double.parseDouble(result);
+    		return Math.floor(Double.parseDouble(result));
     		
 	}
     
@@ -161,7 +152,7 @@ public class ActivityManager {
     		}
     		String result = getElementInArray(ret);
     		System.out.println(result);
-    		return Double.parseDouble(result);
+    		return Math.floor(Double.parseDouble(result));
     	
     }
     
@@ -176,7 +167,7 @@ public class ActivityManager {
     			e.printStackTrace();
     		}
     		String result = getElementInArray(ret);
-    		return Double.parseDouble(result);
+    		return Math.floor(Double.parseDouble(result));
     }
     
     //Helper-method to convert specified age to date-intervals

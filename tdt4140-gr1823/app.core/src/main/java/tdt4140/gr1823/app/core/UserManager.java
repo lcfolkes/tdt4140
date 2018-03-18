@@ -44,6 +44,22 @@ public class UserManager {
     		return Integer.parseInt(insideSecondArray);
     }
    
+   public boolean getShareValue(String username) throws SQLException { //Henter share value fra databasen. 
+		ArrayList<ArrayList<String>> personTable = myCon.retrieve("SELECT Share FROM Person WHERE Username = '"+username+"';");
+		ArrayList<String> rad = personTable.get(0);
+		int acceptDataSharing = Integer.parseInt(rad.get(0)); //lagrer verdien som står den personen som logger inn sin Share-kolonne i variabelen acceptDataSharing.
+		if (acceptDataSharing == 0) {
+			return false; 
+		} else {
+			return true;
+		}
+	}
+	
+   public void setShareValue(String username, boolean share) {
+	   myCon.execute("UPDATE Person SET Share = '" + share + "' WHERE Username = '" + username + "';" );
+	   
+   }
+   
     
     public static void main(String[] args) throws Exception {
 	UserManager um = new UserManager();
