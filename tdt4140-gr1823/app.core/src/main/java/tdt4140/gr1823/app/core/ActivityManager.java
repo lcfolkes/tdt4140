@@ -7,10 +7,40 @@ import java.util.ArrayList;
 public class ActivityManager {
 
 	DBManager myCon;
+	int acceptDataSharing;
 	
 	public ActivityManager() {
 		myCon = new DBManager();
 	}
+	 //Method for getting daily steps based on users ID
+	public double getDailyActivity(String Username, LocalDate Date) throws SQLException {
+		myCon.connect();
+		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT Steps FROM DailySteps WHERE Username = '"+ Username + "' AND Date = '" + Date + "';");
+		try {
+			myCon.disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		String result = getElementInArray(ret);
+		return Double.parseDouble(result);
+	}
+	
+	public boolean getShareValueFromDB(String username) throws SQLException {
+		ArrayList<ArrayList<String>> personTable = myCon.retrieve("SELECT Share FROM Person WHERE Username = '"+username+"';");
+		ArrayList<String> rad = personTable.get(0);
+		int acceptDataSharing = Integer.parseInt(rad.get(0)); //lagrer verdien som står den personen som logger inn sin Share-kolonne i variabelen acceptDataSharing.
+		if (acceptDataSharing == 0) {
+			return false;
+		} else {
+			return true; 
+		}
+	}
+	
+	
+	public double getTodaySteps(String Username) throws SQLException {
+		return getDailyActivity(Username, LocalDate.now());
+	}
+	
     
     public void addActivity(DailyActivity activity) {
     	myCon.connect();
@@ -70,7 +100,7 @@ public class ActivityManager {
     		ArrayList<ArrayList<String>> ret;
     		if(ageFrom.isEmpty()) {
     			myCon.connect();
-    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.PersonID = Person.ID WHERE B_Date >= '" + convertAgeToDate(Integer.parseInt(ageTo)+1)+"' AND Gender = '"+genderEnum +"'");
+    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.Username = Person.Username WHERE B_Date >= '" + convertAgeToDate(Integer.parseInt(ageTo)+1)+"' AND Gender = '"+genderEnum +"'");
     			try {
     				myCon.disconnect();
     			} catch (SQLException e) {
@@ -79,7 +109,7 @@ public class ActivityManager {
     		}
     		else if(ageTo.isEmpty()) {
     			myCon.connect();
-    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.PersonID = Person.ID WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) +"' AND Gender = '"+genderEnum + "'");
+    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.Username = Person.Username WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) +"' AND Gender = '"+genderEnum + "'");
     			try {
     				myCon.disconnect();
     			} catch (SQLException e) {
@@ -87,7 +117,7 @@ public class ActivityManager {
     			}
     		} else {
     			myCon.connect();
-    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.PersonID = Person.ID WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) + "' AND B_Date > '" + convertAgeToDate(Integer.parseInt(ageTo)) + "' AND Gender = '"+genderEnum+"'");
+    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.Username = Person.Username WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) + "' AND B_Date > '" + convertAgeToDate(Integer.parseInt(ageTo)) + "' AND Gender = '"+genderEnum+"'");
     			try {
     				myCon.disconnect();
     			} catch (SQLException e) {
@@ -105,7 +135,7 @@ public class ActivityManager {
     		ArrayList<ArrayList<String>> ret;
     		if(ageFrom.isEmpty()) {
     			myCon.connect();
-    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.PersonID = Person.ID WHERE B_Date >= '" + convertAgeToDate(Integer.parseInt(ageTo)+1)+"'");
+    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.Username = Person.Username WHERE B_Date >= '" + convertAgeToDate(Integer.parseInt(ageTo)+1)+"'");
     			try {
     				myCon.disconnect();
     			} catch (SQLException e) {
@@ -114,7 +144,7 @@ public class ActivityManager {
     		}
     		else if(ageTo.isEmpty()) {
     			myCon.connect();
-    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.PersonID = Person.ID WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) +"'");
+    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.Username = Person.Username WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) +"'");
     			try {
     				myCon.disconnect();
     			} catch (SQLException e) {
@@ -122,7 +152,7 @@ public class ActivityManager {
     			}
     		} else {
     			myCon.connect();
-    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.PersonID = Person.ID WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) + "' AND B_Date > '" + convertAgeToDate(Integer.parseInt(ageTo)) + "'");
+    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.Username = Person.Username WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) + "' AND B_Date > '" + convertAgeToDate(Integer.parseInt(ageTo)) + "'");
     			try {
     				myCon.disconnect();
     			} catch (SQLException e) {
@@ -139,7 +169,7 @@ public class ActivityManager {
     		Gender genderEnum = gender.equals("MALE") ? Gender.MALE : Gender.FEMALE;
     		ArrayList<ArrayList<String>> ret;
     		myCon.connect();
-    		ret = myCon.retrieve("SELECT AVG(Steps) FROM Person INNER JOIN DailySteps ON DailySteps.PersonID = Person.ID WHERE Gender = '"+genderEnum+"'");
+    		ret = myCon.retrieve("SELECT AVG(Steps) FROM Person INNER JOIN DailySteps ON DailySteps.Username = Person.Username WHERE Gender = '"+genderEnum+"'");
     		try {
     			myCon.disconnect();
     		} catch (SQLException e) {
@@ -156,10 +186,7 @@ public class ActivityManager {
     		return returnDate;
     }
     public static void main(String[] args) throws NumberFormatException, SQLException {
-		ActivityManager am = new ActivityManager();
-		
-		System.out.println(am.filter("", "22", "MALE"));
-	
+		// ActivityManager am = new ActivityManager();
 		// System.out.println(am.("22","44",Gender.MALE));
 	}
 }

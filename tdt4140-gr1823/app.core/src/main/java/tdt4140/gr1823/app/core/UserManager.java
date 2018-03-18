@@ -32,6 +32,7 @@ public class UserManager {
 		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT COUNT(*) FROM Person");
     		return Integer.parseInt(ActivityManager.getElementInArray(ret));
     }
+   
     
     public static void main(String[] args) throws Exception {
 	UserManager um = new UserManager();
