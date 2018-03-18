@@ -66,7 +66,6 @@ public class UserScreenController implements Initializable{
 			username = setUsername.getText();
 			try {
 				getDailyActivity.setText("You have walked " + (activityManager.getTodaySteps(username) + " steps today"));
-				System.out.println(activityManager.getTodaySteps(username));
 			} catch (Exception e1) {
 				e1.printStackTrace();
 				getDailyActivity.setText("You have no recorded data for today. Are you sure you entered the correct ID?");

@@ -33,6 +33,24 @@ public class UserManager {
     		return Integer.parseInt(ActivityManager.getElementInArray(ret));
     }
    
+   public boolean getShareValue(String username) throws SQLException { //Henter share value fra databasen. 
+	   	ArrayList<ArrayList<String>> personTable = myCon.retrieve("SELECT Share FROM Person WHERE Username = '"+username+"';");
+		ArrayList<String> rad = personTable.get(0);
+		int acceptDataSharing = Integer.parseInt(rad.get(0)); //lagrer verdien som står den personen som logger inn sin Share-kolonne i variabelen acceptDataSharing.
+		if (acceptDataSharing == 0) {
+			return false; 
+		} else {
+			return true;
+		}
+	}
+	
+  public void setShareValue(String username, int share) throws SQLException {
+	   System.out.println("UPDATE Person SET Share =" + share + " WHERE Username = '" + username + "';");
+	   myCon.execute("UPDATE Person SET Share=" + share + " WHERE Username = '" + username + "';" );
+	   
+  }
+
+   
     public static void main(String[] args) throws Exception {
 	UserManager um = new UserManager();
 	//User user = new User("Andreas", LocalDate.of(1995, 06,10), Gender.MALE, "test@mail.com", "username", "password");

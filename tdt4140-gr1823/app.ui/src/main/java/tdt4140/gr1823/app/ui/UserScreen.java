@@ -21,7 +21,6 @@ public class UserScreen extends Application {
     	Parent root = FXMLLoader.load(getClass().getResource("UserScreen.fxml"));
         Scene mainScene = new Scene(root);
         window.setScene(mainScene);
-       
         
         window.show();
     }
