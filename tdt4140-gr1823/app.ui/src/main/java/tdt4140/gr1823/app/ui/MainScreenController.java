@@ -104,9 +104,7 @@ public class MainScreenController implements Initializable {
 			}
     			Scene FxFilteringScene = new Scene(FxFilteringPane);
 			FxApp.window.setScene(FxFilteringScene);
-	        FxApp.window.getScene().getStylesheets().add("gui.css");
-
-			FxApp.window.show();*/
+	        FxApp.window.getScene().getStylesheets().add("gui.css");*/
 			
 			SceneNavigator.loadScene(SceneNavigator.FILTER);
 			}

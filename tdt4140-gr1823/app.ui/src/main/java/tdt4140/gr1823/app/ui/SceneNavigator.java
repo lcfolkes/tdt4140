@@ -3,6 +3,7 @@ package tdt4140.gr1823.app.ui;
 import java.io.IOException;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
@@ -10,6 +11,7 @@ public class SceneNavigator {
     /**
      * Convenience constants for fxml layouts managed by the navigator.
      */
+	public static final String FXAPP = "FxApp.fxml";
     public static final String MAINSCREEN    = "MainScreen.fxml";
     public static final String FILTER = "FxFiltering.fxml";
 
@@ -31,18 +33,38 @@ public class SceneNavigator {
      *
      * @param fxml the fxml file to be loaded.
      */
-    public static void loadScene(String fxml) {
-        Pane myPane = null;
-		try {
-			myPane = (Pane) FXMLLoader.load(SceneNavigator.class.getClass().getResource(fxml));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Scene myScene = new Scene(myPane);
-		FxApp.window.setScene(myScene);
-        FxApp.window.getScene().getStylesheets().add("gui.css");
-		FxApp.window.show();
-		}
+//    public static void loadScene(String fxml) {
+//        Pane myPane = null;
+//		try {
+//			myPane = (Pane) FXMLLoader.load(SceneNavigator.class.getClass().getResource(fxml));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		Scene myScene = new Scene(myPane);
+//		FxApp.window.setScene(myScene);
+//        FxApp.window.getScene().getStylesheets().add("gui.css");
+//	}
+    
+    private static FxAppController fxAppController;
+    
+    public static void setMainController(FxAppController fxAppController) {
+        SceneNavigator.fxAppController = fxAppController;
     }
+    
+    public static void loadScene(String fxml) {
+        try {
+            fxAppController.setScene(
+               (Node) FXMLLoader.load(
+                    SceneNavigator.class.getResource(
+                        fxml
+                    )
+                )
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+}
 	
