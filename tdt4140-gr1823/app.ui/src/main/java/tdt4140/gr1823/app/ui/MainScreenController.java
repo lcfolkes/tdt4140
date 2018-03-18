@@ -22,7 +22,6 @@ import javafx.scene.text.*;
 import tdt4140.gr1823.app.core.ActivityManager;
 import tdt4140.gr1823.app.core.ServiceProvider;
 import tdt4140.gr1823.app.core.UserManager;
-import tdt4140.gr1823.app.ui.MainScreen;
 
 
 public class MainScreenController implements Initializable {
@@ -32,7 +31,6 @@ public class MainScreenController implements Initializable {
 	private ServiceProvider serviceProvider = new ServiceProvider();
 	private UserManager userManager = new UserManager();
 	private ActivityManager activityManager = new ActivityManager();
-	private FxFiltering fxFiltering = new FxFiltering();
 	
 	// Denne klassen er ikke helt ferdig, men pusher den til branchen for at Tor skal kunne jobbe pÃ¥ den. 
 	
@@ -94,8 +92,7 @@ public class MainScreenController implements Initializable {
 		//Create method to connect to FxFiltering.java, in order to run the applications when pushing the "FILTER STEPS" button
 		
 		filterStepsButton.setOnAction((e) -> {
-			
-			
+			SceneNavigator.loadScene(SceneNavigator.FILTER);
 			
 			}
 		);

@@ -29,7 +29,6 @@ import org.junit.Assert;
 //import junit.framework.Assert;
 import tdt4140.gr1823.app.ui.FxFilteringController;
 
-
 public class FxFilteringTest extends ApplicationTest {
 	
 	 private FxFilteringController testController; 

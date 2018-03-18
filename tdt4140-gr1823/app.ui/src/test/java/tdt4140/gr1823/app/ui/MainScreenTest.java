@@ -90,25 +90,18 @@ public class MainScreenTest extends ApplicationTest {
 	public <T extends Node> T find(final String query) {
 		return lookup(query).query();
 	}
-	
-	/*@Test
-	public void testFieldExist() {
-		Testing if all fields exist
-		//Assert.assertTrue(find("#getRecDailyActivity") instanceof Text);
-//		Assert.assertTrue(find("#getNumOfUsers") instanceof Text);
-//		Assert.assertTrue(find("#getNationalAverage") instanceof Text);
-//		Assert.assertTrue(find("#setValueButton") instanceof Button);
-		//Assert.assertTrue(find("#setValueField") instanceof TextField);
-		//Assert.assertTrue(find("#filterStepsButton") instanceof Button);	
-	}
-	*/
-	
-	
-	//@Test
-    //public void hasItems() {
-    //		/*correct number of items*/
-    //		assertThat(comboBox, ComboBoxMatchers.hasItems(1));
 
-	//Testline
-	
+	@Test
+	public void testFieldExist() {
+		//Testing if all fields exist
+		Assert.assertTrue(find("#getRecDailyActivity") instanceof Text);
+		Assert.assertTrue(find("#getNumOfUsers") instanceof Text);
+		Assert.assertTrue(find("#getNationalAverage") instanceof Text);
+		Assert.assertTrue(find("#setValueButton") instanceof Button);
+		Assert.assertTrue(find("#setValueField") instanceof TextField);
+		Assert.assertTrue(find("#filterStepsButton") instanceof Button);	
+	}
 }
+	
+	
+
