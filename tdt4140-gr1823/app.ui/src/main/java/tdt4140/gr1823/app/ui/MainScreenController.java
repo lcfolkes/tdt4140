@@ -1,6 +1,5 @@
 package tdt4140.gr1823.app.ui;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -13,7 +12,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
@@ -24,7 +22,6 @@ import javafx.scene.text.*;
 import tdt4140.gr1823.app.core.ActivityManager;
 import tdt4140.gr1823.app.core.ServiceProvider;
 import tdt4140.gr1823.app.core.UserManager;
-import tdt4140.gr1823.app.ui.MainScreen;
 
 
 public class MainScreenController implements Initializable {
@@ -95,18 +92,8 @@ public class MainScreenController implements Initializable {
 		//Create method to connect to FxFiltering.java, in order to run the applications when pushing the "FILTER STEPS" button
 		
 		filterStepsButton.setOnAction((e) -> {
-			/*Pane FxFilteringPane = null;
-			try {
-				FxFilteringPane = (Pane) FXMLLoader.load(getClass().getResource("FxFiltering.fxml"));
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-    			Scene FxFilteringScene = new Scene(FxFilteringPane);
-			FxApp.window.setScene(FxFilteringScene);
-	        FxApp.window.getScene().getStylesheets().add("gui.css");*/
-			
 			SceneNavigator.loadScene(SceneNavigator.FILTER);
+			
 			}
 		);
 			
