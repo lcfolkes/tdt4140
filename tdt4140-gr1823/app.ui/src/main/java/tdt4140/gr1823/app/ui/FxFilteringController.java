@@ -57,6 +57,8 @@ public class FxFilteringController implements Initializable {
 		errorLabel.setVisible(false);
 		errorLabel.setTextFill(Color.RED);  //css styling of error label
 		
+		submitButton.getStyleClass().add("button.success");
+		
 		submitButton.setOnAction(e -> {
 			try {
 				getChoice(cbGender, textInput1, textInput2);

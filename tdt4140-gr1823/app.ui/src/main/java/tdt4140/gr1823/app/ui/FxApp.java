@@ -25,7 +25,6 @@ public class FxApp extends Application {
     private Scene createScene(Pane pane) {
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add("gui.css");
-
 		return scene;
 	}
 

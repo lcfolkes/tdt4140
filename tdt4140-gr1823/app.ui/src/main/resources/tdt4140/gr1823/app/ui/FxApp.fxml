@@ -4,11 +4,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
+
 <!-- <?scenebuilder-stylesheet vista.css?> -->
 
 <VBox prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml" fx:controller="tdt4140.gr1823.app.ui.FxAppController">
   <children>
-    <Label fx:id="headerLabel" maxWidth="1.7976931348623157E308" text="Gruppe 23" VBox.vgrow="NEVER" />
-    <StackPane fx:id="sceneHolder" VBox.vgrow="ALWAYS" />
+    <Label fx:id="headerLabel" maxWidth="1.7976931348623157E308" text="Gruppe 23" VBox.vgrow="NEVER"/>
+    <StackPane fx:id="sceneHolder" VBox.vgrow="ALWAYS" stylesheets="@gui.css"/>
   </children>
 </VBox>

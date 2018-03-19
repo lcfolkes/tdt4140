@@ -99,7 +99,7 @@ public class MainScreenTest extends ApplicationTest {
 		Assert.assertTrue(find("#getNationalAverage") instanceof Text);
 		Assert.assertTrue(find("#setValueButton") instanceof Button);
 		Assert.assertTrue(find("#setValueField") instanceof TextField);
-		Assert.assertTrue(find("#filterStepsButton") instanceof Button);	
+		//Assert.assertTrue(find("#filterStepsButton") instanceof Button);	
 	}
 }
 	

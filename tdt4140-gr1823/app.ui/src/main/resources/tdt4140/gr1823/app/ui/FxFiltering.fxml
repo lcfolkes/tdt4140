@@ -20,7 +20,7 @@
    	<BorderPane prefHeight="600.0" prefWidth="900.0">
 	   <top>
 	   		<Label alignment="BOTTOM_CENTER" prefHeight="18.0" prefWidth="205.0" text="Demografic average" BorderPane.alignment="CENTER" />
-	   		 <Button mnemonicParsing="false" text="Back" fx:id="backButton"/>
+	   		 <Button mnemonicParsing="false" text="Back" fx:id="backButton" stylesheets="@gui.css"/>
 	   </top>
 	   <center>
 			<VBox alignment="center" spacing="10" BorderPane.alignment="CENTER">
