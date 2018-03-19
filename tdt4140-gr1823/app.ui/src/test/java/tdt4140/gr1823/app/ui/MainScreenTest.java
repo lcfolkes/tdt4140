@@ -30,6 +30,7 @@ import javafx.stage.Stage;
 
 import tdt4140.gr1823.app.ui.MainScreen;
 
+@Ignore
 public class MainScreenTest extends ApplicationTest {
  
 	private MainScreenController testController;
@@ -89,7 +90,7 @@ public class MainScreenTest extends ApplicationTest {
 		return lookup(query).query();
 	}
 
-	@Ignore
+	@Test
 	public void testFieldExist() {
 		//Testing if all fields exist
 		Assert.assertTrue(find("#getRecDailyActivity") instanceof Text);
