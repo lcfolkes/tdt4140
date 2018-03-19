@@ -6,6 +6,7 @@ import java.util.concurrent.TimeoutException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.testfx.api.FxToolkit;
@@ -85,7 +86,7 @@ public class FxFilteringTest extends ApplicationTest {
 		return lookup(query).query();
 	}
 	
-    @Test
+    @Ignore
 	public void testFieldExist() {
 		/* Testing if all fields exist*/
 
