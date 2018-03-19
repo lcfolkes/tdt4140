@@ -19,7 +19,9 @@ public class FxApp extends Application {
     		//window = primaryStage;
     		primaryStage.setTitle("National step database"); //title of window
     		primaryStage.setScene(createScene(loadMainPane()));
-    		primaryStage.show();        
+    		primaryStage.show();
+    		System.out.println("java version: "+System.getProperty("java.version"));
+    		System.out.println("javafx.version: " + System.getProperty("javafx.version"));
     }
     
     private Scene createScene(Pane pane) {

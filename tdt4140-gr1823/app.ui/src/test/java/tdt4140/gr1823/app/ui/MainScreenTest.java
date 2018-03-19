@@ -30,7 +30,6 @@ import javafx.stage.Stage;
 
 import tdt4140.gr1823.app.ui.MainScreen;
 
-@Ignore 
 public class MainScreenTest extends ApplicationTest {
  
 	private MainScreenController testController;
@@ -90,7 +89,7 @@ public class MainScreenTest extends ApplicationTest {
 		return lookup(query).query();
 	}
 
-	@Test
+	@Ignore
 	public void testFieldExist() {
 		//Testing if all fields exist
 		Assert.assertTrue(find("#getRecDailyActivity") instanceof Text);
@@ -98,7 +97,7 @@ public class MainScreenTest extends ApplicationTest {
 		Assert.assertTrue(find("#getNationalAverage") instanceof Text);
 		Assert.assertTrue(find("#setValueButton") instanceof Button);
 		Assert.assertTrue(find("#setValueField") instanceof TextField);
-		//Assert.assertTrue(find("#filterStepsButton") instanceof Button);	
+		Assert.assertTrue(find("#filterStepsButton") instanceof Button);	
 	}
 }
 	
