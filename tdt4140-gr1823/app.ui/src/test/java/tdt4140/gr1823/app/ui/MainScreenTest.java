@@ -1,7 +1,6 @@
 package tdt4140.gr1823.app.ui;
 
-import static org.junit.Assert.*;
-
+import org.junit.Assert;
 import static org.hamcrest.MatcherAssert.assertThat;
 import java.util.concurrent.TimeoutException;
 import org.junit.rules.ExpectedException;
@@ -40,7 +39,6 @@ public class MainScreenTest extends ApplicationTest {
 	Text getNationalAverageText;
 	Button setValueButtonButton;
 	TextField setValueFieldField;
-	
 	//Button filterStepsButtonButton;
 	
 	@BeforeClass
@@ -68,7 +66,7 @@ public class MainScreenTest extends ApplicationTest {
 	
 	@Before 
 	public void setUp() {
-		 /* Just retrieving the tested widgets from the GUI. */
+		/* Just retrieving the tested widgets from the GUI. */
 		recDailyActivityText = (Text) find("#getRecDailyActivity");
 		getNumOfUsersText = (Text) find("#getNumOfUsers");
 		getNationalAverageText = (Text) find("#getNationalAverage");
