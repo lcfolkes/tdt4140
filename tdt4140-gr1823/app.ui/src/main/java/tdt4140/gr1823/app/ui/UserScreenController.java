@@ -1,7 +1,8 @@
 package tdt4140.gr1823.app.ui;
 
+import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
+
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -10,16 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import tdt4140.gr1823.app.core.ActivityManager;
-import tdt4140.gr1823.app.core.ServiceProvider;
-import tdt4140.gr1823.app.core.UserManager;
+import tdt4140.gr1823.app.HttpCommunication.HttpCommunication;;
 
 public class UserScreenController implements Initializable{
 	
-	private ActivityManager activityManager = new ActivityManager();
-	private UserManager userManager = new UserManager();
-	private ServiceProvider serviceProvider = new ServiceProvider();
-	private boolean acceptDataSharing;
+	private HttpCommunication http = new HttpCommunication();
 	
 	private String username;
 	
@@ -54,10 +50,16 @@ public class UserScreenController implements Initializable{
 		yesBox.setVisible(false);
 		noBox.setVisible(false);
 		//getDailyActivity.setText("Enter user ID below to see your step count for the day");
-		getRecActivity.setText("The recommended activity level is " + serviceProvider.getRecommendedDailyActivity() + " steps");
+		
 		try {
-			getNationalAverage.setText("Today the average number of steps among users is " + activityManager.getNationalAverage() + " steps");
-		} catch (SQLException e2) {
+			getRecActivity.setText("The recommended activity level is " + http.getRecommendedDailyActivity() + " steps");
+		} catch (IOException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		}
+		try {
+			getNationalAverage.setText("Today the average number of steps among users is " + http.getNationalAverage() + " steps");
+		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
 		setUsername.setPromptText("Username");
@@ -65,17 +67,17 @@ public class UserScreenController implements Initializable{
 		recordUsernameButton.setOnAction((e) -> {
 			username = setUsername.getText();
 			try {
-				getDailyActivity.setText("You have walked " + (activityManager.getTodaySteps(username) + " steps today"));
+				getDailyActivity.setText("You have walked " + (http.getTodaySteps(username) + " steps today"));
 			} catch (Exception e1) {
 				e1.printStackTrace();
 				getDailyActivity.setText("You have no recorded data for today. Are you sure you entered the correct ID?");
 			}
 			
 			try {
-				if (userManager.getShareValue(username) == true) {
+				if (http.getShareValue(username) == true) {
 					yesBox.setSelected(true);
 					noBox.setSelected(false);
-				} else if (userManager.getShareValue(username) == false) {
+				} else if (http.getShareValue(username) == false) {
 					yesBox.setSelected(false);
 					noBox.setSelected(true);
 				}
@@ -94,14 +96,14 @@ public class UserScreenController implements Initializable{
 	@FXML
 	private void handleYesBox() {
 		try {
-			if ((userManager.getShareValue(username) == true)) {
+			if ((http.getShareValue(username) == true)) {
 				noBox.setSelected(true);
 				yesBox.setSelected(false);
-				userManager.setShareValue(username, 0);
-			} else if ((userManager.getShareValue(username) == false)) {
+				http.setShareValue(username, 0);
+			} else if ((http.getShareValue(username) == false)) {
 				noBox.setSelected(false);
 				yesBox.setSelected(true);
-				userManager.setShareValue(username, 1);
+				http.setShareValue(username, 1);
 			}
 	} 
 		catch (Exception e2) {
@@ -112,14 +114,14 @@ public class UserScreenController implements Initializable{
 	@FXML
 	private void handleNoBox() {
 		try {
-			if ((userManager.getShareValue(username) == true)) {
+			if ((http.getShareValue(username) == true)) {
 				noBox.setSelected(true);
 				yesBox.setSelected(false);
-				userManager.setShareValue(username, 0);
-			} else if ((userManager.getShareValue(username) == false)) {
+				http.setShareValue(username, 0);
+			} else if ((http.getShareValue(username) == false)) {
 				noBox.setSelected(false);
 				yesBox.setSelected(true);
-				userManager.setShareValue(username, 1);
+				http.setShareValue(username, 1);
 			}
 	} 
 		catch (Exception e2) {

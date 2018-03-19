@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import tdt4140.gr1823.app.core.DBManager;
 
-
-public class dailyActivityServlet extends HttpServlet {
+public class ShareDataServlet extends HttpServlet {
 	
 	private DBManager db; 
 	@Override
@@ -22,19 +21,28 @@ public class dailyActivityServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 			String[] queryString = request.getQueryString().split("&");
-			String username = queryString[0].split("=")[1];
-			String localDate = queryString[1].split("=")[1];
+			
+			System.out.println(queryString.toString());
 			ArrayList<String> result;
 			try {
 				db.connect();
-				ArrayList<ArrayList<String>> ret = db.retrieve("SELECT Steps FROM DailySteps WHERE Username = '"+ username + "' AND Date = '" + localDate + "';");
-				result = ret.get(0);
-				response.setStatus(HttpServletResponse.SC_OK);
-				response.getWriter().write(result.get(0));
-			} catch (SQLException e) {
-				e.printStackTrace();
+				if(queryString.length == 1) {
+					String username = queryString[0].split("=")[1];
+					ArrayList<ArrayList<String>> ret;
+					ret = db.retrieve("SELECT Share FROM Person WHERE Username = '"+username+"';");
+					result = ret.get(0);
+					response.setStatus(HttpServletResponse.SC_OK);
+					response.getWriter().write(result.get(0));	
+				} else{
+					String username = queryString[0].split("=")[1];
+					int share = Integer.parseInt(queryString[1].split("=")[1]);
+					db.execute("UPDATE Person SET Share=" + share + " WHERE Username = '" + username + "';");
+					response.setStatus(HttpServletResponse.SC_OK);
+					}				
+			}catch (SQLException e) {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-			} finally {
+				e.printStackTrace();
+			}finally {
 				try {
 					db.disconnect();
 				} catch (SQLException e) {
@@ -42,5 +50,6 @@ public class dailyActivityServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
-		} 
+			}
+
 }
