@@ -9,7 +9,7 @@ import org.testfx.api.FxToolkit;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.BeforeClass;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -36,6 +36,12 @@ import java.sql.SQLException;
 
 public class UserScreenTest extends ApplicationTest {
 	
+	@BeforeClass
+	public static void headless() {
+    	if (Boolean.valueOf(System.getProperty("gitlab-ci", "false"))) {
+    		GitlabCISupport.headless(); }
+	}
+	
 	@Override
 	public void start(Stage stage) throws Exception {
 		Parent mainNode = FXMLLoader.load(UserScreen.class.getResource("UserScreen.fxml"));
@@ -56,7 +62,7 @@ public class UserScreenTest extends ApplicationTest {
     }
 	
 	
-	@Ignore
+	@Test
 	public void testFieldExist() {
 		Assert.assertTrue(find("#setUsername") instanceof TextField);
 		Assert.assertTrue(find("#getDailyActivity") instanceof Text);
