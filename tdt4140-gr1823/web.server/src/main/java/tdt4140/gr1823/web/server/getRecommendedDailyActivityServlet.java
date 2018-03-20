@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import tdt4140.gr1823.app.core.DBManager;
-import tdt4140.gr1823.app.core.ActivityManager;
+import tdt4140.gr1823.app.db.ActivityManager;
+import tdt4140.gr1823.app.db.DBManager;
 
 public class getRecommendedDailyActivityServlet extends HttpServlet {
 	

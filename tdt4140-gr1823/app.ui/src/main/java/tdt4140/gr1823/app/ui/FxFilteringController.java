@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import tdt4140.gr1823.app.core.*;
+import tdt4140.gr1823.app.db.ActivityManager;
 
 public class FxFilteringController implements Initializable {
 	

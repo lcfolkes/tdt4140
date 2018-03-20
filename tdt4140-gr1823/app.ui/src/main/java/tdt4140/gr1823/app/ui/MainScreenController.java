@@ -14,14 +14,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import tdt4140.gr1823.app.db.ActivityManager;
+import tdt4140.gr1823.app.db.ServiceProvider;
+import tdt4140.gr1823.app.db.UserManager;
 import javafx.collections.FXCollections;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.*; 
-
-import tdt4140.gr1823.app.core.ActivityManager;
-import tdt4140.gr1823.app.core.ServiceProvider;
-import tdt4140.gr1823.app.core.UserManager;
+import javafx.scene.text.*;
 
 
 public class MainScreenController implements Initializable {

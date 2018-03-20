@@ -1,9 +1,12 @@
-package tdt4140.gr1823.app.core;
+package tdt4140.gr1823.app.db;
 
 import java.sql.SQLException;
 import java.math.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import tdt4140.gr1823.app.core.DailyActivity;
+import tdt4140.gr1823.app.core.Gender;
 
 public class ActivityManager {
 

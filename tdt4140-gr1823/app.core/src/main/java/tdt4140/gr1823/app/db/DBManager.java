@@ -1,9 +1,12 @@
-package tdt4140.gr1823.app.core;
+package tdt4140.gr1823.app.db;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Properties;
+
+import tdt4140.gr1823.app.core.Gender;
+import tdt4140.gr1823.app.core.User;
 public class DBManager {
 	
 	private Connection myCon;

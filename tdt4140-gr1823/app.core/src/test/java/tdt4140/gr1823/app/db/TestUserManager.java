@@ -1,4 +1,4 @@
-package tdt4140.gr1823.app.core;
+package tdt4140.gr1823.app.db;
 
 import static org.junit.Assert.*;
 
@@ -9,6 +9,8 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import tdt4140.gr1823.app.db.UserManager;
 
 public class TestUserManager {
    
