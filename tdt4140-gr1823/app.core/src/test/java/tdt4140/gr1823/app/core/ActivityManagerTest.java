@@ -100,10 +100,10 @@ public class ActivityManagerTest {
 		Assert.assertTrue(a instanceof Double);
 	}
 	
-	//since this will only run successfully when 37 has value for todays date I comment it out (Amanda)
+	//since this will only run successfully when Hilde has value for todays date I comment it out (Amanda)
 	/*@Test
 	public void testGetTodaySteps() throws SQLException {
-		Double a = A_Manager.getTodaySteps(37);
+		Double a = A_Manager.getTodaySteps("hilde@gmail.com");
 		Assert.assertTrue(a instanceof Double);
 	}*/
 	
