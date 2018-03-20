@@ -93,9 +93,23 @@ public class MainScreenController implements Initializable {
 		
 		filterStepsButton.setOnAction((e) -> {
 			SceneNavigator.loadScene(SceneNavigator.FILTER);
-			
 			}
 		);
+		
+		//styling
+		setValueField.getStyleClass().add("");
+//		getRecDailyActivity;
+//		
+//		getNumOfUsers;
+//
+//		getNationalAverage;
+//		
+//		setValueButton;
+//		
+//		setValueField;
+//
+//		filterStepsButton;
+
 			
 	}
 		

@@ -13,7 +13,6 @@ public class FxAppController{
 	@FXML
 	private StackPane sceneHolder;
 	
-	
 	public void setScene(Node node) {
 		sceneHolder.getChildren().setAll(node);
 	}

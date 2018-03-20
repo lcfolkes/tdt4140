@@ -57,7 +57,7 @@ public class FxFilteringController implements Initializable {
 		errorLabel.setVisible(false);
 		errorLabel.setTextFill(Color.RED);  //css styling of error label
 		
-		submitButton.getStyleClass().add("button.success");
+		//submitButton.getStyleClass().add("button.success");
 		
 		submitButton.setOnAction(e -> {
 			try {
@@ -74,6 +74,9 @@ public class FxFilteringController implements Initializable {
 		backButton.setOnAction(e -> {
 			SceneNavigator.loadScene(SceneNavigator.MAINSCREEN);
 		});
+		
+		//styling
+		backButton.getStyleClass().add("button");
 	}
 	
 	//checking if age group input is valid. ie. not a string unless empty string and not invalid integer

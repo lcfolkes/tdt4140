@@ -2,11 +2,33 @@
 	-fx-background-color: red,linear-gradient(to bottom, derive(red,60%) 5%,derive(red,90%) 40%) !important;
 }
 
-/*https://github.com/dicolar/jbootx/blob/master/src/main/resources/bootstrap3.css*/
-.root {
-	-fx-body-color : #F5F5F5;
+#headerLabel {
+    -fx-background-color: steelblue;
+    -fx-text-fill: white;
+    -fx-padding: 5px;
+}
+
+#sceneHolder {
+    /*-fx-background-color: lightgrey;*/
+    -fx-body-color : #F5F5F5;
 	-fx-outer-border : #cecece;
 }
+
+/*Background color different scenes*/
+/* 
+#mainScreen {
+    -fx-background-color: aliceblue;
+}
+
+#fxFiltering {
+    -fx-background-color: coral;
+}*/
+
+/*https://github.com/dicolar/jbootx/blob/master/src/main/resources/bootstrap3.css*/
+/* .root {
+	-fx-body-color : #F5F5F5;
+	-fx-outer-border : #cecece;
+}*/
 .button:focused, .toggle-button:focused,
 .split-menu-button:focused, .menu-button:focused,
 .number-button:focused,
@@ -24,6 +46,8 @@
 	-fx-border-radius: 4;
 	-fx-pref-height: 30;
 	-fx-min-width: 30;
+	/*-fx-base: lightblue;*/
+	background-color: red; /* Green */
 }
 .button,.menu-button,.split-menu-button,.toggle-button,.number-button {
 	-fx-background-insets: 0, 0, -1, 0;
