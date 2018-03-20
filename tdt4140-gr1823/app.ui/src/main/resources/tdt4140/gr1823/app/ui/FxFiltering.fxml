@@ -23,9 +23,6 @@
                </children>
             </HBox>
          	<BorderPane prefHeight="600.0" prefWidth="900.0" stylesheets="@../../../../gui.css">
-      	   <top>
-      	   		<Label alignment="BOTTOM_CENTER" prefHeight="18.0" prefWidth="205.0" text="Demografic average" BorderPane.alignment="CENTER" />
-      	   </top>
       	   <center>
       			<VBox alignment="center" spacing="10" BorderPane.alignment="CENTER">
       				<HBox alignment="center" spacing="25" BorderPane.alignment="CENTER">	

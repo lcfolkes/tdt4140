@@ -72,7 +72,7 @@ public class FxFilteringController implements Initializable {
 		});
 		
 		backButton.setOnAction(e -> {
-			SceneNavigator.loadScene(SceneNavigator.MAINSCREEN);
+			SceneNavigator.loadScene(SceneNavigator.MAINTAB1);
 		});
 		
 		//styling
