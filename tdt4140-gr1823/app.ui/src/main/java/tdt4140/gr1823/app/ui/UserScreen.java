@@ -12,22 +12,24 @@ import javafx.stage.Stage;
 public class UserScreen extends Application {
 
 	public Stage window;
-	Scene filterScene;
+	Scene mainScene;
 	
     @Override
     public void start(Stage primaryStage) throws Exception {
     	window = primaryStage;
     	
     	Parent root = FXMLLoader.load(getClass().getResource("UserScreen.fxml"));
-        Scene mainScene = new Scene(root);
-        window.setScene(mainScene);
-       
-        
-        window.show();
+     Scene mainScene = new Scene(root);
+     window.setScene(mainScene);
+     window.show();
     }
     	
 
     public static void main(String[] args) {
         launch(args);
+    }
+    
+    public Scene getScene () {
+    		return mainScene;
     }
 }
