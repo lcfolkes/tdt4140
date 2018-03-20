@@ -41,6 +41,9 @@ public class FxFilteringController implements Initializable {
 	@FXML
 	protected Label averageLabel;
 	
+	@FXML 
+	protected Button backButton;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("Loading user data...");
@@ -54,6 +57,8 @@ public class FxFilteringController implements Initializable {
 		errorLabel.setVisible(false);
 		errorLabel.setTextFill(Color.RED);  //css styling of error label
 		
+		submitButton.getStyleClass().add("button.success");
+		
 		submitButton.setOnAction(e -> {
 			try {
 				getChoice(cbGender, textInput1, textInput2);
@@ -65,8 +70,10 @@ public class FxFilteringController implements Initializable {
 				e1.printStackTrace();
 			}
 		});
-		//when pressing button getChoice gets called
 		
+		backButton.setOnAction(e -> {
+			SceneNavigator.loadScene(SceneNavigator.MAINSCREEN);
+		});
 	}
 	
 	//checking if age group input is valid. ie. not a string unless empty string and not invalid integer
