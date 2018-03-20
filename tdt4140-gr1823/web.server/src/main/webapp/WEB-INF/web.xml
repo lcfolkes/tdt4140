@@ -7,9 +7,43 @@
    version="3.1">
 
   <servlet>
+  <servlet-name>dailyActivityServlet</servlet-name>
+  <servlet-class>tdt4140.gr1823.web.server.dailyActivityServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+  <servlet-name>getRecommendedDailyActivityServlet</servlet-name>
+  <servlet-class>tdt4140.gr1823.web.server.getRecommendedDailyActivityServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+  <servlet-name>nationalAverageServlet</servlet-name>
+  <servlet-class>tdt4140.gr1823.web.server.nationalAverageServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+  <servlet-name>ShareDataServlet</servlet-name>
+  <servlet-class>tdt4140.gr1823.web.server.ShareDataServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
+  <servlet-name>ShareDataServlet</servlet-name>
+  <url-pattern>/shareData/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  <servlet-name>nationalAverageServlet</servlet-name>
+  <url-pattern>/getNationalAverage/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  <servlet-name>dailyActivityServlet</servlet-name>
+  <url-pattern>/dailyActivityServlet/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  <servlet-name>getRecommendedDailyActivityServlet</servlet-name>
+  <url-pattern>/getRecommendedDailyActivityServlet/*</url-pattern>
   </servlet-mapping>
 
 </web-app>
