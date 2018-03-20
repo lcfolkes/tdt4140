@@ -92,10 +92,24 @@ public class MainScreenController implements Initializable {
 		//Create method to connect to FxFiltering.java, in order to run the applications when pushing the "FILTER STEPS" button
 		
 		filterStepsButton.setOnAction((e) -> {
-			SceneNavigator.loadScene(SceneNavigator.FILTER);
-			
+			SceneNavigator.loadScene(SceneNavigator.MAINTAB2);
 			}
 		);
+		
+		//styling
+		setValueField.getStyleClass().add("");
+//		getRecDailyActivity;
+//		
+//		getNumOfUsers;
+//
+//		getNationalAverage;
+//		
+//		setValueButton;
+//		
+//		setValueField;
+//
+//		filterStepsButton;
+
 			
 	}
 		
