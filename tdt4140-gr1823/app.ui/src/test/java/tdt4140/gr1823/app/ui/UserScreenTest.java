@@ -85,13 +85,13 @@ public class UserScreenTest extends ApplicationTest {
 //		Denne kodelinjen fungerer bare når hilde har 15000 skritt loggført på i dag..så kommenteres ut
 	}
 	
-	@Test
-	public void testWrongCredentials() {
-		clickOn("#setUsername");
-		write("testing wrong input");
-		clickOn("#recordUsernameButton");
-		verifyThat("#getDailyActivity", NodeMatchers.hasText("You have no recorded data for today. Are you sure you entered the correct ID?"));
-	}
+//	@Test
+//	public void testWrongCredentials() {
+//		clickOn("#setUsername");
+//		write("testing wrong input");
+//		clickOn("#recordUsernameButton");
+//		verifyThat("#getDailyActivity", NodeMatchers.hasText("You have no recorded data for today. Are you sure you entered the correct ID?"));
+//	}
 	
 	public <T extends Node> T find(final String query) {
 		return lookup(query).query();
