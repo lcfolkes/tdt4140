@@ -37,15 +37,9 @@ public class ActivityManagerTest {
 
 	
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		A_Manager  = new ActivityManager();
-				try {
-					user = new User("Andreas", LocalDate.of(1995, 06, 20), Gender.MALE, "andreas@gmail.com", "brukernavn", "Passord1");
-					DailyActivity activity =  new DailyActivity(user, 10000, LocalDate.of(2018, 02, 20));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		user = new User("andreas@gmail.com","Password1","Andreas", LocalDate.of(1995, 06, 20), Gender.MALE,1);
 	}
 	
 	@Test

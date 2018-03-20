@@ -11,41 +11,30 @@ public class UserManager {
 		myCon = new DBManager();
 	}
     
+	//Adds a user on the format User(Username, password, name, b_date, gender, share)
     public void addUser(User user) {
-    	myCon.connect();
-    myCon.execute("INSERT INTO Person VALUES ('"+ user.getName() +"', "+ user.getGender() +"', '"+ user.getb_Date() +"', '"+ user.getEmail()+"', '"+ user.getUsername()+ "', '"+ user.getPassword());
-	try {
-		myCon.disconnect();
+    try {
+        myCon.execute("INSERT INTO Person VALUES ('"+ user.getUsername() +"', "+ user.getPassword()+"', "+ user.getName() +"', "+ user.getb_Date() +"', '"+ user.getGender() +"', '"+ user.getSharing());
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
     }
  
     public void deleteUser(User user) {
-    		myCon.connect();
-        myCon.execute("DELETE FROM Person WHERE 'ID="+ user.getID()+"'");
-        try {
-				myCon.disconnect();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+    try {
+    			myCon.execute("DELETE FROM Person WHERE 'Username="+ user.getUsername()+"'");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
     }
-   
+    
    public int getNumberOfUsers() throws SQLException {
-	   myCon.connect();
-	   ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT COUNT(*) FROM Person");
-			try {
-				myCon.disconnect();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-    			ArrayList<String> insideFirstArray = ret.get(0);
-    		String insideSecondArray = (String) insideFirstArray.get(0);
-    		return Integer.parseInt(insideSecondArray);
+		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT COUNT(*) FROM Person");
+    		return Integer.parseInt(ActivityManager.getElementInArray(ret));
     }
    
    public boolean getShareValue(String username) throws SQLException { //Henter share value fra databasen. 
-		ArrayList<ArrayList<String>> personTable = myCon.retrieve("SELECT Share FROM Person WHERE Username = '"+username+"';");
+	   	ArrayList<ArrayList<String>> personTable = myCon.retrieve("SELECT Share FROM Person WHERE Username = '"+username+"';");
 		ArrayList<String> rad = personTable.get(0);
 		int acceptDataSharing = Integer.parseInt(rad.get(0)); //lagrer verdien som står den personen som logger inn sin Share-kolonne i variabelen acceptDataSharing.
 		if (acceptDataSharing == 0) {
@@ -55,12 +44,13 @@ public class UserManager {
 		}
 	}
 	
-   public void setShareValue(String username, boolean share) {
-	   myCon.execute("UPDATE Person SET Share = '" + share + "' WHERE Username = '" + username + "';" );
+  public void setShareValue(String username, int share) throws SQLException {
+	   System.out.println("UPDATE Person SET Share =" + share + " WHERE Username = '" + username + "';");
+	   myCon.execute("UPDATE Person SET Share=" + share + " WHERE Username = '" + username + "';" );
 	   
-   }
+  }
+
    
-    
     public static void main(String[] args) throws Exception {
 	UserManager um = new UserManager();
 	//User user = new User("Andreas", LocalDate.of(1995, 06,10), Gender.MALE, "test@mail.com", "username", "password");

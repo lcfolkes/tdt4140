@@ -19,6 +19,8 @@ import javafx.scene.control.Separator;
 import javafx.scene.layout.FlowPane;
 
 
+//class only for testing purposes
+
 public class FxFiltering extends Application {
 	Stage window;
 	Stage scene;
@@ -41,3 +43,4 @@ public class FxFiltering extends Application {
 	    }
 	
 }
+

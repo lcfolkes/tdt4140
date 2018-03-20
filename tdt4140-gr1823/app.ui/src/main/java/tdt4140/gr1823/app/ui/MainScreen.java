@@ -1,14 +1,12 @@
 package tdt4140.gr1823.app.ui;
 
-import java.awt.Button;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
+//Class only for testing purposes
 public class MainScreen extends Application {
 
 	public Stage window;

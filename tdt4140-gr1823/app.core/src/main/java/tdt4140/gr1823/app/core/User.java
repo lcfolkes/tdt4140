@@ -7,52 +7,67 @@ import java.util.regex.*;
 public class User {
 	
 	//Attributes
-	public static int numberOfUsers = 0;
 	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
 		    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE); 
 	public static final Pattern VALID_PASSWORD_REGEX = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$");
 	
-	private int ID;
+	private String username; //use email as username. Have reused the same methods for set ang get emial for username. 
+	private String password; //setter with encapsulation and getter
 	private String name; //
 	private LocalDate b_Date; //er på formatet til localDate(year, month, day)
 	private Gender gender; //getGender and in constructor
-	private String email; //getEmail and setEmail with encapsulation
-	private String username; //get and set
-	private String password; //setter with encapsulation and getter
+	private int share;
+
 	
 	//CONSTRUCTORS
 	
 	//Constructor for creating and setting up new user
-	public User (String name, LocalDate b_Date, Gender gender, String email, String username,
-			String password) throws Exception {
-		this.name = name;
-		this.b_Date = b_Date;
-		this.gender = gender;
-		setEmail(email);
+	public User (String username, String password, String name, LocalDate b_Date, Gender gender,int share) throws Exception {
 		setUsername(username);
 		setPassword(password);
-		this.ID = generateID();
-	}
-	
-	// Constructor for setting up temporary user.
-	//Difference is in password and takes in ID
-	public User(int ID, String name, LocalDate b_Date, Gender gender, String email, String username) {
-		super();
-		this.ID = ID;
 		this.name = name;
 		this.b_Date = b_Date;
 		this.gender = gender;
-		this.email = email;
-		this.username = username;
+		setSharing(share);
 	}
 	
 	// GETTERS AND SETTERS FOR ATTRIBUTTES
 	
-	//ID
-	public int getID() {
-		return ID;
+	//Username
+	public void setUsername(String username) throws Exception {
+		//Checks if email is valid and unique
+		if(isValidUsername(username)) {
+			this.username = username;
+		} else {
+			throw new IllegalArgumentException("Your username/email does not match our required format");
+		}
 	}
-
+	protected boolean isValidUsername(String username) {
+		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(username);
+		return matcher.find();
+	}
+	
+	public String getUsername() {
+		return username;
+	}
+	
+	//Password
+	protected void setPassword(String psw) {
+		if (isValidPassword(psw)) {
+			password = psw;
+		} else {
+			throw new IllegalArgumentException("Password requirements are: minimum eight letters with one uppercase and one lowercase letter, and one digit.");
+		}
+	}
+	public boolean isValidPassword(String psw) {
+		Matcher matcher = VALID_PASSWORD_REGEX.matcher(psw);
+		return matcher.find();
+	}
+	public String getPassword() {
+		return password;
+	}
+	
+	
 	//Name
 	public String getName() {
 		return name;
@@ -75,65 +90,15 @@ public class User {
 		return gender;
 	}
 	
-	//Email
-	public void setEmail(String email) throws Exception {
-		//Checks if email is valid and unique
-		if(isValidEmail(email)) {
-			this.email = email;
-		} else {
-			throw new IllegalArgumentException("Your Email does not match our required format");
-		}
-	}
-	protected boolean isValidEmail(String string) {
-		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(string);
-		return matcher.find();
-	}
-	public String getEmail() {
-		return email;
+	public void setSharing(int share) {
+		if (share==1 || share == 0) {
+			this.share = share;
+		} else
+			throw new IllegalArgumentException("Accept data sharing must be either 1 (yes) or 0 (no)");
 	}
 	
-	//Username
-	protected void setUsername(String username) throws Exception {
-		if (isValidUsername(username)) {			
-			this.username = username;
-		}
-	}
-	protected boolean isValidUsername(String uname) { //TODO
-		return true;
-	}
-	public String getUsername() {
-		return username;
-	}
-	
-	//Password
-	protected void setPassword(String psw) {
-		if (isValidPassword(psw)) {
-			password = psw;
-		} else {
-			throw new IllegalArgumentException("Password requirements are: minimum eight letters with one uppercase and one lowercase letter, and one digit.");
-		}
-	}
-	public boolean isValidPassword(String psw) {
-		Matcher matcher = VALID_PASSWORD_REGEX.matcher(psw);
-		return matcher.find();
-	}
-	public String getPassword() {
-		return password;
-	}
-	
-	//Advanced methods for number of users and id generation
-
-	protected int generateID() {
-		//Must generate the next integer in static variable
-		numberOfUsers ++;
-		return getNumberOfUsers();
-	}
-	
-	public static int getNumberOfUsers() {
-		return numberOfUsers;
-	}
-	public static void restartUserCounting() {
-		numberOfUsers = 0;
+	public int getSharing() {
+		return share;
 	}
 	
 

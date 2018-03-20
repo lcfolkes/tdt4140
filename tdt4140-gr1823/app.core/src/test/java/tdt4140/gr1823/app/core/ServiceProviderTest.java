@@ -24,6 +24,5 @@ public ServiceProvider SP;
 		SP.setRecommendedDailyActivity(6969);
 		assertEquals(SP.getRecommendedDailyActivity(), 6969);
 	}
-	
 
 }
