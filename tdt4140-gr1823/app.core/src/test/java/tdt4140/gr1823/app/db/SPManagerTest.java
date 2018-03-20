@@ -9,15 +9,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import tdt4140.gr1823.app.db.ServiceProvider;
+import tdt4140.gr1823.app.db.SPManager;
 
-public class ServiceProviderTest {
+public class SPManagerTest {
 
-public ServiceProvider SP;
+public SPManager SP;
 	
 	@Before
 	public void setUp() throws Exception {
-		SP = new ServiceProvider();
+		SP = new SPManager();
 	}
 	
 	

@@ -22,7 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import tdt4140.gr1823.app.db.ActivityManager;
-import tdt4140.gr1823.app.db.ServiceProvider;
+import tdt4140.gr1823.app.db.SPManager;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.text.Text;

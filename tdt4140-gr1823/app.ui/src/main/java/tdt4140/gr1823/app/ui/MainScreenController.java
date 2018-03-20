@@ -15,7 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import tdt4140.gr1823.app.db.ActivityManager;
-import tdt4140.gr1823.app.db.ServiceProvider;
+import tdt4140.gr1823.app.db.SPManager;
 import tdt4140.gr1823.app.db.UserManager;
 import javafx.collections.FXCollections;
 import javafx.scene.control.*;
@@ -27,7 +27,7 @@ public class MainScreenController implements Initializable {
 
 	
 
-	private ServiceProvider serviceProvider = new ServiceProvider();
+	private SPManager serviceProvider = new SPManager();
 	private UserManager userManager = new UserManager();
 	private ActivityManager activityManager = new ActivityManager();
 	

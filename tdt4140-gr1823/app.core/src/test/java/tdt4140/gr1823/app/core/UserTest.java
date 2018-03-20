@@ -9,7 +9,7 @@ import org.junit.Test;
 import junit.framework.*;
 
 
-public class TestUser extends TestCase{
+public class UserTest extends TestCase{
 	
 	//Attributtes
 	protected User u1;

@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import tdt4140.gr1823.app.db.UserManager;
 
-public class TestUserManager {
+public class UserManagerTest {
    
    private UserManager userManager;
 
