@@ -30,7 +30,7 @@ import javafx.stage.Stage;
 
 import tdt4140.gr1823.app.ui.MainScreen;
 
-@Ignore
+
 public class MainScreenTest extends ApplicationTest {
  
 	private MainScreenController testController;
