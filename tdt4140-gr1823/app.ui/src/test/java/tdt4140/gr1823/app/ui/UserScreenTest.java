@@ -73,7 +73,7 @@ public class UserScreenTest extends ApplicationTest {
 	
 //	@Test
 //	public void setUpCorrect() {
-//		ServiceProvider serviceProvider = new ServiceProvider();
+//		SPManager serviceProvider = new SPManager();
 //		ActivityManager activityManager = new ActivityManager();
 //		verifyThat("#getDailyActivity", NodeMatchers.hasText("The number of steps walked today will pop up here when you log in."));
 //		verifyThat("#getRecActivity", NodeMatchers.hasText("The recommended activity level is " + serviceProvider.getRecommendedDailyActivity() + " steps"));
