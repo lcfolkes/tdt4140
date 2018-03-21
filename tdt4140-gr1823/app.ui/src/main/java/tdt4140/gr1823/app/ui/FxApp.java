@@ -34,7 +34,7 @@ public class FxApp extends Application {
 	    FxAppController fxAppController = loader.getController();
 	    	System.out.println("appcontroller= " + fxAppController);
 	    	SceneNavigator.setMainController(fxAppController);
-	    	SceneNavigator.loadScene(SceneNavigator.MAINTAB1);
+	    	SceneNavigator.loadScene(SceneNavigator.MAINSCREEN);
 	    	return mainPane;
     }
     
