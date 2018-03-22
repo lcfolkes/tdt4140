@@ -27,7 +27,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import org.junit.Assert;
-//import junit.framework.Assert;
 import tdt4140.gr1823.app.ui.FxFilteringController;
 
 
@@ -48,10 +47,6 @@ public class FxFilteringTest extends ApplicationTest {
 	  	}
 	 }
 	
-	@Before
-	public void setUpClass() throws Exception{
-		ApplicationTest.launch(FxFiltering.class);
-	} 
 	
    	
 	@Override
