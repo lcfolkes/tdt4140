@@ -47,7 +47,6 @@ public class FxFilteringTest extends ApplicationTest {
 	  	}
 	 }
 	
-	
    	
 	@Override
     public void start(Stage stage) throws Exception {
@@ -149,7 +148,7 @@ public class FxFilteringTest extends ApplicationTest {
 	    	}   	
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = AssertionError.class)
     public void testErrorLabel(){
     		/*valid values*/
     		clickOn(text1).write("3");
