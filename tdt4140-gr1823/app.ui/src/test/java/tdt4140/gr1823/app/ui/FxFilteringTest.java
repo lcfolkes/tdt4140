@@ -81,7 +81,7 @@ public class FxFilteringTest extends ApplicationTest {
 		return lookup(query).query();
 	}
 	
-    @Ignore
+    @Test
 	public void testFieldExist() {
 		/* Testing if all fields exist*/
 
