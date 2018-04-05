@@ -1,6 +1,7 @@
 package tdt4140.gr1823.app.db;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue; //Sprint 3
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -24,7 +25,10 @@ public class ActivityManagerTest {
 	//Attributtes
 	protected ActivityManager A_Manager;
 	protected DailyActivity activity;
+	protected DailyActivity testUserDailyActivity; //Sprint 3
 	protected User user;
+	protected User testUser;	//Sprint 3
+	protected UserManager UserManager; //Sprint 3
 	
 	
 	
@@ -44,7 +48,10 @@ public class ActivityManagerTest {
 	@Before
 	public void setUp() throws Exception {
 		A_Manager  = new ActivityManager();
-		user = new User("andreas@gmail.com","Password1","Andreas", LocalDate.of(1995, 06, 20), Gender.MALE,1);
+		UserManager = new UserManager(); //Sprint 3
+		user = new User("andreas@gmail.com","Password1","Andreas", LocalDate.of(1995, 06, 20), Gender.MALE,1); 
+		testUser = new User("testActivityManager@gmail.com", "Password1", "testBRUKER", LocalDate.of(1995, 01, 11), Gender.MALE,1); //Sprint 3
+		testUserDailyActivity = new DailyActivity(testUser, 12000, LocalDate.now()); //Sprint 3
 	}
 	
 	@Test
@@ -113,4 +120,23 @@ public class ActivityManagerTest {
 	}*/
 	
 	
+	// #SPRINT 3 UPDATE (below this mark)
+	// Implemented by Tor and Anders
+	
+	
+	@Test
+	public void testGetTodaySteps() throws Exception {
+		UserManager.addUser(testUser);
+		A_Manager.addActivity(testUserDailyActivity);
+		Assert.assertEquals(A_Manager.getTodaySteps(testUser.getUsername()), 12000, 1);
+		A_Manager.deleteDailyActivity(testUser.getUsername(), LocalDate.now());
+		UserManager.deleteUser(testUser);
+	}
+	
 }
+
+
+
+
+
+
