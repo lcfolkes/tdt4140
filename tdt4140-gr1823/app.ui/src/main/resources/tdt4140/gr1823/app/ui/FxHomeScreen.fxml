@@ -1,61 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.gluonhq.charm.glisten.control.AppBar?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1823.app.ui.HomeScreenController">
+<VBox prefHeight="1089.0" prefWidth="871.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1823.app.ui.HomeScreenController">
    <children>
-      <HBox>
+      <AppBar titleText="OVERVIEW" />
+      <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <PieChart fx:id="genderPieChart" prefHeight="335.0" prefWidth="301.0" title="Gender" />
-            <PieChart fx:id="agePieChart" prefHeight="470.0" prefWidth="305.0" title="Age" />
-            <TextField fx:id="numUsers" prefHeight="46.0" prefWidth="340.0" promptText="number of users">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <HBox.margin>
-                  <Insets top="200.0" />
-               </HBox.margin></TextField>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TitledPane animated="false" text="User demograpichs" />
+                  <HBox minHeight="-Infinity" prefHeight="200.0" prefWidth="849.0">
+                     <children>
+                        <PieChart fx:id="genderPieChart" prefHeight="335.0" prefWidth="301.0" title="Gender" />
+                        <PieChart fx:id="agePieChart" prefHeight="175.0" prefWidth="305.0" title="Age" />
+                        <VBox prefHeight="160.0" prefWidth="199.0">
+                           <children>
+                              <Label text="Number of users">
+                                 <VBox.margin>
+                                    <Insets top="40.0" />
+                                 </VBox.margin></Label>
+                              <TextField fx:id="numUsers" prefHeight="66.0" prefWidth="149.0" promptText="number of users" text="number goes here">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets top="30.0" />
+               </padding>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TitledPane animated="false" text="User statistics" />
+                  <HBox minHeight="-Infinity" prefHeight="250.0" prefWidth="200.0">
+                     <children>
+                        <BarChart fx:id="genderBarChart" title="Gender">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                        <BarChart fx:id="ageBarChart" title="Age">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets top="30.0" />
+               </padding>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TitledPane animated="false" text="Historical data" />
+                  <HBox>
+                     <children>
+                        <AnchorPane prefHeight="387.0" prefWidth="854.0">
+                           <children>
+                              <LineChart fx:id="lineChart" layoutX="81.0" layoutY="28.0" prefHeight="310.0" prefWidth="575.0" title="National average last 12 months">
+                                <xAxis>
+                                  <NumberAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </LineChart>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets top="30.0" />
+               </padding>
+            </VBox>
          </children>
-      </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <BarChart fx:id="genderBarChart" title="Gender">
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </BarChart>
-            <BarChart fx:id="ageBarChart" title="Age">
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </BarChart>
-         </children>
-      </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <LineChart fx:id="lineChart" title="Historical national avergae">
-              <xAxis>
-                <NumberAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </LineChart>
-         </children>
-      </HBox>
+      </VBox>
    </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
+   </padding>
 </VBox>
