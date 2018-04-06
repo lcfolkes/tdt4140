@@ -19,20 +19,23 @@
       <AppBar titleText="OVERVIEW" />
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox prefHeight="200.0" prefWidthFxHomeScreen.fxml="100.0">
                <children>
-                  <TitledPane animated="false" text="User demograpichs" />
+                  <TitledPane animated="false" style="-fx-font-size: 16;" text="User demograpichs" />
                   <HBox minHeight="-Infinity" prefHeight="200.0" prefWidth="849.0">
                      <children>
                         <PieChart fx:id="genderPieChart" prefHeight="335.0" prefWidth="301.0" title="Gender" />
                         <PieChart fx:id="agePieChart" prefHeight="175.0" prefWidth="305.0" title="Age" />
                         <VBox prefHeight="160.0" prefWidth="199.0">
                            <children>
-                              <Label text="Number of users">
+                              <Label style="-fx-font-size: 16;" text="Number of users">
                                  <VBox.margin>
                                     <Insets top="40.0" />
-                                 </VBox.margin></Label>
-                              <TextField fx:id="numUsers" prefHeight="66.0" prefWidth="149.0" promptText="number of users" text="number goes here">
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding></Label>
+                              <TextField fx:id="numUsers" prefHeight="45.0" prefWidth="199.0" promptText="number of users" style="-fx-border-width: 5; -fx-background-color: lightgrey; -fx-font-size: 20;" text="145">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
@@ -51,7 +54,7 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <TitledPane animated="false" text="User statistics" />
+                  <TitledPane animated="false" style="-fx-font-size: 16;" text="User statistics" />
                   <HBox minHeight="-Infinity" prefHeight="250.0" prefWidth="200.0">
                      <children>
                         <BarChart fx:id="genderBarChart" title="Gender">
@@ -77,19 +80,19 @@
                   <Insets top="30.0" />
                </padding>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox>
                <children>
-                  <TitledPane animated="false" text="Historical data" />
+                  <TitledPane animated="false" style="-fx-font-size: 16;" text="Historical data" />
                   <HBox>
                      <children>
                         <AnchorPane prefHeight="387.0" prefWidth="854.0">
                            <children>
                               <LineChart fx:id="lineChart" layoutX="81.0" layoutY="28.0" prefHeight="310.0" prefWidth="575.0" title="National average last 12 months">
                                 <xAxis>
-                                  <NumberAxis side="BOTTOM" />
+                                  <NumberAxis side="BOTTOM" style="-fx-tick-label-font-size: 15;" />
                                 </xAxis>
                                 <yAxis>
-                                  <NumberAxis side="LEFT" />
+                                  <NumberAxis side="LEFT" style="-fx-tick-label-font-size: 15;" />
                                 </yAxis>
                               </LineChart>
                            </children>
