@@ -14,6 +14,7 @@ public class SceneNavigator {
     public static final String MAINSCREEN    = "MainScreen.fxml";
     public static final String FILTER = "FxFiltering.fxml";
     public static final String SERVICEPROVIDER = "ServiceProvider.fxml";
+    public static final String LOGINSCREEN = "LoginScreen.fxml";
     
     private static FxAppController fxAppController;
     

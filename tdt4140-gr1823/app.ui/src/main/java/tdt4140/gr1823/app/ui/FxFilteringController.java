@@ -50,7 +50,7 @@ public class FxFilteringController implements Initializable {
 		System.out.println("Loading user data...");
 		
 		cbGender.setItems(genders);
-		cbGender.setValue(""); //default value
+		cbGender.setValue("NOT SPECIFIED"); //default value
 		
 		textInput1.setText(""); //default value 
 		textInput2.setText(""); //default value
