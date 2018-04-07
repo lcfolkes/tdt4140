@@ -15,7 +15,7 @@ public class FxApp extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-    		    		primaryStage.setTitle("National step database"); //title of window
+    		primaryStage.setTitle("National step database"); //title of window
     		primaryStage.setScene(createScene(loadMainPane()));
     		primaryStage.show();
     		System.out.println("java version: "+System.getProperty("java.version"));

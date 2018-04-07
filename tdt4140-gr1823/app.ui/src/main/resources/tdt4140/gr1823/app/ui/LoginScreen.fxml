@@ -12,12 +12,12 @@
 
 <Pane>
 <children>
-      <PasswordField fx:id="password" layoutX="154.0" layoutY="235.0" promptText="Password">
+      <PasswordField fx:id="passwordField" layoutX="154.0" layoutY="235.0" promptText="Password">
          <font>
             <Font name="Gill Sans" size="13.0" />
          </font>
       </PasswordField>
-      <TextField fx:id="username" layoutX="154.0" layoutY="200.0" promptText="Username">
+      <TextField fx:id="usernameField" layoutX="154.0" layoutY="200.0" promptText="Username">
          <font>
             <Font name="Gill Sans" size="13.0" />
          </font>
