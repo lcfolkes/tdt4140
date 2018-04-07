@@ -47,17 +47,10 @@ public class UserManager {
 	}
 	
   public void setShareValue(String username, int share) throws SQLException {
-	   System.out.println("UPDATE Person SET Share =" + share + " WHERE Username = '" + username + "';");
 	   myCon.execute("UPDATE Person SET Share=" + share + " WHERE Username = '" + username + "';" );
 	   
   }
 
-   
-    public static void main(String[] args) throws Exception {
-	UserManager um = new UserManager();
-	//User user = new User("Andreas", LocalDate.of(1995, 06,10), Gender.MALE, "test@mail.com", "username", "password");
-	//um.addUser(user);
-	System.out.println(um.getNumberOfUsers());
-    }
+ 
     
 }

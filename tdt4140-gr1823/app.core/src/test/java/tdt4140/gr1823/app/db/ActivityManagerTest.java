@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue; //Sprint 3
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -64,6 +65,7 @@ public class ActivityManagerTest {
 		
 		DB_Manager.execute("ALTER TABLE Person RENAME TO PersonTemp;");
 		DB_Manager.execute("ALTER TABLE DailySteps RENAME TO DailyStepsTemp;");
+		TimeUnit.SECONDS.sleep(1);
 		DB_Manager.execute("ALTER TABLE testDailySteps RENAME TO DailySteps;");
 		DB_Manager.execute("ALTER TABLE testPerson RENAME TO Person;");
 		
@@ -75,6 +77,7 @@ public class ActivityManagerTest {
 		DBManager DB_Manager = new DBManager();
 		DB_Manager.execute("ALTER TABLE DailySteps RENAME TO testDailySteps;");
 		DB_Manager.execute("ALTER TABLE Person RENAME TO testPerson;");
+		TimeUnit.SECONDS.sleep(1);
 		DB_Manager.execute("ALTER TABLE DailyStepsTemp RENAME TO DailySteps;");
 		DB_Manager.execute("ALTER TABLE PersonTemp RENAME TO Person;");
 		
