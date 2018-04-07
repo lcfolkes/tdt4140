@@ -35,7 +35,7 @@
                                        <children>
                                           <HBox alignment="center" spacing="25" BorderPane.alignment="CENTER">
                                              <children>
-                                                <Label text="Specify gender:" />
+                                                <Label prefHeight="18.0" prefWidth="217.0" text="Specify gender:" />
                                                 <Label text="Specify age groups" />
                                              </children>
                                           </HBox>
@@ -101,6 +101,26 @@
                             <NumberAxis side="LEFT" />
                           </yAxis>
                         </BarChart>
+                        <VBox prefHeight="250.0" prefWidth="350.0">
+                           <children>
+                              <Label alignment="BASELINE_CENTER" prefHeight="30.0" prefWidth="200.0" style="-fx-font-size: 16;" text="Steps">
+                                 <VBox.margin>
+                                    <Insets left="70.0" top="40.0" />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="numUsers" alignment="BASELINE_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0" promptText="number of users" style="-fx-border-width: 5; -fx-background-color: lightgrey; -fx-font-size: 20;" text="145">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets left="70.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
                </children>
