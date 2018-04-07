@@ -44,7 +44,7 @@ public class FxFilteringController implements Initializable {
 	
 	@FXML 
 	protected Button backButton;
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("Loading user data...");
