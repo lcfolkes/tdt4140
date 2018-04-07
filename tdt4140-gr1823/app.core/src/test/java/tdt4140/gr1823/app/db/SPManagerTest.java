@@ -23,8 +23,8 @@ public SPManager SP;
 	
 	@Test
 	public void testSetRecommendedDailyActivity() {
-		SP.setRecommendedDailyActivity(6969);
-		assertEquals(SP.getRecommendedDailyActivity(), 6969);
+		SP.setRecommendedDailyActivity(10000);
+		assertEquals(SP.getRecommendedDailyActivity(), 10000);
 	}
 
 }

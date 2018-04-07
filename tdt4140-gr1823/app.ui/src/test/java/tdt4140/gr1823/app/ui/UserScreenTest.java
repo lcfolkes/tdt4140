@@ -17,10 +17,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import tdt4140.gr1823.app.HttpCommunication.HttpCommunication;
 import tdt4140.gr1823.app.db.ActivityManager;
 import tdt4140.gr1823.app.db.SPManager;
 import javafx.scene.input.KeyCode;
@@ -31,6 +33,7 @@ import static org.junit.Assert.*;
 import static org.hamcrest.core.Is.is;
 import static org.testfx.api.FxAssert.verifyThat;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 
@@ -100,6 +103,29 @@ public class UserScreenTest extends ApplicationTest {
 		clickOn("#recordUsernameButton");
 		verifyThat("#getDailyActivity", NodeMatchers.hasText("You have no recorded data for today. Are you sure you entered the correct ID?"));
 	}
+	
+	@Test
+	public void testFieldExistSharing() {
+		Assert.assertTrue(find("#yesBox") instanceof CheckBox);
+		Assert.assertTrue(find("#noBox") instanceof CheckBox);
+		Assert.assertTrue(find("#acceptDataSharingText") instanceof Text);
+	}
+	
+	
+//	@Test
+//	public void testGetValueOfSharing() throws IOException {
+//		HttpCommunication http = new HttpCommunication();
+//		if (http.getShareValue("hilde@gmail.com")) {
+//			clickOn("#setUsername");
+//			write("hilde@gmail.com");
+//			clickOn("#recordUsernameButton");
+//			clickOn("yesBox");
+//			Assert.assertFalse(http.getShareValue("hilde@gmail.com"));
+//			clickOn("noBox");
+//			Assert.assertTrue(http.getShareValue("hilde@gmail.com"));	
+//		}
+//	}
+	
 	
 	public <T extends Node> T find(final String query) {
 		return lookup(query).query();

@@ -28,9 +28,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
-import tdt4140.gr1823.app.ui.MainScreen;
 
-@Ignore
 public class MainScreenTest extends ApplicationTest {
  
 	private MainScreenController testController;
@@ -46,11 +44,6 @@ public class MainScreenTest extends ApplicationTest {
 	public static void headless() {
     	if (Boolean.valueOf(System.getProperty("gitlab-ci", "false"))) {
     		GitlabCISupport.headless(); }
-	}
-	
-	@Before 
-	public void setUpClass() throws Exception{
-		ApplicationTest.launch(MainScreen.class);
 	}
 	
 	
