@@ -35,10 +35,29 @@ public class ActivityManager {
 		return getDailyActivity(Username, LocalDate.now());
 	}
 	
+	
+	
+	// SPRINT 3 - UPDATE
+	
+	public void deleteDailyActivity(String Username, LocalDate Date) throws SQLException {
+		myCon.connect();
+		myCon.execute("DELETE FROM DailySteps WHERE Username = '"+ Username + "' AND Date = '" + Date + "';");
+		try {
+			myCon.disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// SPRINT 3 - END of UPDATE
+	
+	
+	
+	
     
     public void addActivity(DailyActivity activity) {
 	try {
-		 myCon.execute("INSERT INTO DailyActivity VALUES ('"+ activity.getUser().getUsername() +"',"+ activity.getDate()+", "+ activity.getSteps()+"',"+ activity.getUser().getSharing()+");");
+		 myCon.execute("INSERT INTO DailySteps VALUES ('"+ activity.getUser().getUsername() +"','"+ activity.getDate()+"', "+ activity.getSteps()+","+ activity.getUser().getSharing()+");");
 	} catch (SQLException e) {
 		e.printStackTrace();
 		}

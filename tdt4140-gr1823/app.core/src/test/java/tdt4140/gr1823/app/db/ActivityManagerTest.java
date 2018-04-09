@@ -1,10 +1,12 @@
 package tdt4140.gr1823.app.db;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue; //Sprint 3
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,6 +14,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import com.mysql.jdbc.exceptions.MySQLSyntaxErrorException;
 
 import tdt4140.gr1823.app.core.DailyActivity;
 import tdt4140.gr1823.app.core.Gender;
@@ -24,28 +28,70 @@ public class ActivityManagerTest {
 	//Attributtes
 	protected ActivityManager A_Manager;
 	protected DailyActivity activity;
+	protected DailyActivity testUserDailyActivity; //Sprint 3
 	protected User user;
+	protected static User testUser1;
+	protected static User testUser2;
+	protected static User testUser3;
+	protected static User testUser4;
+	protected static User testUser5;
+	protected static User testUser6;
+	protected User testUser;	//Sprint 3
+	protected UserManager UserManager; //Sprint 3
+	protected static DBManager DB_Manager;
 	
 	
-	
+	//SPRINT 3 - UPDATE (start)
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-	}
+		DB_Manager = new DBManager();
 
+		testUser1 = new User("testUser1@gmail.com", "Password1", "testUser1", LocalDate.of(2000, 06, 20), Gender.MALE, 1);
+		testUser2 = new User("testUser2@gmail.com", "Password1", "testUser2", LocalDate.of(1940, 06, 20), Gender.MALE, 1);
+		testUser3 = new User("testUser3@gmail.com", "Password1", "testUser3", LocalDate.of(1960, 06, 20), Gender.FEMALE, 1);
+		testUser4 = new User("testUser4@gmail.com", "Password1", "testUser4", LocalDate.of(1980, 06, 20), Gender.MALE, 1);
+		testUser5 = new User("testUser5@gmail.com", "Password1", "testUser5", LocalDate.of(2010, 06, 20), Gender.FEMALE, 1);
+		testUser6 = new User("testUser6@gmail.com", "Password1", "testUser6", LocalDate.of(2010, 06, 20), Gender.FEMALE, 1);
+		
+		DB_Manager.execute("ALTER TABLE Person RENAME TO PersonTemp;");
+		DB_Manager.execute("ALTER TABLE DailySteps RENAME TO DailyStepsTemp;");
+		TimeUnit.SECONDS.sleep(1);
+		DB_Manager.execute("ALTER TABLE testDailySteps RENAME TO DailySteps;");
+		DB_Manager.execute("ALTER TABLE testPerson RENAME TO Person;");
+		
+		DB_Manager.execute("CREATE TABLE testGetElement (kolonne1 int, kolonne2 int NOT NULL, PRIMARY KEY (kolonne2));");
+		DB_Manager.execute("INSERT INTO testGetElement VALUES (null,'"+2+"');");
+	}
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+		DBManager DB_Manager = new DBManager();
+		DB_Manager.execute("ALTER TABLE DailySteps RENAME TO testDailySteps;");
+		DB_Manager.execute("ALTER TABLE Person RENAME TO testPerson;");
+		TimeUnit.SECONDS.sleep(1);
+		DB_Manager.execute("ALTER TABLE DailyStepsTemp RENAME TO DailySteps;");
+		DB_Manager.execute("ALTER TABLE PersonTemp RENAME TO Person;");
+
+		DB_Manager.execute("DROP TABLE testGetElement;");
 	}
 
-	@After
-	public void tearDown() throws Exception {
-	}
-
+	//SPRINT 3 - UPDATE (end)
 	
 	@Before
 	public void setUp() throws Exception {
 		A_Manager  = new ActivityManager();
-		user = new User("andreas@gmail.com","Password1","Andreas", LocalDate.of(1995, 06, 20), Gender.MALE,1);
+		UserManager = new UserManager(); //Sprint 3
+		user = new User("andreas@gmail.com","Password1","Andreas", LocalDate.of(1995, 06, 20), Gender.MALE,1); 
+		testUser = new User("testActivityManager@gmail.com", "Password1", "testBRUKER", LocalDate.of(1995, 01, 11), Gender.MALE,1); //Sprint 3
+		testUserDailyActivity = new DailyActivity(testUser, 12000, LocalDate.now()); //Sprint 3
 	}
+	
+	
+	
+	@After
+	public void tearDown() throws Exception {
+	}
+	
+	
 	
 	@Test
 	public void testGetNationalAverage() throws SQLException {
@@ -53,29 +99,8 @@ public class ActivityManagerTest {
 		Assert.assertTrue(a instanceof Double);
 	}
 	
-	@Test
-	public void testFilter() throws SQLException {
-		Double a = (double) A_Manager.filter("10", "60", "MALE");
-		Assert.assertTrue(a instanceof Double);
-		Double b = (double) A_Manager.filter("10", "60", "FEMALE");
-		Assert.assertTrue(a instanceof Double);
-		Double c = (double) A_Manager.filter("", "60", "MALE");
-		Assert.assertTrue(a instanceof Double);
-		Double d = (double) A_Manager.filter("", "60", "FEMALE");
-		Assert.assertTrue(a instanceof Double);
-		Double e = (double) A_Manager.filter("10", "", "MALE");
-		Assert.assertTrue(a instanceof Double);
-		Double f = (double) A_Manager.filter("10", "", "FEMALE");
-		Assert.assertTrue(a instanceof Double);
-		Double g = (double) A_Manager.filter("", "", "MALE");
-		Assert.assertTrue(a instanceof Double);
-		Double h = (double) A_Manager.filter("", "", "FEMALE");
-		Assert.assertTrue(a instanceof Double);
-		Double i = (double) A_Manager.filter("", "", "");
-		Assert.assertTrue(a instanceof Double);
-	}
 	
-	@Test
+	@Test //Updated during Sprint 3
 	public void testGetElementInArray() throws SQLException {
 		A_Manager.myCon.connect();
 		ArrayList<ArrayList<String>>ret = A_Manager.myCon.retrieve("SELECT AVG(Steps) FROM DailySteps");
@@ -83,6 +108,9 @@ public class ActivityManagerTest {
 		String element = ActivityManager.getElementInArray(ret);
 		Double a = (double) Double.parseDouble(element);
 		Assert.assertTrue(a instanceof Double);
+		
+		ArrayList<ArrayList<String>> test = A_Manager.myCon.retrieve("SELECT kolonne1 FROM testGetElement");
+		Assert.assertEquals(ActivityManager.getElementInArray(test), "0");
 	}
 	
 	@Test
@@ -98,19 +126,46 @@ public class ActivityManagerTest {
 		Assert.assertEquals(LocalDate.of(today.getYear() -20, today.getMonthValue(), today.getDayOfMonth()),ld);
 	}
 	
-	//The following two steps will only run when this step instance exists in the database
-	@Test
+	
+	// #SPRINT 3 UPDATE (below this mark)
+	// Implemented by Tor and Anders
+
+	@Test //UPDATED from AMANDAs original.
 	public void testGetDailyActivity() throws SQLException{
-		Double a = A_Manager.getDailyActivity("hilde@gmail.com", LocalDate.of(2018, 04, 23));
-		Assert.assertTrue(a instanceof Double);
+		assertEquals(A_Manager.getDailyActivity(testUser2.getUsername(), LocalDate.of(2018, 04, 9)), 4500, 1);
 	}
 	
-	//since this will only run successfully when Hilde has value for todays date I comment it out (Amanda)
-	/*@Test
-	public void testGetTodaySteps() throws SQLException {
-		Double a = A_Manager.getTodaySteps("hilde@gmail.com");
-		Assert.assertTrue(a instanceof Double);
-	}*/
+	
+	@Test
+	public void testGetTodaySteps() throws Exception {
+		DB_Manager.execute("INSERT INTO Person VALUES ('"+ testUser6.getUsername() +"', '"+ testUser6.getPassword()+"', '"+ testUser6.getName() +"', '"+ testUser6.getb_Date() +"', '"+ testUser6.getGender() +"', "+ testUser6.getSharing()+");");
+		DB_Manager.execute("INSERT INTO DailySteps VALUES ('"+ testUser6.getUsername() +"','"+ LocalDate.now()+"', "+ 1000 +","+ 1 +");");
+		Assert.assertEquals(A_Manager.getTodaySteps(testUser6.getUsername()), 1000, 1);
+		DB_Manager.execute("DELETE FROM Person WHERE Username = '"+"testUser6@gmail.com"+"';");
+		DB_Manager.execute("DELETE FROM DailySteps WHERE Username = '"+"testUser6@gmail.com"+"';");
+	}
+
+	
+	@Test
+	public void testFilterByAge() throws Exception {
+		assertEquals(8000, A_Manager.filter("", "20", ""), 1);
+		assertEquals(8166, A_Manager.filter("20", "", ""), 1);
+		assertEquals(6250, A_Manager.filter("50", "80", ""), 1);	
+	}
+	
+	@Test
+	public void testFilterByGenderAge() throws Exception {
+		assertEquals(8100, A_Manager.filter("", "", ""), 1);
+		assertEquals(5833, A_Manager.filter("", "", "MALE"), 1);
+		assertEquals(11500, A_Manager.filter("", "", "FEMALE"), 1);	
+		assertEquals(12000, A_Manager.filter("20", "50", "MALE"), 1);	
+	}
 	
 	
 }
+
+
+
+
+
+

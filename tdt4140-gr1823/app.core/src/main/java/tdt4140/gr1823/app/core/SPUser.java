@@ -16,7 +16,7 @@ public class SPUser {
 	//CONSTRUCTORS
 	
 	//Constructor for creating and setting up new user
-	public SPUser (String username, String password, String name, LocalDate b_Date, Gender gender,int share) throws Exception {
+	public SPUser (String username, String password) throws Exception {
 		setUsername(username);
 		setPassword(password);
 	}
