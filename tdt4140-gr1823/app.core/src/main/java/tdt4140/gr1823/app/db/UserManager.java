@@ -16,7 +16,7 @@ public class UserManager {
 	//Adds a user on the format User(Username, password, name, b_date, gender, share)
     public void addUser(User user) {
     try {
-        myCon.execute("INSERT INTO Person VALUES ('"+ user.getUsername() +"', "+ user.getPassword()+"', "+ user.getName() +"', "+ user.getb_Date() +"', '"+ user.getGender() +"', '"+ user.getSharing());
+        myCon.execute("INSERT INTO Person VALUES ('"+ user.getUsername() +"', '"+ user.getPassword()+"', '"+ user.getName() +"', '"+ user.getb_Date() +"', '"+ user.getGender() +"', "+ user.getSharing()+");");
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
@@ -24,7 +24,7 @@ public class UserManager {
  
     public void deleteUser(User user) {
     try {
-    			myCon.execute("DELETE FROM Person WHERE 'Username="+ user.getUsername()+"'");
+    			myCon.execute("DELETE FROM Person WHERE Username='"+ user.getUsername()+"'");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -47,17 +47,10 @@ public class UserManager {
 	}
 	
   public void setShareValue(String username, int share) throws SQLException {
-	   System.out.println("UPDATE Person SET Share =" + share + " WHERE Username = '" + username + "';");
 	   myCon.execute("UPDATE Person SET Share=" + share + " WHERE Username = '" + username + "';" );
 	   
   }
 
-   
-    public static void main(String[] args) throws Exception {
-	UserManager um = new UserManager();
-	//User user = new User("Andreas", LocalDate.of(1995, 06,10), Gender.MALE, "test@mail.com", "username", "password");
-	//um.addUser(user);
-	System.out.println(um.getNumberOfUsers());
-    }
+ 
     
 }

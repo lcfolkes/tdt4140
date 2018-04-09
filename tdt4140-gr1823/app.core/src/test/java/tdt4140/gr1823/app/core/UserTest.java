@@ -4,7 +4,9 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule; //Sprint 3
 import org.junit.Test;
+import org.junit.rules.ExpectedException; //Sprint 3
 
 import junit.framework.*;
 
@@ -104,6 +106,62 @@ public class UserTest extends TestCase{
 		assertEquals(1, u1.getSharing());
 		u1.setSharing(0);
 		assertEquals(0, u1.getSharing());		
-	}	
+	}
 	
+	
+	// #SPRINT 3 - UPDATE 
+	// Implements testing to check if the throw new exceptions works if the share value, username or password is set to an illegal value.
+	@Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void testIllegalValueSetSharing() {
+    	  Throwable e = null;
+
+    	  try {
+    	    u1.setSharing(2);
+    	  } catch (Throwable ex) {
+    	    e = ex;
+    	  }
+
+    	  assertTrue(e instanceof IllegalArgumentException);
+    	}
+    
+    @Test
+    public void testIllegalValueSetPassword() {
+  	  Throwable e = null;
+
+  	  try {
+  	    u1.setPassword("zxca.<&5126§'!");
+  	  } catch (Throwable ex) {
+  	    e = ex;
+  	  }
+
+  	  assertTrue(e instanceof IllegalArgumentException);
+  	}
+    
+    @Test
+    public void testIllegalValueSetUsername() {
+  	  Throwable e = null;
+
+  	  try {
+  	    u1.setUsername("<.,'1§1%&/PerPål");
+  	  } catch (Throwable ex) {
+  	    e = ex;
+  	  }
+
+  	  assertTrue(e instanceof IllegalArgumentException);
+  	}
+    
+    
+    
 }
+
+
+
+
+
+
+
+
+

@@ -17,7 +17,7 @@ public class SPManager {
   //Adds a user on the format User(Username, password, name, b_date, gender, share)
     public void addUser(SPUser user) {
     try {
-        myCon.execute("INSERT INTO Person VALUES ('"+ user.getUsername() +"', "+ user.getPassword()+"');");
+        myCon.execute("INSERT INTO User VALUES ('"+ user.getUsername() +"', '"+ user.getPassword()+"');");
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
@@ -25,7 +25,7 @@ public class SPManager {
  
     public void deleteUser(SPUser user) {
     try {
-    			myCon.execute("DELETE FROM Person WHERE 'Username="+ user.getUsername()+"'");
+    			myCon.execute("DELETE FROM User WHERE Username= '"+ user.getUsername()+"'");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -52,10 +52,5 @@ public class SPManager {
     	return 0; //Just need this for syntax
 		}
     
-    public static void main(String[] args) {
-		SPManager Test = new SPManager();
-		Test.setRecommendedDailyActivity(7043);
-		Test.getRecommendedDailyActivity();
-	}
     
 }
