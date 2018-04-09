@@ -3,6 +3,7 @@ package tdt4140.gr1823.app.db;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import tdt4140.gr1823.app.core.Gender;
 import tdt4140.gr1823.app.core.User;
 
 public class UserManager {
@@ -35,6 +36,16 @@ public class UserManager {
     		return Integer.parseInt(ActivityManager.getElementInArray(ret));
     }
    
+   public int getNumberOfUsers(String gender) throws SQLException {
+		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT COUNT(*) FROM Person WHERE Gender = '"+gender+"';");
+   		return Integer.parseInt(ActivityManager.getElementInArray(ret));
+   }
+   
+   public int getNumberOfUsers(String ageFrom, String ageTo) throws SQLException {
+		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT COUNT(*) FROM Person WHERE B_Date >= '" + ActivityManager.convertAgeToDate(Integer.parseInt(ageTo)+1)+ "' AND B_Date < '" + ActivityManager.convertAgeToDate(Integer.parseInt(ageFrom)+1)+"';");
+  		return Integer.parseInt(ActivityManager.getElementInArray(ret));
+  }
+      
    public boolean getShareValue(String username) throws SQLException { //Henter share value fra databasen. 
 	   	ArrayList<ArrayList<String>> personTable = myCon.retrieve("SELECT Share FROM Person WHERE Username = '"+username+"';");
 		ArrayList<String> rad = personTable.get(0);

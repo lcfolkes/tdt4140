@@ -3,6 +3,7 @@ package tdt4140.gr1823.app.db;
 import java.sql.SQLException;
 import java.math.*;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 
 import tdt4140.gr1823.app.core.DailyActivity;
@@ -64,17 +65,34 @@ public class ActivityManager {
     }
     
     public double getNationalAverage() throws SQLException {
-    		myCon.connect();
     		ArrayList<ArrayList<String>>ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps");
 		ArrayList<String> insideFirstArray = ret.get(0);
     		String insideSecondArray = (String) insideFirstArray.get(0);
+    		return Math.floor(Double.parseDouble(insideSecondArray));
+    }
+    
+    //This method is used in HomeScreenController to make the line chart for the historical data (national average last 12 months)
+    //Takes in the number of months you want to go back and calculate average for.
+    public double getNationalAverageByMonth(int month) throws SQLException {
+    		LocalDate today = LocalDate.now();
+    		LocalDate prevMonthDate = today.minusMonths(month);
+    		LocalDate firstDay = prevMonthDate.minusDays(prevMonthDate.getDayOfMonth()-1);
+    		LocalDate lastDay = firstDay.plusDays(prevMonthDate.getMonth().maxLength());
+    		
+    		String fromDate = firstDay.toString();
+    		String toDate = lastDay.toString();
     		try {
-    			myCon.disconnect();
+		ArrayList<ArrayList<String>>ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps WHERE Date > '"+fromDate+"' AND Date <= '"+toDate + "';");
+    		ArrayList<String> insideFirstArray = ret.get(0);
+    		if(insideFirstArray.contains(null)) {
+    			return 0;
+    		}
+		String insideSecondArray = (String) insideFirstArray.get(0);
+		return Math.floor(Double.parseDouble(insideSecondArray));
     		} catch (SQLException e) {
     			e.printStackTrace();
+    			return 0;
     		}
-    		return Math.floor(Double.parseDouble(insideSecondArray));
- 
     }
     
     //Delegater
@@ -191,7 +209,7 @@ public class ActivityManager {
     }
     
     //Helper-method to convert specified age to date-intervals
-    protected LocalDate convertAgeToDate(int age){
+    public static LocalDate convertAgeToDate(int age){
     		LocalDate today = LocalDate.now();
     		LocalDate returnDate = LocalDate.of(today.getYear() - age, today.getMonthValue(), today.getDayOfMonth());
     		return returnDate;
