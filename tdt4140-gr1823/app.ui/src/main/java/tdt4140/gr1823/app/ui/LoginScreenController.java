@@ -47,7 +47,7 @@ public class LoginScreenController implements Initializable {
 			catch(NullPointerException e1) {
 				e1.printStackTrace();
 			}
-			System.out.println(password + username);
+			//System.out.println(password + username);
 			if(validInput(username, password)) {
 				SceneNavigator.loadScene(SceneNavigator.SERVICEPROVIDER);
 			}

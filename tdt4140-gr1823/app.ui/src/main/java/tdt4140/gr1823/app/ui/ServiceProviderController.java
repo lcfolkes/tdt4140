@@ -28,6 +28,6 @@ public class ServiceProviderController implements Initializable{
   @Override 
   public void initialize(URL location, ResourceBundle resources) { 
     // TODO Auto-generated method stub 
-    System.out.println("HELLO"); 
+    //System.out.println("HELLO"); 
   } 
 } 
