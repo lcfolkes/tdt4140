@@ -25,7 +25,7 @@ public class SPManager {
  
     public void deleteUser(SPUser user) {
     try {
-    			myCon.execute("DELETE FROM Person WHERE 'Username="+ user.getUsername()+"'");
+    			myCon.execute("DELETE FROM Person WHERE Username='"+ user.getUsername()+"'");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -51,6 +51,27 @@ public class SPManager {
 		} 
     	return 0; //Just need this for syntax
 		}
+    
+    public boolean isValidPassword(String username, String password) {
+    		String dbPassword = "";
+    		System.out.println(username);
+    		try {
+    				ArrayList<ArrayList<String>> list = myCon.retrieve("SELECT Password FROM User WHERE Username='"+ username + "'");
+    				if(!list.isEmpty()) {
+    					dbPassword = ActivityManager.getElementInArray(list);
+    				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+    		if(dbPassword.equals(password)) {
+    			return true;
+    		}
+    		return false;
+    		 		
+    		
+    }
     
     public static void main(String[] args) {
 		SPManager Test = new SPManager();
