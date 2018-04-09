@@ -30,6 +30,18 @@ protected DBManager DB;
 		SP.setRecommendedDailyActivity(10000);
 		assertEquals(SP.getRecommendedDailyActivity(), 10000);
 	}
+	
+	@Test
+	public void testIsValidPasswordWrongInput() {
+		assertFalse(SP.isValidPassword("halla", "heisann"));
+	}
+	
+	@Test
+	public void testIsValidPasswordCorrectInput() {
+		assertTrue(SP.isValidPassword("helsedirektoratet", "gruppe23"));
+	}
+	
+	
 
 	// SPRINT 3 - UPDATE (starts here)
 	
