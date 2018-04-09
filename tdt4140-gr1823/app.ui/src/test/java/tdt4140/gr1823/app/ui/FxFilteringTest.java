@@ -2,6 +2,8 @@ package tdt4140.gr1823.app.ui;
 
 //import static org.junit.Assert.assertThat;
 import static org.hamcrest.MatcherAssert.assertThat;
+
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import org.junit.After;
 import org.junit.Before;
@@ -118,7 +120,7 @@ public class FxFilteringTest extends ApplicationTest {
     }
     
     @Test
-    public void testControllerConnection() {
+    public void testControllerConnection() throws InterruptedException {
 	    	try {
 	    		comboBox = (ComboBox) find("#cbGender");
 	    		text1 = (TextField) find("#textInput1");
@@ -129,6 +131,7 @@ public class FxFilteringTest extends ApplicationTest {
 	    		
 	    		/* Testing selected item choicebox*/
 	    		clickOn(comboBox);
+	        	type(KeyCode.DOWN);
 	        	type(KeyCode.DOWN);
 	        	type(KeyCode.ENTER);
 	        	Assert.assertEquals("MALE", comboBox.getValue());

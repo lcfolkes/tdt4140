@@ -35,6 +35,7 @@ public class ActivityManagerTest {
 	protected static User testUser3;
 	protected static User testUser4;
 	protected static User testUser5;
+	protected static User testUser6;
 	protected User testUser;	//Sprint 3
 	protected UserManager UserManager; //Sprint 3
 	protected static DBManager DB_Manager;
@@ -44,24 +45,13 @@ public class ActivityManagerTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		DB_Manager = new DBManager();
-		DB_Manager.execute("CREATE TABLE testPerson LIKE Person;");
-		DB_Manager.execute("CREATE TABLE testDailySteps LIKE DailySteps;");
+
 		testUser1 = new User("testUser1@gmail.com", "Password1", "testUser1", LocalDate.of(2000, 06, 20), Gender.MALE, 1);
 		testUser2 = new User("testUser2@gmail.com", "Password1", "testUser2", LocalDate.of(1940, 06, 20), Gender.MALE, 1);
 		testUser3 = new User("testUser3@gmail.com", "Password1", "testUser3", LocalDate.of(1960, 06, 20), Gender.FEMALE, 1);
 		testUser4 = new User("testUser4@gmail.com", "Password1", "testUser4", LocalDate.of(1980, 06, 20), Gender.MALE, 1);
 		testUser5 = new User("testUser5@gmail.com", "Password1", "testUser5", LocalDate.of(2010, 06, 20), Gender.FEMALE, 1);
-		DB_Manager.execute("INSERT INTO testPerson VALUES ('"+ testUser1.getUsername() +"', '"+ testUser1.getPassword()+"', '"+ testUser1.getName() +"', '"+ testUser1.getb_Date() +"', '"+ testUser1.getGender() +"', "+ testUser1.getSharing()+");");
-		DB_Manager.execute("INSERT INTO testPerson VALUES ('"+ testUser2.getUsername() +"', '"+ testUser2.getPassword()+"', '"+ testUser2.getName() +"', '"+ testUser2.getb_Date() +"', '"+ testUser2.getGender() +"', "+ testUser2.getSharing()+");");
-		DB_Manager.execute("INSERT INTO testPerson VALUES ('"+ testUser3.getUsername() +"', '"+ testUser3.getPassword()+"', '"+ testUser3.getName() +"', '"+ testUser3.getb_Date() +"', '"+ testUser3.getGender() +"', "+ testUser3.getSharing()+");");
-		DB_Manager.execute("INSERT INTO testPerson VALUES ('"+ testUser4.getUsername() +"', '"+ testUser4.getPassword()+"', '"+ testUser4.getName() +"', '"+ testUser4.getb_Date() +"', '"+ testUser4.getGender() +"', "+ testUser4.getSharing()+");");
-		DB_Manager.execute("INSERT INTO testPerson VALUES ('"+ testUser5.getUsername() +"', '"+ testUser5.getPassword()+"', '"+ testUser5.getName() +"', '"+ testUser5.getb_Date() +"', '"+ testUser5.getGender() +"', "+ testUser5.getSharing()+");");
-		
-		DB_Manager.execute("INSERT INTO testDailySteps VALUES ('"+ testUser1.getUsername() +"','"+ LocalDate.now()+"', "+ 1000 +","+ 1 +");");
-		DB_Manager.execute("INSERT INTO testDailySteps VALUES ('"+ testUser2.getUsername() +"','"+ LocalDate.now()+"', "+ 4500 +","+ 1 +");");
-		DB_Manager.execute("INSERT INTO testDailySteps VALUES ('"+ testUser3.getUsername() +"','"+ LocalDate.now()+"', "+ 8000 +","+ 1 +");");
-		DB_Manager.execute("INSERT INTO testDailySteps VALUES ('"+ testUser4.getUsername() +"','"+ LocalDate.now()+"', "+ 12000 +","+ 1 +");");
-		DB_Manager.execute("INSERT INTO testDailySteps VALUES ('"+ testUser5.getUsername() +"','"+ LocalDate.now()+"', "+ 15000 +","+ 1 +");");
+		testUser6 = new User("testUser6@gmail.com", "Password1", "testUser6", LocalDate.of(2010, 06, 20), Gender.FEMALE, 1);
 		
 		DB_Manager.execute("ALTER TABLE Person RENAME TO PersonTemp;");
 		DB_Manager.execute("ALTER TABLE DailySteps RENAME TO DailyStepsTemp;");
@@ -80,22 +70,8 @@ public class ActivityManagerTest {
 		TimeUnit.SECONDS.sleep(1);
 		DB_Manager.execute("ALTER TABLE DailyStepsTemp RENAME TO DailySteps;");
 		DB_Manager.execute("ALTER TABLE PersonTemp RENAME TO Person;");
-		
-		DB_Manager.execute("DELETE FROM testDailySteps WHERE Username = '"+"testUser1@gmail.com"+"';");
-		DB_Manager.execute("DELETE FROM testDailySteps WHERE Username = '"+"testUser2@gmail.com"+"';");
-		DB_Manager.execute("DELETE FROM testDailySteps WHERE Username = '"+"testUser3@gmail.com"+"';");
-		DB_Manager.execute("DELETE FROM testDailySteps WHERE Username = '"+"testUser4@gmail.com"+"';");
-		DB_Manager.execute("DELETE FROM testDailySteps WHERE Username = '"+"testUser5@gmail.com"+"';");
-		
-		DB_Manager.execute("DELETE FROM testPerson WHERE Username = '"+"testUser1@gmail.com"+"';");
-		DB_Manager.execute("DELETE FROM testPerson WHERE Username = '"+"testUser2@gmail.com"+"';");
-		DB_Manager.execute("DELETE FROM testPerson WHERE Username = '"+"testUser3@gmail.com"+"';");
-		DB_Manager.execute("DELETE FROM testPerson WHERE Username = '"+"testUser4@gmail.com"+"';");
-		DB_Manager.execute("DELETE FROM testPerson WHERE Username = '"+"testUser5@gmail.com"+"';");
 
 		DB_Manager.execute("DROP TABLE testGetElement;");
-		DB_Manager.execute("DROP TABLE testPerson;");
-		DB_Manager.execute("DROP TABLE testDailySteps;");
 	}
 
 	//SPRINT 3 - UPDATE (end)
@@ -156,13 +132,17 @@ public class ActivityManagerTest {
 
 	@Test //UPDATED from AMANDAs original.
 	public void testGetDailyActivity() throws SQLException{
-		assertEquals(A_Manager.getDailyActivity(testUser2.getUsername(), LocalDate.now()), 4500, 1);
+		assertEquals(A_Manager.getDailyActivity(testUser2.getUsername(), LocalDate.of(2018, 04, 9)), 4500, 1);
 	}
 	
 	
 	@Test
 	public void testGetTodaySteps() throws Exception {
-		Assert.assertEquals(A_Manager.getTodaySteps(testUser1.getUsername()), 1000, 1);
+		DB_Manager.execute("INSERT INTO Person VALUES ('"+ testUser6.getUsername() +"', '"+ testUser6.getPassword()+"', '"+ testUser6.getName() +"', '"+ testUser6.getb_Date() +"', '"+ testUser6.getGender() +"', "+ testUser6.getSharing()+");");
+		DB_Manager.execute("INSERT INTO DailySteps VALUES ('"+ testUser6.getUsername() +"','"+ LocalDate.now()+"', "+ 1000 +","+ 1 +");");
+		Assert.assertEquals(A_Manager.getTodaySteps(testUser6.getUsername()), 1000, 1);
+		DB_Manager.execute("DELETE FROM Person WHERE Username = '"+"testUser6@gmail.com"+"';");
+		DB_Manager.execute("DELETE FROM DailySteps WHERE Username = '"+"testUser6@gmail.com"+"';");
 	}
 
 	

@@ -112,6 +112,7 @@ public class ActivityManager {
 	    	}
     }
     
+  //this method should be moved to DBManager
   //Helper-method to accsess the string placed inside retrieveArray from DB
   	public static String getElementInArray(ArrayList<ArrayList<String>> retrieveArray) {
       	ArrayList<String> insideFirstArray = retrieveArray.get(0);
