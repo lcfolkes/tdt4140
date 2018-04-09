@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.regex.*;
 
+// Lagt til for å kunne commit'e.
 public class User {
 	
 	//Attributes
