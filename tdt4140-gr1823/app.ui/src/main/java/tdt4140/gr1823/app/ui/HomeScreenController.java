@@ -10,6 +10,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 public class HomeScreenController implements Initializable{
@@ -33,9 +34,16 @@ public class HomeScreenController implements Initializable{
 	@FXML
 	protected LineChart<Integer,Integer> lineChart;
 	
+	@FXML
+	protected TextField numUsers;
+	
+
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {	
+		
+	numUsers.setText("145");
 		
 	ObservableList<PieChart.Data> genderPieChartData =
         FXCollections.observableArrayList(
@@ -79,6 +87,7 @@ public class HomeScreenController implements Initializable{
 	   averageData.getData().add(new XYChart.Data<>(7, 25000));
 	   lineChart.getData().add(averageData);
 
+	
    
 
    
