@@ -1,14 +1,18 @@
 package tdt4140.gr1823.app.ui;
 
+import java.awt.List;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import tdt4140.gr1823.app.db.ActivityManager;
@@ -23,7 +27,8 @@ public class FxAnalyzeController implements Initializable {
 	
 	//get from Gender() enum/class, choices in choicebox for gender selection
 	ObservableList<String> genders = FXCollections.observableArrayList("","MALE", "FEMALE"); 
-
+	//ObservableList<XYChart.Series<String, Integer>> data = FXCollections.observableArrayList(); 
+     
 	@FXML
 	protected Button submitButton;
 	
@@ -45,7 +50,7 @@ public class FxAnalyzeController implements Initializable {
 	@FXML
 	protected BarChart<String,Integer> BarChart;
 	
-	XYChart.Series<String, Integer> chartData = new XYChart.Series<>();
+	Series<String, Integer> chartData = new Series<>();
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -62,7 +67,7 @@ public class FxAnalyzeController implements Initializable {
 		
 		//submitButton.getStyleClass().add("button.success");
 		
-		updateBarChart(7000);
+		initializeBarChart();
 		
 		submitButton.setOnAction(e -> {
 			try {
@@ -112,10 +117,9 @@ public class FxAnalyzeController implements Initializable {
 		return false;
 	}
 	
-	private void updateBarChart(int result) {
+	private void initializeBarChart() {
 		int nationalAverage = 0;
 		int recDailyActivity = 0;
-	
 		try {
 			nationalAverage = (int) activityManager.getNationalAverage();
 			recDailyActivity = (int) SPManager.getRecommendedDailyActivity();
@@ -124,15 +128,20 @@ public class FxAnalyzeController implements Initializable {
 		} catch (SQLException g) {
 			g.printStackTrace();
 		}
-		
 		chartData.getData().clear();
-	   chartData.setName("Compare results");       
-	   chartData.getData().add(new XYChart.Data<>("National average", nationalAverage));
-	   chartData.getData().add(new XYChart.Data<>("Recommended daily activity", recDailyActivity));
-	   chartData.getData().add(new XYChart.Data<>("Filter result", result));
-	   BarChart.getData().add(chartData);
+		chartData.setName("Compare results");       
+		chartData.getData().add(new XYChart.Data<>("National average", nationalAverage));
+		chartData.getData().add(new XYChart.Data<>("Recommended daily activity", recDailyActivity));
+		chartData.getData().add(new XYChart.Data<>("Filter result", 0));
+		BarChart.getData().add(chartData);
 	}
-
+	
+	private void updateBarChart (int rs) {
+		chartData.getData().remove(2);
+	   chartData.getData().add(new XYChart.Data<>("Filter result", rs));
+	   //BarChart.getData().add(chartData);
+	}
+ 
 	//To get the values of the selected items. Both gender and age
 	//Need to implement method that returns enum Gender object? 
 	private void getChoice(ComboBox<String> comboBox, TextField input1, TextField input2) throws NumberFormatException, SQLException {
@@ -162,14 +171,14 @@ public class FxAnalyzeController implements Initializable {
 			String gender = comboBox.getValue();
 			String fromAge = input1.getText();
 			String toAge = input2.getText();
-			double average = activityManager.filter(fromAge, toAge, gender);
-			int intAverage = (int) average;
-			updateBarChart(intAverage);
+			double rs = activityManager.filter(fromAge, toAge, gender);
+			int result = (int) rs;
+			updateBarChart(result);
 			
 			//BarChart.getData().add(chartData);
 				
-			if(average != 0){
-				averageLabel.setText(Integer.toString(intAverage));
+			if(result != 0){
+				averageLabel.setText(Integer.toString(result));
 			}
 			else{
 				averageLabel.setText("Cannot find data for this request in the database.");
