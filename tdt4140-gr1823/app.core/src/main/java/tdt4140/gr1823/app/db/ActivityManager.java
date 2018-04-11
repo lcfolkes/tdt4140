@@ -98,7 +98,7 @@ public class ActivityManager {
     //Delegater
     public double filter(String ageFrom, String ageTo, String gender) throws NumberFormatException, SQLException{
     	
-	    	if(ageFrom.equals("") && ageTo.equals("") && gender.equals("")) {
+	    	if(ageFrom.equals("") && ageTo.equals("") && !(gender.equals("MALE") || gender.equals("FEMALE"))) {
 	    		return getNationalAverage();
 	    	}
 	    	else if(gender.equals("")){

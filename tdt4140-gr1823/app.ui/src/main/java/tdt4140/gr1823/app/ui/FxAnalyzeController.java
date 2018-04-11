@@ -11,6 +11,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.Chart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.*;
@@ -48,7 +49,7 @@ public class FxAnalyzeController implements Initializable {
 	protected Label averageLabel;
 	
 	@FXML
-	protected BarChart<String,Integer> BarChart;
+	protected BarChart<String,Integer> barChart;
 	
 	Series<String, Integer> chartData = new Series<>();
 	
@@ -129,17 +130,18 @@ public class FxAnalyzeController implements Initializable {
 			g.printStackTrace();
 		}
 		chartData.getData().clear();
-		chartData.setName("Compare results");       
+		barChart.setLegendVisible(false);
+		//chartData.setName("Compare results");       
 		chartData.getData().add(new XYChart.Data<>("National average", nationalAverage));
 		chartData.getData().add(new XYChart.Data<>("Recommended daily activity", recDailyActivity));
 		chartData.getData().add(new XYChart.Data<>("Filter result", 0));
-		BarChart.getData().add(chartData);
+		barChart.getData().add(chartData);
 	}
 	
 	private void updateBarChart (int rs) {
 		chartData.getData().remove(2);
-	   chartData.getData().add(new XYChart.Data<>("Filter result", rs));
-	   //BarChart.getData().add(chartData);
+		chartData.getData().add(new XYChart.Data<>("Filter result", rs));
+	    //BarChart.getData().add(chartData);
 	}
  
 	//To get the values of the selected items. Both gender and age
@@ -172,6 +174,7 @@ public class FxAnalyzeController implements Initializable {
 			String fromAge = input1.getText();
 			String toAge = input2.getText();
 			double rs = activityManager.filter(fromAge, toAge, gender);
+			System.out.println(fromAge + toAge +  gender);
 			int result = (int) rs;
 			updateBarChart(result);
 			
