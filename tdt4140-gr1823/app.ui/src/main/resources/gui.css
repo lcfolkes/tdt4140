@@ -3,7 +3,7 @@
 }
 
 #headerLabel {
-    -fx-background-color: steelblue;
+    -fx-background-image: url("https://helsedirektoratet.no/Style%20Library/Images/logo-fb.png");
     -fx-text-fill: white;
     -fx-padding: 5px;
 }
@@ -14,12 +14,26 @@
 	-fx-outer-border : #cecece;
 }
 
-/*Background color different scenes*/
-/* 
-#mainScreen {
-    -fx-background-color: aliceblue;
-}
 
+/*Background color different scenes*/
+/*.background{
+	-fx-background-image: url("https://helsedirektoratet.no/Style%20Library/Images/logo-fb.png");
+	-fx-opacity:0.6;
+}*/
+ 
+/* #analyzeScreen {
+	-fx-background-image: url("https://helsedirektoratet.no/Style%20Library/Images/logo-fb.png");
+	-fx-background-opacity:0.6;
+}*/
+
+/* #homeScreen {
+	-fx-background-image: url("https://helsedirektoratet.no/Style%20Library/Images/logo-fb.png");
+}*/
+
+.chart-bar{
+	-fx-background-image: url("https://helsedirektoratet.no/Style%20Library/Images/logo-fb.png");
+}
+/*
 #fxFiltering {
     -fx-background-color: coral;
 }*/
