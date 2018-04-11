@@ -21,7 +21,6 @@
          <children>
             <VBox>
                <children>
-                  <Button fx:id="backButton" mnemonicParsing="false" text="Back" />
                   <TitledPane animated="false" style="-fx-font-size: 16;" text=" Filter" />
                   <StackPane fx:id="fxFiltering" prefHeight="281.0" prefWidth="851.0" stylesheets="tdt4140.gr1823.app.ui.gui.css">
                      <children>

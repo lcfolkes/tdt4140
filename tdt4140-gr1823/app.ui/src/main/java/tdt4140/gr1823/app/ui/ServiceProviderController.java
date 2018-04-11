@@ -14,16 +14,16 @@ public class ServiceProviderController implements Initializable{
   private TabPane tabPane; 
    
   @FXML 
-  private Tab mainScreenTab; 
+  private Tab homeScreenTab; 
    
   @FXML  
-  private MainScreenController mainScreenController; 
+  private HomeScreenController homeScreenController; 
    
   @FXML 
-  private Tab filteringTab; 
+  private Tab analyzeTab; 
    
   @FXML 
-  private FxFilteringController fxFilteringController; 
+  private FxAnalyzeController fxAnalyzeController; 
  
   @Override 
   public void initialize(URL location, ResourceBundle resources) { 

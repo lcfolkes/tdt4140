@@ -19,6 +19,8 @@ public class HomeScreen extends Application {
     	Parent root = FXMLLoader.load(getClass().getResource("FxHomeScreen.fxml"));
         Scene mainScene = new Scene(root);
         window.setScene(mainScene);
+       // mainScene.getStylesheets().add
+        //(HomeScreen.class.getResource("gui.css").toExternalForm());
         window.show();
     }
     	

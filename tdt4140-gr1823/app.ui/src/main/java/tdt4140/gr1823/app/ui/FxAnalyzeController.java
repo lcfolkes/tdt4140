@@ -38,9 +38,6 @@ public class FxAnalyzeController implements Initializable {
 	
 	@FXML
 	protected Label errorLabel;
-		
-	@FXML 
-	protected Button backButton;
 	
 	@FXML
 	protected Label averageLabel;
@@ -65,6 +62,8 @@ public class FxAnalyzeController implements Initializable {
 		
 		//submitButton.getStyleClass().add("button.success");
 		
+		updateBarChart(7000);
+		
 		submitButton.setOnAction(e -> {
 			try {
 				getChoice(cbGender, textInput1, textInput2);
@@ -76,16 +75,9 @@ public class FxAnalyzeController implements Initializable {
 				e1.printStackTrace();
 			}
 			
-		updateBarChart(0);
+		
 			
 		});
-		
-		backButton.setOnAction(e -> {
-			SceneNavigator.loadScene(SceneNavigator.MAINSCREEN);
-		});
-		
-		//styling
-		backButton.getStyleClass().add("button");
 	}
 	
 	//checking if age group input is valid. ie. not a string unless empty string and not invalid integer
@@ -120,10 +112,9 @@ public class FxAnalyzeController implements Initializable {
 		return false;
 	}
 	
-	private void updateBarChart(int average) {
+	private void updateBarChart(int result) {
 		int nationalAverage = 0;
 		int recDailyActivity = 0;
-		int result = 0;
 	
 		try {
 			nationalAverage = (int) activityManager.getNationalAverage();
@@ -132,8 +123,8 @@ public class FxAnalyzeController implements Initializable {
 			f.printStackTrace();
 		} catch (SQLException g) {
 			g.printStackTrace();
-		}   
-	
+		}
+		
 		chartData.getData().clear();
 	   chartData.setName("Compare results");       
 	   chartData.getData().add(new XYChart.Data<>("National average", nationalAverage));
@@ -171,14 +162,14 @@ public class FxAnalyzeController implements Initializable {
 			String gender = comboBox.getValue();
 			String fromAge = input1.getText();
 			String toAge = input2.getText();
-			Double average = activityManager.filter(fromAge, toAge, gender);
-			int intAverage = average.intValue();
+			double average = activityManager.filter(fromAge, toAge, gender);
+			int intAverage = (int) average;
 			updateBarChart(intAverage);
 			
-			BarChart.getData().add(chartData);
+			//BarChart.getData().add(chartData);
 				
 			if(average != 0){
-				averageLabel.setText(average.toString());
+				averageLabel.setText(Integer.toString(intAverage));
 			}
 			else{
 				averageLabel.setText("Cannot find data for this request in the database.");

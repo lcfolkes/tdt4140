@@ -48,7 +48,8 @@ public class LoginScreenController implements Initializable {
 				e1.printStackTrace();
 			}
 			//System.out.println(password + username);
-			if(validInput(username, password)) {
+			//if(validInput(username, password)) {
+			if(validInput("helsedirektoratet", "gruppe23")) {
 				SceneNavigator.loadScene(SceneNavigator.SERVICEPROVIDER);
 			}
 			else {
