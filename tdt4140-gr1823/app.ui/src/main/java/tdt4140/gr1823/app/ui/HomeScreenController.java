@@ -9,7 +9,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
@@ -110,7 +112,7 @@ public class HomeScreenController implements Initializable{
 	   	
 	   	
    XYChart.Series<String, Integer> genderData = new XYChart.Series<>();
-	   genderData.setName("GENDER");       
+	   genderData.setName("GENDER");  
 	   genderData.getData().add(new XYChart.Data<>("MALE", maleSteps));
 	   genderData.getData().add(new XYChart.Data<>("FEMALE", femaleSteps));
 	   genderBarChart.getData().add(genderData);
@@ -180,8 +182,10 @@ public class HomeScreenController implements Initializable{
 	   averageData.getData().add(new XYChart.Data<>(11, one));
 	   averageData.getData().add(new XYChart.Data<>(12, today));
 	   lineChart.getData().add(averageData);
-		   
- 
+	   
+	   lineChart.getXAxis().setLabel("Months");
+	   lineChart.getYAxis().setLabel("Number of steps");
+	   
 	}//end initialize
 	
 }

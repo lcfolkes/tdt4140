@@ -94,12 +94,17 @@
                               </BarChart>
                               <VBox prefHeight="50.0" prefWidth="256.0">
                                  <children>
-                                    <Label prefHeight="18.0" prefWidth="391.0" text="Steps" textAlignment="CENTER">
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                    </Label>
-                                    <Label fx:id="averageLabel" prefHeight="18.0" prefWidth="250.0" />
+                              <HBox alignment="TOP_CENTER">
+                                 <children>
+                                          <Label alignment="BOTTOM_LEFT" prefHeight="24.0" prefWidth="78.0" text="Result:" textAlignment="CENTER">
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                          </Label>
+                                          <Label fx:id="averageLabel" alignment="BOTTOM_LEFT" prefHeight="18.0" prefWidth="83.0" style="-fx-font-size: 20; -fx-background-color: lightgrey;" text="Number" />
+                                    <Label alignment="BOTTOM_LEFT" prefHeight="24.0" prefWidth="68.0" text="Steps" />
+                                 </children>
+                              </HBox>
                                  </children>
                               </VBox>
                            </children>
