@@ -29,12 +29,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import org.junit.Assert;
-import tdt4140.gr1823.app.ui.FxFilteringController;
+import tdt4140.gr1823.app.ui.FxAnalyzeController;
 
 
-public class FxFilteringTest extends ApplicationTest {
+public class FxAnalyzeTest extends ApplicationTest {
 	
-	 private FxFilteringController testController; 
+	 private FxAnalyzeController testController; 
 	 public ExpectedException exception; 
 	 ComboBox<String> comboBox;
 	 TextField text1;
@@ -52,7 +52,7 @@ public class FxFilteringTest extends ApplicationTest {
    	
 	@Override
     public void start(Stage stage) throws Exception {
-		FXMLLoader loader= new FXMLLoader(getClass().getResource("FxFiltering.fxml"));
+		FXMLLoader loader= new FXMLLoader(getClass().getResource("FxAnalyzeScreen.fxml"));
 		Parent root = loader.load();
 	    this.testController = loader.getController();
 	    Scene scene = new Scene(root);
