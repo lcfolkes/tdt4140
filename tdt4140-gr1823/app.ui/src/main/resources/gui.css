@@ -40,15 +40,20 @@
 	/*-fx-background-opacity:0.6;*/
 }
 .chart-bar{
-	-fx-background-image: url("https://helsedirektoratet.no/Style%20Library/Images/logo-fb.png");
+	-fx-background-color: #004D67;
 }
 
-.chart-pie{
+/*.chart-pie{
 	-fx-background-image: url("https://helsedirektoratet.no/Style%20Library/Images/logo-fb.png");
-}
+}*/
+
 .chart-line{
 	-fx-background-image: url("https://helsedirektoratet.no/Style%20Library/Images/logo-fb.png");
 }
+.default-color0.chart-pie { -fx-pie-color: #004D67; }
+.default-color1.chart-pie { -fx-pie-color: #D3D3D3; }
+.default-color2.chart-pie { -fx-pie-color: #838077; }
+
 
 
 /*
