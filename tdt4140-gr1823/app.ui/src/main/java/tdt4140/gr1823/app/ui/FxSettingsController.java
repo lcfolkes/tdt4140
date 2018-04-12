@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import tdt4140.gr1823.app.db.SPManager;
+import tdt4140.gr1823.app.ui.SceneNavigator;
 
 public class FxSettingsController implements Initializable {
 	
@@ -18,7 +19,10 @@ public class FxSettingsController implements Initializable {
 	protected Button recActButton;
 	
 	@FXML
-	protected Button profileButton;
+	protected Button setUsernameButton;
+	
+	@FXML
+	protected Button setPasswordButton;
 	
 	@FXML 
 	protected TextField recActInput;
@@ -34,6 +38,9 @@ public class FxSettingsController implements Initializable {
 	
 	@FXML
 	protected Text recommendedActivity;
+	
+	@FXML
+	protected Button logOutButton;
 	
 		
 	@Override
@@ -60,7 +67,10 @@ public class FxSettingsController implements Initializable {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
+		});
+		
+		logOutButton.setOnAction(e -> {
+			SceneNavigator.loadScene(SceneNavigator.LOGINSCREEN);
 		});
 	}
 	

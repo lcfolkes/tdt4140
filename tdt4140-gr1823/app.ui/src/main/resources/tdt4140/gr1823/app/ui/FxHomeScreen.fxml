@@ -17,7 +17,7 @@
 
 <ScrollPane fx:id="homeScreen" stylesheets="tdt4140.gr1823.app.ui.gui.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1823.app.ui.HomeScreenController">
  <content>  
-      <VBox prefHeight="1089.0" prefWidth="871.0">
+      <VBox prefHeight="1089.0" prefWidth="871.0" stylesheets="tdt4140.gr1823.app.ui.gui.css">
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>

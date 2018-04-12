@@ -44,6 +44,7 @@ public class FxAnalyzeController implements Initializable {
 	@FXML
 	protected Label averageLabel;
 	
+	
 	@FXML
 	protected BarChart<String,Integer> barChart;
 	
