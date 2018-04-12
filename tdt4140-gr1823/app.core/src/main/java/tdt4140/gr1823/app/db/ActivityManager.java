@@ -17,9 +17,9 @@ public class ActivityManager {
 		myCon = new DBManager();
 	}
 	 //Method for getting daily steps based on username
-	public double getDailyActivity(String Username, LocalDate Date) throws SQLException {
+	public double getDailyActivity(String Username, LocalDate Date, String TableName) throws SQLException {
 		myCon.connect();
-		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT Steps FROM DailySteps WHERE Username = '"+ Username + "' AND Date = '" + Date + "';");
+		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT Steps FROM " + TableName + " WHERE Username = '"+ Username + "' AND Date = '" + Date + "';");
 		try {
 			myCon.disconnect();
 		} catch (SQLException e) {
@@ -31,17 +31,17 @@ public class ActivityManager {
 	}
 	
 	
-	public double getTodaySteps(String Username) throws SQLException {
-		return getDailyActivity(Username, LocalDate.now());
+	public double getTodaySteps(String Username, String tableName) throws SQLException {
+		return getDailyActivity(Username, LocalDate.now(), tableName);
 	}
 	
 	
 	
 	// SPRINT 3 - UPDATE
 	
-	public void deleteDailyActivity(String Username, LocalDate Date) throws SQLException {
+	public void deleteDailyActivity(String Username, LocalDate Date, String TableName) throws SQLException {
 		myCon.connect();
-		myCon.execute("DELETE FROM DailySteps WHERE Username = '"+ Username + "' AND Date = '" + Date + "';");
+		myCon.execute("DELETE FROM " + TableName + " WHERE Username = '"+ Username + "' AND Date = '" + Date + "';");
 		try {
 			myCon.disconnect();
 		} catch (SQLException e) {
@@ -55,17 +55,17 @@ public class ActivityManager {
 	
 	
     
-    public void addActivity(DailyActivity activity) {
+    public void addActivity(DailyActivity activity, String TableName) {
 	try {
-		 myCon.execute("INSERT INTO DailySteps VALUES ('"+ activity.getUser().getUsername() +"','"+ activity.getDate()+"', "+ activity.getSteps()+","+ activity.getUser().getSharing()+");");
+		 myCon.execute("INSERT INTO " + TableName + " VALUES ('"+ activity.getUser().getUsername() +"','"+ activity.getDate()+"', "+ activity.getSteps()+","+ activity.getUser().getSharing()+");");
 	} catch (SQLException e) {
 		e.printStackTrace();
 		}
     }
     
-    public double getNationalAverage() throws SQLException {
+    public double getNationalAverage(String TableName) throws SQLException {
     		myCon.connect();
-    		ArrayList<ArrayList<String>>ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps");
+    		ArrayList<ArrayList<String>>ret = myCon.retrieve("SELECT AVG(Steps) FROM "+TableName+";");
 		ArrayList<String> insideFirstArray = ret.get(0);
     		String insideSecondArray = (String) insideFirstArray.get(0);
     		try {
@@ -78,19 +78,19 @@ public class ActivityManager {
     }
     
     //Delegater
-    public double filter(String ageFrom, String ageTo, String gender) throws NumberFormatException, SQLException{
+    public double filter(String ageFrom, String ageTo, String gender, String tableName1, String tableName2) throws NumberFormatException, SQLException{
     	
 	    	if(ageFrom.equals("") && ageTo.equals("") && gender.equals("")) {
-	    		return getNationalAverage();
+	    		return getNationalAverage(tableName1);
 	    	}
 	    	else if(gender.equals("")){
-	    		return filterByAge(ageFrom,ageTo);
+	    		return filterByAge(ageFrom,ageTo, tableName1, tableName2);
 	    	}
 	    	else if(ageFrom.equals("") && ageTo.equals("")) {
-	    		return filterByGender(gender);
+	    		return filterByGender(gender, tableName1, tableName2);
 	    	}
 	    	else {
-	    		return filterByGenderAge(ageFrom, ageTo, gender);
+	    		return filterByGenderAge(ageFrom, ageTo, gender, tableName1, tableName2);
 	    	}
     }
     
@@ -107,12 +107,12 @@ public class ActivityManager {
       }
     
     //This should be called with example-input filter(20,60,MALE)
-    private double filterByGenderAge(String ageFrom, String ageTo, String gender) throws NumberFormatException, SQLException {
+    private double filterByGenderAge(String ageFrom, String ageTo, String gender, String tableName1, String tableName2) throws NumberFormatException, SQLException { //TableName1 = DailySteps, TableName2 = Person. Vi tar inn table names for å kunne teste metodene på egne test-tabeller. 
     		Gender genderEnum = gender.equals("MALE") ? Gender.MALE : Gender.FEMALE;
     		ArrayList<ArrayList<String>> ret;
     		if(ageFrom.isEmpty()) {
     			myCon.connect();
-    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.Username = Person.Username WHERE B_Date >= '" + convertAgeToDate(Integer.parseInt(ageTo)+1)+"' AND Gender = '"+genderEnum +"'");
+    			ret = myCon.retrieve("SELECT AVG(Steps) FROM "+ tableName1 +" INNER JOIN "+tableName2+" ON "+tableName1+".Username = "+tableName2+".Username WHERE B_Date >= '" + convertAgeToDate(Integer.parseInt(ageTo)+1)+"' AND Gender = '"+genderEnum +"'");
     			try {
     				myCon.disconnect();
     			} catch (SQLException e) {
@@ -121,7 +121,7 @@ public class ActivityManager {
     		}
     		else if(ageTo.isEmpty()) {
     			myCon.connect();
-    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.Username = Person.Username WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) +"' AND Gender = '"+genderEnum + "'");
+    			ret = myCon.retrieve("SELECT AVG(Steps) FROM "+tableName1+" INNER JOIN "+tableName2+" ON "+tableName1+".Username = "+tableName2+".Username WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) +"' AND Gender = '"+genderEnum + "'");
     			try {
     				myCon.disconnect();
     			} catch (SQLException e) {
@@ -129,7 +129,7 @@ public class ActivityManager {
     			}
     		} else {
     			myCon.connect();
-    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.Username = Person.Username WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) + "' AND B_Date > '" + convertAgeToDate(Integer.parseInt(ageTo)) + "' AND Gender = '"+genderEnum+"'");
+    			ret = myCon.retrieve("SELECT AVG(Steps) FROM "+tableName1+" INNER JOIN "+tableName2+" ON "+tableName1+".Username = "+tableName2+".Username WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) + "' AND B_Date > '" + convertAgeToDate(Integer.parseInt(ageTo)) + "' AND Gender = '"+genderEnum+"'");
     			try {
     				myCon.disconnect();
     			} catch (SQLException e) {
@@ -143,11 +143,11 @@ public class ActivityManager {
     
     
 	//This should be called with example-input filter(5,80,null)
-    private double filterByAge(String ageFrom, String ageTo) throws NumberFormatException, SQLException {
+    private double filterByAge(String ageFrom, String ageTo, String tableName1, String tableName2) throws NumberFormatException, SQLException {
     		ArrayList<ArrayList<String>> ret;
     		if(ageFrom.isEmpty()) {
     			myCon.connect();
-    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.Username = Person.Username WHERE B_Date >= '" + convertAgeToDate(Integer.parseInt(ageTo)+1)+"'");
+    			ret = myCon.retrieve("SELECT AVG(Steps) FROM "+tableName1+" INNER JOIN "+tableName2+" ON "+tableName1+".Username = "+tableName2+".Username WHERE B_Date >= '" + convertAgeToDate(Integer.parseInt(ageTo)+1)+"'");
     			try {
     				myCon.disconnect();
     			} catch (SQLException e) {
@@ -156,7 +156,7 @@ public class ActivityManager {
     		}
     		else if(ageTo.isEmpty()) {
     			myCon.connect();
-    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.Username = Person.Username WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) +"'");
+    			ret = myCon.retrieve("SELECT AVG(Steps) FROM "+tableName1+" INNER JOIN "+tableName2+" ON "+tableName1+".Username = "+tableName2+".Username WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) +"'");
     			try {
     				myCon.disconnect();
     			} catch (SQLException e) {
@@ -164,7 +164,7 @@ public class ActivityManager {
     			}
     		} else {
     			myCon.connect();
-    			ret = myCon.retrieve("SELECT AVG(Steps) FROM DailySteps INNER JOIN Person ON DailySteps.Username = Person.Username WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) + "' AND B_Date > '" + convertAgeToDate(Integer.parseInt(ageTo)) + "'");
+    			ret = myCon.retrieve("SELECT AVG(Steps) FROM "+tableName1+" INNER JOIN "+tableName2+" ON "+tableName1+".Username = "+tableName2+".Username WHERE B_Date <= '" + convertAgeToDate(Integer.parseInt(ageFrom)) + "' AND B_Date > '" + convertAgeToDate(Integer.parseInt(ageTo)) + "'");
     			try {
     				myCon.disconnect();
     			} catch (SQLException e) {
@@ -177,11 +177,11 @@ public class ActivityManager {
     	
     }
     
-    private double filterByGender(String gender) throws NumberFormatException, SQLException {
+    private double filterByGender(String gender, String tableName1, String tableName2) throws NumberFormatException, SQLException {
     		Gender genderEnum = gender.equals("MALE") ? Gender.MALE : Gender.FEMALE;
     		ArrayList<ArrayList<String>> ret;
     		myCon.connect();
-    		ret = myCon.retrieve("SELECT AVG(Steps) FROM Person INNER JOIN DailySteps ON DailySteps.Username = Person.Username WHERE Gender = '"+genderEnum+"'");
+    		ret = myCon.retrieve("SELECT AVG(Steps) FROM "+tableName2+" INNER JOIN "+tableName1+" ON "+tableName1+".Username = "+tableName2+".Username WHERE Gender = '"+genderEnum+"'");
     		try {
     			myCon.disconnect();
     		} catch (SQLException e) {

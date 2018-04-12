@@ -112,19 +112,6 @@ public class UserScreenTest extends ApplicationTest {
 	}
 	
 	
-//	@Test
-//	public void testGetValueOfSharing() throws IOException {
-//		HttpCommunication http = new HttpCommunication();
-//		if (http.getShareValue("hilde@gmail.com")) {
-//			clickOn("#setUsername");
-//			write("hilde@gmail.com");
-//			clickOn("#recordUsernameButton");
-//			clickOn("yesBox");
-//			Assert.assertFalse(http.getShareValue("hilde@gmail.com"));
-//			clickOn("noBox");
-//			Assert.assertTrue(http.getShareValue("hilde@gmail.com"));	
-//		}
-//	}
 	
 	
 	public <T extends Node> T find(final String query) {
