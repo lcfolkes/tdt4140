@@ -23,12 +23,8 @@ public class FxAnalyzeController implements Initializable {
 	
 	private ActivityManager activityManager = new ActivityManager();
 	private SPManager SPManager = new SPManager();
-	
-	//public ToggleGroup toggleGroup;
-	
-	//get from Gender() enum/class, choices in choicebox for gender selection
+		
 	ObservableList<String> genders = FXCollections.observableArrayList("","MALE", "FEMALE"); 
-	//ObservableList<XYChart.Series<String, Integer>> data = FXCollections.observableArrayList(); 
      
 	@FXML
 	protected Button submitButton;
@@ -80,9 +76,6 @@ public class FxAnalyzeController implements Initializable {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
-		
-			
 		});
 	}
 	
@@ -141,7 +134,6 @@ public class FxAnalyzeController implements Initializable {
 	private void updateBarChart (int rs) {
 		chartData.getData().remove(2);
 		chartData.getData().add(new XYChart.Data<>("Filter result", rs));
-	    //BarChart.getData().add(chartData);
 	}
  
 	//To get the values of the selected items. Both gender and age
