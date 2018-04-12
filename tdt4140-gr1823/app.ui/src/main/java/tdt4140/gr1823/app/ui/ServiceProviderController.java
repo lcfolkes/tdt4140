@@ -12,7 +12,7 @@ public class ServiceProviderController implements Initializable{
    
   @FXML 
   private TabPane tabPane; 
-   
+  
   @FXML 
   private Tab homeScreenTab; 
    
@@ -24,7 +24,13 @@ public class ServiceProviderController implements Initializable{
    
   @FXML 
   private FxAnalyzeController fxAnalyzeController; 
- 
+  
+  @FXML 
+  private Tab settingsTab; 
+   
+  @FXML  
+  private FxSettingsController fxSettingsController; 
+  
   @Override 
   public void initialize(URL location, ResourceBundle resources) { 
     // TODO Auto-generated method stub 

@@ -12,9 +12,10 @@ public class SceneNavigator {
    
 	public static final String FXAPP = "FxApp.fxml";
     public static final String MAINSCREEN    = "HomeScreen.fxml";
-    public static final String FILTER = "AnalyzeScreen.fxml";
+    //public static final String FILTER = "AnalyzeScreen.fxml";
     public static final String SERVICEPROVIDER = "ServiceProvider.fxml";
     public static final String LOGINSCREEN = "LoginScreen.fxml";
+    public static final String SETTINGSSCREEN = "FxSettingsScreen.fxml";
     
     private static FxAppController fxAppController;
     

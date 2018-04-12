@@ -12,7 +12,10 @@
           <fx:include fx:id="homeScreenPage" source="FxHomeScreen.fxml" /> 
           </Tab> 
           <Tab fx:id="analyzeTab" text="Analyze"> 
-          <fx:include fx:id="analyzePage" source="FxAnalyzeScreen2.fxml" /> 
+          <fx:include fx:id="analyzePage" source="FxAnalyzeScreen.fxml" /> 
+          </Tab> 
+          <Tab fx:id="settingsTab" text="Settings"> 
+          <fx:include fx:id="settingsPage" source="FxSettingsScreen.fxml" /> 
           </Tab> 
         </tabs> 
       </TabPane> 
