@@ -13,6 +13,7 @@ import tdt4140.gr1823.app.db.DBManager;
 public class ShareDataServlet extends HttpServlet {
 	
 	private DBManager db; 
+	
 	@Override
 	public void init() {
 		db = new DBManager();
@@ -22,21 +23,24 @@ public class ShareDataServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 			String[] queryString = request.getQueryString().split("&");
 			
-			System.out.println(queryString.toString());
+			String tableName; 
 			ArrayList<String> result;
 			try {
 				db.connect();
-				if(queryString.length == 1) {
+				if(queryString.length == 2) {
 					String username = queryString[0].split("=")[1];
+					tableName = queryString[1].split("=")[1];
 					ArrayList<ArrayList<String>> ret;
-					ret = db.retrieve("SELECT Share FROM Person WHERE Username = '"+username+"';");
+					ret = db.retrieve("SELECT Share FROM "+tableName+" WHERE Username='"+username+"';");
 					result = ret.get(0);
 					response.setStatus(HttpServletResponse.SC_OK);
 					response.getWriter().write(result.get(0));	
 				} else{
 					String username = queryString[0].split("=")[1];
 					int share = Integer.parseInt(queryString[1].split("=")[1]);
-					db.execute("UPDATE Person SET Share=" + share + " WHERE Username = '" + username + "';");
+					tableName = queryString[2].split("=")[1];
+					System.out.println(tableName);
+					db.execute("UPDATE "+tableName+" SET Share=" + share + " WHERE Username='"+username+"';");
 					response.setStatus(HttpServletResponse.SC_OK);
 					}				
 			}catch (SQLException e) {

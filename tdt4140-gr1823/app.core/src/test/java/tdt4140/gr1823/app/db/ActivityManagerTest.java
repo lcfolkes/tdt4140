@@ -53,23 +53,23 @@ public class ActivityManagerTest {
 		testUser5 = new User("testUser5@gmail.com", "Password1", "testUser5", LocalDate.of(2010, 06, 20), Gender.FEMALE, 1);
 		testUser6 = new User("testUser6@gmail.com", "Password1", "testUser6", LocalDate.of(2010, 06, 20), Gender.FEMALE, 1);
 		
-		DB_Manager.execute("ALTER TABLE Person RENAME TO PersonTemp;");
-		DB_Manager.execute("ALTER TABLE DailySteps RENAME TO DailyStepsTemp;");
-		TimeUnit.SECONDS.sleep(1);
-		DB_Manager.execute("ALTER TABLE testDailySteps RENAME TO DailySteps;");
-		DB_Manager.execute("ALTER TABLE testPerson RENAME TO Person;");
-		
+//		DB_Manager.execute("ALTER TABLE Person RENAME TO PersonTemp;");
+//		DB_Manager.execute("ALTER TABLE DailySteps RENAME TO DailyStepsTemp;");
+//		TimeUnit.SECONDS.sleep(1);
+//		DB_Manager.execute("ALTER TABLE testDailySteps RENAME TO DailySteps;");
+//		DB_Manager.execute("ALTER TABLE testPerson RENAME TO Person;");
+//		
 		DB_Manager.execute("CREATE TABLE testGetElement (kolonne1 int, kolonne2 int NOT NULL, PRIMARY KEY (kolonne2));");
 		DB_Manager.execute("INSERT INTO testGetElement VALUES (null,'"+2+"');");
 	}
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		DBManager DB_Manager = new DBManager();
-		DB_Manager.execute("ALTER TABLE DailySteps RENAME TO testDailySteps;");
-		DB_Manager.execute("ALTER TABLE Person RENAME TO testPerson;");
-		TimeUnit.SECONDS.sleep(1);
-		DB_Manager.execute("ALTER TABLE DailyStepsTemp RENAME TO DailySteps;");
-		DB_Manager.execute("ALTER TABLE PersonTemp RENAME TO Person;");
+//		DB_Manager.execute("ALTER TABLE DailySteps RENAME TO testDailySteps;");
+//		DB_Manager.execute("ALTER TABLE Person RENAME TO testPerson;");
+//		TimeUnit.SECONDS.sleep(1);
+//		DB_Manager.execute("ALTER TABLE DailyStepsTemp RENAME TO DailySteps;");
+//		DB_Manager.execute("ALTER TABLE PersonTemp RENAME TO Person;");
 
 		DB_Manager.execute("DROP TABLE testGetElement;");
 	}
@@ -87,15 +87,15 @@ public class ActivityManagerTest {
 	
 	
 	
-	@After
-	public void tearDown() throws Exception {
-	}
-	
+//	@After
+//	public void tearDown() throws Exception {
+//	}
+//	
 	
 	
 	@Test
 	public void testGetNationalAverage() throws SQLException {
-		Double a = (double) A_Manager.getNationalAverage();
+		Double a = (double) A_Manager.getNationalAverage("testDailySteps");
 		Assert.assertTrue(a instanceof Double);
 	}
 	
@@ -103,20 +103,20 @@ public class ActivityManagerTest {
 	@Test //Updated during Sprint 3
 	public void testGetElementInArray() throws SQLException {
 		A_Manager.myCon.connect();
-		ArrayList<ArrayList<String>>ret = A_Manager.myCon.retrieve("SELECT AVG(Steps) FROM DailySteps");
+		ArrayList<ArrayList<String>>ret = A_Manager.myCon.retrieve("SELECT AVG(Steps) FROM testDailySteps;");
 		A_Manager.myCon.disconnect();
 		String element = ActivityManager.getElementInArray(ret);
 		Double a = (double) Double.parseDouble(element);
 		Assert.assertTrue(a instanceof Double);
 		
-		ArrayList<ArrayList<String>> test = A_Manager.myCon.retrieve("SELECT kolonne1 FROM testGetElement");
+		ArrayList<ArrayList<String>> test = A_Manager.myCon.retrieve("SELECT kolonne1 FROM testGetElement;");
 		Assert.assertEquals(ActivityManager.getElementInArray(test), "0");
 	}
 	
-	@Test
-	public void testAddActivity() throws SQLException {
-		//A_Manager.addActivity(activity);
-	}
+//	@Test
+//	public void testAddActivity() throws SQLException {
+//		//A_Manager.addActivity(activity);
+//	}
 	
 	@Test
 	public void testConvertAgeToDate() {
@@ -132,33 +132,35 @@ public class ActivityManagerTest {
 
 	@Test //UPDATED from AMANDAs original.
 	public void testGetDailyActivity() throws SQLException{
-		assertEquals(A_Manager.getDailyActivity(testUser2.getUsername(), LocalDate.of(2018, 04, 9)), 4500, 1);
+		assertEquals(A_Manager.getDailyActivity(testUser2.getUsername(), LocalDate.of(2018, 04, 9), "testDailySteps"), 4500, 1);
 	}
 	
 	
 	@Test
 	public void testGetTodaySteps() throws Exception {
-		DB_Manager.execute("INSERT INTO Person VALUES ('"+ testUser6.getUsername() +"', '"+ testUser6.getPassword()+"', '"+ testUser6.getName() +"', '"+ testUser6.getb_Date() +"', '"+ testUser6.getGender() +"', "+ testUser6.getSharing()+");");
-		DB_Manager.execute("INSERT INTO DailySteps VALUES ('"+ testUser6.getUsername() +"','"+ LocalDate.now()+"', "+ 1000 +","+ 1 +");");
-		Assert.assertEquals(A_Manager.getTodaySteps(testUser6.getUsername()), 1000, 1);
-		DB_Manager.execute("DELETE FROM Person WHERE Username = '"+"testUser6@gmail.com"+"';");
-		DB_Manager.execute("DELETE FROM DailySteps WHERE Username = '"+"testUser6@gmail.com"+"';");
+		DailyActivity activity1 = new DailyActivity(testUser6, 40000, LocalDate.now());
+		A_Manager.addActivity(activity1, "testDailySteps");
+		Assert.assertEquals(A_Manager.getTodaySteps(testUser6.getUsername(), "testDailySteps"), 40000, 1);
+		A_Manager.deleteDailyActivity(testUser6.getUsername(), LocalDate.now(), "testDailySteps");
 	}
 
 	
 	@Test
 	public void testFilterByAge() throws Exception {
-		assertEquals(8000, A_Manager.filter("", "20", ""), 1);
-		assertEquals(8166, A_Manager.filter("20", "", ""), 1);
-		assertEquals(6250, A_Manager.filter("50", "80", ""), 1);	
+		assertEquals(8000, A_Manager.filter("", "20", "", "testDailySteps", "testPerson"), 1);
+		assertEquals(8166, A_Manager.filter("20", "", "", "testDailySteps", "testPerson"), 1);
+		assertEquals(6250, A_Manager.filter("50", "80", "", "testDailySteps", "testPerson"), 1);	
 	}
 	
 	@Test
 	public void testFilterByGenderAge() throws Exception {
-		assertEquals(8100, A_Manager.filter("", "", ""), 1);
-		assertEquals(5833, A_Manager.filter("", "", "MALE"), 1);
-		assertEquals(11500, A_Manager.filter("", "", "FEMALE"), 1);	
-		assertEquals(12000, A_Manager.filter("20", "50", "MALE"), 1);	
+		assertEquals(8100, A_Manager.filter("", "", "", "testDailySteps", "testPerson"), 1);
+		assertEquals(8100, A_Manager.filter("", "", "", "testDailySteps", "testPerson"), 1);
+		assertEquals(5833, A_Manager.filter("", "", "MALE", "testDailySteps", "testPerson"), 1);
+		assertEquals(11500, A_Manager.filter("", "", "FEMALE", "testDailySteps", "testPerson"), 1);	
+		assertEquals(15000, A_Manager.filter("", "50", "FEMALE", "testDailySteps", "testPerson"), 1);	
+		assertEquals(8250, A_Manager.filter("20", "", "MALE", "testDailySteps", "testPerson"), 1);	
+		assertEquals(12000, A_Manager.filter("20", "50", "MALE", "testDailySteps", "testPerson"), 1);	
 	}
 	
 	

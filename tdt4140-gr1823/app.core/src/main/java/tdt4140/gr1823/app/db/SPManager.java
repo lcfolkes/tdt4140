@@ -15,33 +15,33 @@ public class SPManager {
     }
     
   //Adds a user on the format User(Username, password, name, b_date, gender, share)
-    public void addUser(SPUser user) {
+    public void addUser(SPUser user, String tableName) { // tar inn user-tabellen
     try {
-        myCon.execute("INSERT INTO User VALUES ('"+ user.getUsername() +"', '"+ user.getPassword()+"');");
+        myCon.execute("INSERT INTO "+tableName+" VALUES ('"+ user.getUsername() +"', '"+ user.getPassword()+"');");
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
     }
  
-    public void deleteUser(SPUser user) {
+    public void deleteUser(SPUser user, String tableName) { // Tar inn user-tabellen
     try {
-    			myCon.execute("DELETE FROM User WHERE Username= '"+ user.getUsername()+"'");
+    			myCon.execute("DELETE FROM "+tableName+" WHERE Username= '"+ user.getUsername()+"';");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
     }
     
-    public void setRecommendedDailyActivity(int newRecommendedDailyActivity) {
+    public void setRecommendedDailyActivity(int newRecommendedDailyActivity, String tableName) {
     	try {
-    			myCon.execute("UPDATE RecommendedDailyActivity SET Steps =" + newRecommendedDailyActivity);
+    			myCon.execute("UPDATE "+tableName+" SET Steps =" + newRecommendedDailyActivity);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
     }
     
-    public int getRecommendedDailyActivity() {
+    public int getRecommendedDailyActivity(String tableName) {
     	try {
-			ArrayList<ArrayList<String>> list = myCon.retrieve("SELECT * FROM RecommendedDailyActivity");
+			ArrayList<ArrayList<String>> list = myCon.retrieve("SELECT * FROM "+tableName+";");
 			int a = Integer.parseInt(ActivityManager.getElementInArray(list));
 			System.out.println(a);
 			return Integer.parseInt(ActivityManager.getElementInArray(list));

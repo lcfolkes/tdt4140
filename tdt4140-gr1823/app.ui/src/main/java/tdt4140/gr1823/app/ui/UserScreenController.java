@@ -52,7 +52,7 @@ public class UserScreenController implements Initializable{
 		//getDailyActivity.setText("Enter user ID below to see your step count for the day");
 		
 		try {
-			getRecActivity.setText("The recommended activity level is " + http.getRecommendedDailyActivity() + " steps");
+			getRecActivity.setText("The recommended activity level is " + http.getRecommendedDailyActivity("RecommendedDailyActivity") + " steps");
 		} catch (IOException e3) {
 			// TODO Auto-generated catch block
 			e3.printStackTrace();
@@ -74,10 +74,10 @@ public class UserScreenController implements Initializable{
 			}
 			
 			try {
-				if (http.getShareValue(username) == true) {
+				if (http.getShareValue(username, "Person") == true) {
 					yesBox.setSelected(true);
 					noBox.setSelected(false);
-				} else if (http.getShareValue(username) == false) {
+				} else if (http.getShareValue(username, "Person") == false) {
 					yesBox.setSelected(false);
 					noBox.setSelected(true);
 				}
@@ -96,14 +96,14 @@ public class UserScreenController implements Initializable{
 	@FXML
 	private void handleYesBox() {
 		try {
-			if ((http.getShareValue(username) == true)) {
+			if ((http.getShareValue(username, "Person") == true)) {
 				noBox.setSelected(true);
 				yesBox.setSelected(false);
-				http.setShareValue(username, 0);
-			} else if ((http.getShareValue(username) == false)) {
+				http.setShareValue(username, 0, "Person");
+			} else if ((http.getShareValue(username, "Person") == false)) {
 				noBox.setSelected(false);
 				yesBox.setSelected(true);
-				http.setShareValue(username, 1);
+				http.setShareValue(username, 1, "Person");
 			}
 	} 
 		catch (Exception e2) {
@@ -114,14 +114,14 @@ public class UserScreenController implements Initializable{
 	@FXML
 	private void handleNoBox() {
 		try {
-			if ((http.getShareValue(username) == true)) {
+			if ((http.getShareValue(username, "Person") == true)) {
 				noBox.setSelected(true);
 				yesBox.setSelected(false);
-				http.setShareValue(username, 0);
-			} else if ((http.getShareValue(username) == false)) {
+				http.setShareValue(username, 0, "Person");
+			} else if ((http.getShareValue(username, "Person") == false)) {
 				noBox.setSelected(false);
 				yesBox.setSelected(true);
-				http.setShareValue(username, 1);
+				http.setShareValue(username, 1, "Person");
 			}
 	} 
 		catch (Exception e2) {
