@@ -31,18 +31,29 @@ public class UserManager {
 		}
     }
     
+   //Get number of all users
    public int getNumberOfUsers(String tableName) throws SQLException { //Tar inn Person-tabellen
 		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT COUNT(*) FROM "+tableName+"");
     		return Integer.parseInt(ActivityManager.getElementInArray(ret));
     }
+   
+   //Get number of users based on gender
    public int getNumberOfUsers(String tableName, String gender) throws SQLException { //Tar inn Person-tabellen
 		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT COUNT(*) FROM "+tableName+" WHERE Gender = '"+gender+"';");
    		return Integer.parseInt(ActivityManager.getElementInArray(ret));
    }
+   
+   //Get number of users based on age
    public int getNumberOfUsers(String tableName, String ageFrom, String ageTo) throws SQLException { //Tar inn Person-tabellen
 		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT COUNT(*) FROM "+tableName+" WHERE B_Date >= '" + ActivityManager.convertAgeToDate(Integer.parseInt(ageTo)+1)+ "' AND B_Date < '" + ActivityManager.convertAgeToDate(Integer.parseInt(ageFrom)+1)+"';");
    		return Integer.parseInt(ActivityManager.getElementInArray(ret));
    }
+   
+   //Get number of users based on all attributes
+   public int getNumberOfUsers(String tableName, String ageFrom, String ageTo, String gender) throws SQLException { //Tar inn Person-tabellen
+		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT COUNT(*) FROM "+tableName+" WHERE B_Date >= '" + ActivityManager.convertAgeToDate(Integer.parseInt(ageTo)+1)+ "' AND B_Date < '" + ActivityManager.convertAgeToDate(Integer.parseInt(ageFrom)+1)+ " AND Gender = '" + gender +"';");
+  		return Integer.parseInt(ActivityManager.getElementInArray(ret));
+  }
    
    
    public boolean getShareValue(String username, String tableName) throws SQLException { //Henter share value fra databasen. (Tar inn person-tabellen)
