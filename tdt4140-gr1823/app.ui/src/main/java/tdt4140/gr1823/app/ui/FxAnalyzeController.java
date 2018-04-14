@@ -16,15 +16,18 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import tdt4140.gr1823.app.db.ActivityManager;
 import tdt4140.gr1823.app.db.SPManager;
+import tdt4140.gr1823.app.db.UserManager;
 
 public class FxAnalyzeController implements Initializable {
 	
 	private ActivityManager activityManager = new ActivityManager();
 	private SPManager SPManager = new SPManager();
+	private UserManager UManager = new UserManager();
 		
-	ObservableList<String> genders = FXCollections.observableArrayList("","MALE", "FEMALE"); 
+	ObservableList<String> genders = FXCollections.observableArrayList("NOT SPECIFIED","MALE", "FEMALE"); 
      
 	@FXML
 	protected Button submitButton;
@@ -44,6 +47,9 @@ public class FxAnalyzeController implements Initializable {
 	@FXML
 	protected Label averageLabel;
 	
+	@FXML
+	protected Text numUsersText;
+	
 	
 	@FXML
 	protected BarChart<String,Integer> barChart;
@@ -53,6 +59,8 @@ public class FxAnalyzeController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("Loading user data...");
+		
+		numUsersText.setVisible(false);
 		
 		cbGender.setItems(genders);
 		cbGender.setValue("NOT SPECIFIED"); //default value
@@ -71,10 +79,6 @@ public class FxAnalyzeController implements Initializable {
 			try {
 				getChoice(cbGender, textInput1, textInput2);
 			} catch (NumberFormatException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});
@@ -139,7 +143,7 @@ public class FxAnalyzeController implements Initializable {
  
 	//To get the values of the selected items. Both gender and age
 	//Need to implement method that returns enum Gender object? 
-	private void getChoice(ComboBox<String> comboBox, TextField input1, TextField input2) throws NumberFormatException, SQLException {
+	private void getChoice(ComboBox<String> comboBox, TextField input1, TextField input2) {
 		textInput1.getStyleClass().remove("error");
 		textInput2.getStyleClass().remove("error");
 		
@@ -166,12 +170,39 @@ public class FxAnalyzeController implements Initializable {
 			String gender = comboBox.getValue();
 			String fromAge = input1.getText();
 			String toAge = input2.getText();
-			double rs = activityManager.filter(fromAge, toAge, gender, "DailySteps", "Person");
-			System.out.println(fromAge + toAge +  gender);
-			int result = (int) rs;
-			updateBarChart(result);
+			double rs;
+			Integer numUsers = 0;
+			int result = 0;
+			int totalUsers = 0;
 			
+			try {
+				rs = activityManager.filter(fromAge, toAge, gender, "DailySteps", "Person");
+			System.out.println(fromAge + toAge +  gender);
+			result = (int) rs;
+			updateBarChart(result);
+			totalUsers = UManager.getNumberOfUsers("Person");
+			
+			if (fromAge.equals("") && toAge.equals("") && gender.equals("")) {
+				numUsers = UManager.getNumberOfUsers("Person");
+			} else if (gender.equals("")) {
+				if (fromAge.equals("")) { fromAge = "0"; }
+				if (toAge.equals("")) { toAge = "120"; }
+				numUsers = UManager.getNumberOfUsers("Person", fromAge, toAge);
+			} else if (fromAge.equals("") && toAge.equals("")) {
+				numUsers = UManager.getNumberOfUsers("Person", gender);
+			} else {
+				numUsers = UManager.getNumberOfUsers("Person", fromAge, toAge, gender);				
+			}
+			
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			//BarChart.getData().add(chartData);
+			
+			numUsersText.setText(numUsers + "/" + totalUsers);
+			numUsersText.setVisible(true);
 				
 			if(result != 0){
 				averageLabel.setText(Integer.toString(result));

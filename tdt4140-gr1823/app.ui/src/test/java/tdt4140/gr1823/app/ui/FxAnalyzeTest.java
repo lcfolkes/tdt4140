@@ -114,9 +114,9 @@ public class FxAnalyzeTest extends ApplicationTest {
     @Test
     public void containsExactlyItems() {
  	   //in order
- 	   assertThat(comboBox, ComboBoxMatchers.containsExactlyItems("","MALE", "FEMALE"));
+ 	   assertThat(comboBox, ComboBoxMatchers.containsExactlyItems("NOT SPECIFIED","MALE", "FEMALE"));
  	   //not in order
- 	   assertThat(comboBox, ComboBoxMatchers.containsExactlyItems("MALE","FEMALE", ""));
+ 	   assertThat(comboBox, ComboBoxMatchers.containsExactlyItems("MALE","FEMALE", "NOT SPECIFIED"));
     }
     
     @Test
@@ -134,7 +134,7 @@ public class FxAnalyzeTest extends ApplicationTest {
 	        	type(KeyCode.DOWN);
 	        	type(KeyCode.DOWN);
 	        	type(KeyCode.ENTER);
-	        	Assert.assertEquals("MALE", comboBox.getValue());
+	        	Assert.assertEquals("FEMALE", comboBox.getValue());
 	        	
 	        /*Testing text field show correct String on input*/
 	        	clickOn(text1).write("33");
