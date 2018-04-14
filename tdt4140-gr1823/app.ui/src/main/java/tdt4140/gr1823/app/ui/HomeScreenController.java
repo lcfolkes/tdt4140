@@ -53,7 +53,7 @@ public class HomeScreenController implements Initializable{
 	UserManager um = new UserManager();
 	int num = 0;
 	try {
-		num = um.getNumberOfUsers();
+		num = um.getNumberOfUsers("Person");
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
@@ -63,7 +63,7 @@ public class HomeScreenController implements Initializable{
 		
 	Double malePercentage = (double) 0;
 	try {
-		malePercentage = (double) ((um.getNumberOfUsers("MALE")*100)/(um.getNumberOfUsers()));
+		malePercentage = (double) ((um.getNumberOfUsers("Person","MALE")*100)/(um.getNumberOfUsers("Person")));
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
@@ -79,10 +79,10 @@ public class HomeScreenController implements Initializable{
 	Double thirdPercentage = (double) 0;
 	Double fourthPercentage = (double) 0;
 	try {
-		firstPercentage = (double) ((um.getNumberOfUsers("0","20")*100)/(um.getNumberOfUsers()));
-		secondPercentage = (double) ((um.getNumberOfUsers("21","40")*100)/(um.getNumberOfUsers()));
-		thirdPercentage = (double) ((um.getNumberOfUsers("41","60")*100)/(um.getNumberOfUsers()));
-		fourthPercentage = (double) ((um.getNumberOfUsers("61","120")*100)/(um.getNumberOfUsers()));
+		firstPercentage = (double) ((um.getNumberOfUsers("Person","0","20")*100)/(um.getNumberOfUsers("Person")));
+		secondPercentage = (double) ((um.getNumberOfUsers("Person","21","40")*100)/(um.getNumberOfUsers("Person")));
+		thirdPercentage = (double) ((um.getNumberOfUsers("Person","41","60")*100)/(um.getNumberOfUsers("Person")));
+		fourthPercentage = (double) ((um.getNumberOfUsers("Person","61","120")*100)/(um.getNumberOfUsers("Person")));
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
@@ -102,8 +102,8 @@ public class HomeScreenController implements Initializable{
 	int maleSteps = 0;
 	int femaleSteps = 0;
 	try {
-		maleSteps = (int) am.filter("", "", "MALE");
-		femaleSteps = (int) am.filter("", "", "FEMALE");
+		maleSteps = (int) am.filter("", "", "MALE", "DailySteps", "Person");
+		femaleSteps = (int) am.filter("", "", "FEMALE", "DailySteps", "Person");
 	} catch (NumberFormatException e) {
 		e.printStackTrace();
 	} catch (SQLException e) {
@@ -124,10 +124,10 @@ public class HomeScreenController implements Initializable{
 	int thirdSteps = 0;
 	int fourthSteps = 0;
 	try {
-		firstSteps = (int) am.filter("0", "20", "");
-		secondSteps = (int) am.filter("21", "40", "");
-		thirdSteps = (int) am.filter("41", "60", "");
-		fourthSteps = (int) am.filter("61", "120", "");
+		firstSteps = (int) am.filter("0", "20", "", "DailySteps", "Person");
+		secondSteps = (int) am.filter("21", "40", "", "DailySteps", "Person");
+		thirdSteps = (int) am.filter("41", "60", "", "DailySteps", "Person");
+		fourthSteps = (int) am.filter("61", "120", "", "DailySteps", "Person");
 	} catch (NumberFormatException e) {
 		e.printStackTrace();
 	} catch (SQLException e) {

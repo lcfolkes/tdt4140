@@ -10,15 +10,16 @@ import java.time.LocalDate;
 
 public class HttpCommunication {
 
-	public int getRecommendedDailyActivity() throws IOException {
-		HttpURLConnection con = createHttpConnection("http://localhost:8080/getRecommendedDailyActivityServlet/");
+	// Skrevet test for denne
+	public int getRecommendedDailyActivity(String tableName) throws IOException {
+		HttpURLConnection con = createHttpConnection("http://localhost:8080/getRecommendedDailyActivityServlet/?tableName="+tableName);
 		int status = con.getResponseCode();
 		String response = readResponse(new BufferedReader(new InputStreamReader(con.getInputStream()))).toString();
 		System.out.println(status);
 		return Integer.parseInt(response);
 	}
 	
-	
+	// Skrevet test for denne
 	public double getDailyActivity(String Username, LocalDate Date) throws IOException{
     		HttpURLConnection con = createHttpConnection("http://localhost:8080/dailyActivityServlet?username="+Username+"&localDate="+Date);
     		int status = con.getResponseCode();
@@ -41,11 +42,13 @@ public class HttpCommunication {
 		return getDailyActivity(Username, LocalDate.now());
 	}
 
-	public boolean getShareValue(String username) throws IOException  { //Henter share value fra databasen. 
-		HttpURLConnection con = createHttpConnection("http://localhost:8080/shareData?username="+username);
+	
+	// Skrevet test for denne
+	public boolean getShareValue(String username, String tableName) throws IOException  { //Henter share value fra databasen. Her må tableName = Person/testPerson
+		HttpURLConnection con = createHttpConnection("http://localhost:8080/shareData/?username="+username+"&tableName="+tableName);
 		int status = con.getResponseCode();
-		String response = readResponse(new BufferedReader(new InputStreamReader(con.getInputStream()))).toString();
 		System.out.println(status);
+		String response = readResponse(new BufferedReader(new InputStreamReader(con.getInputStream()))).toString();
 		int shareData = Integer.parseInt(response);
 		if(shareData == 1) {
 			return true;
@@ -55,8 +58,9 @@ public class HttpCommunication {
 		
 	}
 	
-	public void setShareValue(String username, int share) throws SQLException, IOException {
-		HttpURLConnection con = createHttpConnection("http://localhost:8080/shareData?username="+username+"&share="+share);
+	// Skrevet test for denne
+	public void setShareValue(String username, int share, String tableName) throws SQLException, IOException {
+		HttpURLConnection con = createHttpConnection("http://localhost:8080/shareData/?username="+username+"&share="+share+"&tableName="+tableName);
 		int status = con.getResponseCode();
 		System.out.println(status);   
 	  }

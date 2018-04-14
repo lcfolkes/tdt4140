@@ -1,31 +1,29 @@
 package tdt4140.gr1823.app.ui;
 
-import java.awt.List;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.Chart;
-import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.*;
+import tdt4140.gr1823.app.core.*;
 import tdt4140.gr1823.app.db.ActivityManager;
-import tdt4140.gr1823.app.db.SPManager;
 
-public class FxAnalyzeController implements Initializable {
+public class FxFilteringController implements Initializable {
 	
 	private ActivityManager activityManager = new ActivityManager();
-	private SPManager SPManager = new SPManager();
-		
+	
+	public ToggleGroup toggleGroup;
+	
+	//get from Gender() enum/class, choices in choicebox for gender selection
 	ObservableList<String> genders = FXCollections.observableArrayList("","MALE", "FEMALE"); 
-     
+
 	@FXML
 	protected Button submitButton;
 	
@@ -44,12 +42,9 @@ public class FxAnalyzeController implements Initializable {
 	@FXML
 	protected Label averageLabel;
 	
-	
-	@FXML
-	protected BarChart<String,Integer> barChart;
-	
-	Series<String, Integer> chartData = new Series<>();
-	
+	@FXML 
+	protected Button backButton;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("Loading user data...");
@@ -65,8 +60,6 @@ public class FxAnalyzeController implements Initializable {
 		
 		//submitButton.getStyleClass().add("button.success");
 		
-		initializeBarChart();
-		
 		submitButton.setOnAction(e -> {
 			try {
 				getChoice(cbGender, textInput1, textInput2);
@@ -78,6 +71,13 @@ public class FxAnalyzeController implements Initializable {
 				e1.printStackTrace();
 			}
 		});
+		
+		backButton.setOnAction(e -> {
+			SceneNavigator.loadScene(SceneNavigator.MAINSCREEN);
+		});
+		
+		//styling
+		backButton.getStyleClass().add("button");
 	}
 	
 	//checking if age group input is valid. ie. not a string unless empty string and not invalid integer
@@ -111,32 +111,7 @@ public class FxAnalyzeController implements Initializable {
 		
 		return false;
 	}
-	
-	private void initializeBarChart() {
-		int nationalAverage = 0;
-		int recDailyActivity = 0;
-		try {
-			nationalAverage = (int) activityManager.getNationalAverage("DailySteps");
-			recDailyActivity = (int) SPManager.getRecommendedDailyActivity("RecommendedDailyActivity");
-		} catch (NumberFormatException f) {
-			f.printStackTrace();
-		} catch (SQLException g) {
-			g.printStackTrace();
-		}
-		chartData.getData().clear();
-		barChart.setLegendVisible(false);
-		//chartData.setName("Compare results");       
-		chartData.getData().add(new XYChart.Data<>("National average", nationalAverage));
-		chartData.getData().add(new XYChart.Data<>("Recommended daily activity", recDailyActivity));
-		chartData.getData().add(new XYChart.Data<>("Filter result", 0));
-		barChart.getData().add(chartData);
-	}
-	
-	private void updateBarChart (int rs) {
-		chartData.getData().remove(2);
-		chartData.getData().add(new XYChart.Data<>("Filter result", rs));
-	}
- 
+
 	//To get the values of the selected items. Both gender and age
 	//Need to implement method that returns enum Gender object? 
 	private void getChoice(ComboBox<String> comboBox, TextField input1, TextField input2) throws NumberFormatException, SQLException {
@@ -166,15 +141,9 @@ public class FxAnalyzeController implements Initializable {
 			String gender = comboBox.getValue();
 			String fromAge = input1.getText();
 			String toAge = input2.getText();
-			double rs = activityManager.filter(fromAge, toAge, gender, "DailySteps", "Person");
-			System.out.println(fromAge + toAge +  gender);
-			int result = (int) rs;
-			updateBarChart(result);
-			
-			//BarChart.getData().add(chartData);
-				
-			if(result != 0){
-				averageLabel.setText(Integer.toString(result));
+			Double average = activityManager.filter(fromAge, toAge, gender, "DailySteps", "Person");
+			if(average != 0){
+				averageLabel.setText(average.toString());
 			}
 			else{
 				averageLabel.setText("Cannot find data for this request in the database.");

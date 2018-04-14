@@ -64,16 +64,16 @@ public class MainScreenController implements Initializable {
 		//errorLabel.setVisible(false);
 		//errorLabel.setTextFill(Color.RED); //css styling of error label
 		
-		getRecDailyActivity.setText(serviceProvider.getRecommendedDailyActivity() + " steps");
+		getRecDailyActivity.setText(serviceProvider.getRecommendedDailyActivity("RecommendedDailyActivity") + " steps");
 		
 		try {
-			getNumOfUsers.setText((Integer.toString(userManager.getNumberOfUsers()) + " users"));
+			getNumOfUsers.setText((Integer.toString(userManager.getNumberOfUsers("Person")) + " users"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	
 		try {
-			getNationalAverage.setText(Double.toString(activityManager.getNationalAverage()) + " steps");
+			getNationalAverage.setText(Double.toString(activityManager.getNationalAverage("DailySteps")) + " steps");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -83,8 +83,8 @@ public class MainScreenController implements Initializable {
 			//serviceProvider.setRecommendedDailyActivity(Integer.parseInt(setValueField.getText()));
 			
 			String inputText = getInput(setValueField);
-			serviceProvider.setRecommendedDailyActivity(Integer.parseInt(inputText));
-			getRecDailyActivity.setText(serviceProvider.getRecommendedDailyActivity() + " steps");
+			serviceProvider.setRecommendedDailyActivity(Integer.parseInt(inputText), "RecommendedDailyActivity");
+			getRecDailyActivity.setText(serviceProvider.getRecommendedDailyActivity("RecommendedDailyActivity") + " steps");
 		
 		});
 		

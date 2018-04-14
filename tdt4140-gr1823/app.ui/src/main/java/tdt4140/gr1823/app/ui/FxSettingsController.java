@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import tdt4140.gr1823.app.core.User;
 import tdt4140.gr1823.app.db.SPManager;
 import tdt4140.gr1823.app.ui.SceneNavigator;
 
@@ -42,16 +43,20 @@ public class FxSettingsController implements Initializable {
 	@FXML
 	protected Button logOutButton;
 	
+	@FXML
+	protected Text incorrectInput;
+	
 		
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {		
+	public void initialize(URL location, ResourceBundle resources) {	
+		incorrectInput.setVisible(false);
 		recActInput.setText(""); //default values
 		username.setPromptText("Username");  
 		username.setPromptText("Password");  
 		//username.setText(""); 
 		//password.setText(""); 
 		
-		String prevValue = Integer.toString(SPManager.getRecommendedDailyActivity());
+		String prevValue = Integer.toString(SPManager.getRecommendedDailyActivity("RecommendedDailyActivity"));
 		recommendedActivity.setText(prevValue); //error label gets displayed
 		
 		errorLabel.setVisible(false);
@@ -71,6 +76,25 @@ public class FxSettingsController implements Initializable {
 		
 		logOutButton.setOnAction(e -> {
 			SceneNavigator.loadScene(SceneNavigator.LOGINSCREEN);
+		});
+		
+		setUsernameButton.setOnAction(e -> {
+			String newUsername = username.getText();
+			SPManager.updateUsername(newUsername, "User");
+			username.clear();
+		});
+		
+		setPasswordButton.setOnAction(e -> {
+			incorrectInput.setVisible(false);
+			String newPassword = password.getText();
+			if (User.isValidPassword(newPassword)) {
+				SPManager.updatePassword(newPassword, "User");
+				password.clear();
+			} else {
+				incorrectInput.setVisible(true);
+				incorrectInput.setFill(Color.RED);
+			}
+			
 		});
 	}
 	
@@ -106,10 +130,9 @@ public class FxSettingsController implements Initializable {
 		
 			String recAct = input.getText();
 			int newValue = Integer.parseInt(recAct);
-			SPManager.setRecommendedDailyActivity(newValue);
+			SPManager.setRecommendedDailyActivity(newValue, "RecommendedDailyActivity");
 			String rs = Integer.toString(newValue);
-			recommendedActivity.setText(rs);
-			
+			recommendedActivity.setText(rs);	
 			
 		}
 	}

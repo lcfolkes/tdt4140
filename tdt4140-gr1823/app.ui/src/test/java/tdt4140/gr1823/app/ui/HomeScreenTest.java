@@ -69,7 +69,7 @@ public class HomeScreenTest extends ApplicationTest{
 	public void setUpCorrect() {
 		UserManager um = new UserManager();
 		try {
-			verifyThat("#numUsers", NodeMatchers.hasText(Integer.toString(um.getNumberOfUsers())));
+			verifyThat("#numUsers", NodeMatchers.hasText(Integer.toString(um.getNumberOfUsers("Person"))));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
