@@ -19,10 +19,11 @@ public class nationalAverageServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+			String tableName = request.getQueryString().split("=")[1];
 			ArrayList<String> result;
 			try {
 				db.connect();
-				ArrayList<ArrayList<String>> ret = db.retrieve("SELECT AVG(Steps) FROM DailySteps;");
+				ArrayList<ArrayList<String>> ret = db.retrieve("SELECT AVG(Steps) FROM "+tableName+";");
 				result = ret.get(0);
 				response.setStatus(HttpServletResponse.SC_OK);
 				response.getWriter().write(result.get(0));

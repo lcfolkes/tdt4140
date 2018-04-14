@@ -21,14 +21,9 @@ import tdt4140.gr1823.app.db.DBManager;
 
 
 public class HttpCommunicationTestIT {
-
-//	protected static DBManager DB_Manager;
-//	protected static User testUser1;
-//	protected static User testUser2;
+	
 	protected HttpCommunication http;
 	
-	
-
 	
 	@Before
 	public void setUp() throws Exception {
@@ -50,22 +45,21 @@ public class HttpCommunicationTestIT {
 		http.setShareValue("testUser2@gmail.com", 1, "testPerson");
 	}
 
-//	@Test
-//	public void testGetRecommendedDailyActivity() throws IOException {
-//		assertEquals(10000, http.getRecommendedDailyActivity("testRecommendedDailyActivity"));
-//	}
-//
-//	
-//	@Test
-//	public void testGetDailyActivity() throws IOException {
-//		assertEquals(10000, http.getDailyActivity("andersbgandrud@gmail.com", LocalDate.of(2018, 04, 07)), 1);
-//	}
+	@Test
+	public void testGetRecommendedDailyActivity() throws IOException {
+		assertEquals(10000, http.getRecommendedDailyActivity("testRecommendedDailyActivity"));
+	}
 
-	// Work in progress
-//	@Test
-//	public void testGetNationalAverage() throws IOException {
-//		assertEquals(1000, http.getNationalAverage(), 1);
-//	}
+	
+	@Test
+	public void testGetDailyActivity() throws IOException {
+		assertEquals(1000, http.getDailyActivity("testUser1@gmail.com", LocalDate.of(2018, 04, 9), "testDailySteps"), 1);
+	}
+
+	@Test
+	public void testGetNationalAverage() throws IOException {
+		assertEquals(8100, http.getNationalAverage("testDailySteps"), 1);
+	}
 
 }
 	
