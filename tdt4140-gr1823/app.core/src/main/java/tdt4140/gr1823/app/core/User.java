@@ -60,7 +60,7 @@ public class User {
 			throw new IllegalArgumentException("Password requirements are: minimum eight letters with one uppercase and one lowercase letter, and one digit.");
 		}
 	}
-	public boolean isValidPassword(String psw) {
+	public static boolean isValidPassword(String psw) {
 		Matcher matcher = VALID_PASSWORD_REGEX.matcher(psw);
 		return matcher.find();
 	}

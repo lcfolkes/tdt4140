@@ -3,6 +3,7 @@ package tdt4140.gr1823.app.db;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import tdt4140.gr1823.app.core.Gender;
 import tdt4140.gr1823.app.core.User;
 
 public class UserManager {
@@ -34,6 +35,15 @@ public class UserManager {
 		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT COUNT(*) FROM "+tableName+"");
     		return Integer.parseInt(ActivityManager.getElementInArray(ret));
     }
+   public int getNumberOfUsers(String tableName, String gender) throws SQLException { //Tar inn Person-tabellen
+		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT COUNT(*) FROM "+tableName+" WHERE Gender = '"+gender+"';");
+   		return Integer.parseInt(ActivityManager.getElementInArray(ret));
+   }
+   public int getNumberOfUsers(String tableName, String ageFrom, String ageTo) throws SQLException { //Tar inn Person-tabellen
+		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT COUNT(*) FROM "+tableName+" WHERE B_Date >= '" + ActivityManager.convertAgeToDate(Integer.parseInt(ageTo)+1)+ "' AND B_Date < '" + ActivityManager.convertAgeToDate(Integer.parseInt(ageFrom)+1)+"';");
+   		return Integer.parseInt(ActivityManager.getElementInArray(ret));
+   }
+   
    
    public boolean getShareValue(String username, String tableName) throws SQLException { //Henter share value fra databasen. (Tar inn person-tabellen)
 	   	ArrayList<ArrayList<String>> personTable = myCon.retrieve("SELECT Share FROM "+tableName+" WHERE Username = '"+username+"';");

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.text.Font?>
 
 <!-- <?scenebuilder-stylesheet vista.css?> -->
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml" fx:controller="tdt4140.gr1823.app.ui.FxAppController">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1823.app.ui.FxAppController">
   <children>
-    <Label fx:id="headerLabel" maxWidth="1.7976931348623157E308" text="Gruppe 23" VBox.vgrow="NEVER"/>
-    <StackPane fx:id="sceneHolder" VBox.vgrow="ALWAYS" stylesheets="tdt4140.gr1823.app.ui.gui.css"/>
+    <Label fx:id="headerLabel" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="725.0" stylesheets="@../../../../gui.css" text="                                                                           Helsedirektoratet" VBox.vgrow="NEVER">
+         <font>
+            <Font size="29.0" />
+         </font></Label>
+    <StackPane fx:id="sceneHolder" stylesheets="tdt4140.gr1823.app.ui.gui.css" VBox.vgrow="ALWAYS" />
   </children>
 </VBox>

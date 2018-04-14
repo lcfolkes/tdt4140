@@ -68,9 +68,23 @@ public class SPManager {
     		if(dbPassword.equals(password)) {
     			return true;
     		}
-    		return false;
-    		 		
-    		
+    		return false;	
     }
+    
+    public void updatePassword(String newPass, String tablename) {
+    		try {
+				myCon.execute("UPDATE " + tablename + " SET Password= '" + newPass + "';");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+    }
+    
+    public void updateUsername(String newUsername, String tablename) {
+		try {
+			myCon.execute("UPDATE " + tablename + " SET Username= '" + newUsername + "';");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+}
     
 }

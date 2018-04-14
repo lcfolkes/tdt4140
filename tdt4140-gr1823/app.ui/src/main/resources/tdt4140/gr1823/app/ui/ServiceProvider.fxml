@@ -8,11 +8,14 @@
    <children> 
       <TabPane tabClosingPolicy="UNAVAILABLE"> 
         <tabs> 
-          <Tab fx:id="mainScreenTab" text="Overview"> 
-          <fx:include fx:id="mainScreenPage" source="MainScreen.fxml" /> 
+          <Tab fx:id="homeScreenTab" text="Overview"> 
+          <fx:include fx:id="homeScreenPage" source="FxHomeScreen.fxml" /> 
           </Tab> 
-          <Tab fx:id="filteringTab" text="Analyze"> 
-          <fx:include fx:id="filteringPage" source="FxFiltering.fxml" /> 
+          <Tab fx:id="analyzeTab" text="Analyze"> 
+          <fx:include fx:id="analyzePage" source="FxAnalyzeScreen.fxml" /> 
+          </Tab> 
+          <Tab fx:id="settingsTab" text="Settings"> 
+          <fx:include fx:id="settingsPage" source="FxSettingsScreen.fxml" /> 
           </Tab> 
         </tabs> 
       </TabPane> 
