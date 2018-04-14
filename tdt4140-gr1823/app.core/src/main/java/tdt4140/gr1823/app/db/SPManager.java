@@ -54,7 +54,6 @@ public class SPManager {
     
     public boolean isValidPassword(String username, String password) {
     		String dbPassword = "";
-    		System.out.println(username);
     		try {
     				ArrayList<ArrayList<String>> list = myCon.retrieve("SELECT Password FROM User WHERE Username='"+ username + "'");
     				if(!list.isEmpty()) {
