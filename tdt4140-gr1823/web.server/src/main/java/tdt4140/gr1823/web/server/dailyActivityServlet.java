@@ -24,10 +24,11 @@ public class dailyActivityServlet extends HttpServlet {
 			String[] queryString = request.getQueryString().split("&");
 			String username = queryString[0].split("=")[1];
 			String localDate = queryString[1].split("=")[1];
+			String tableName = queryString[2].split("=")[1];
 			ArrayList<String> result;
 			try {
 				db.connect();
-				ArrayList<ArrayList<String>> ret = db.retrieve("SELECT Steps FROM DailySteps WHERE Username = '"+ username + "' AND Date = '" + localDate + "';");
+				ArrayList<ArrayList<String>> ret = db.retrieve("SELECT Steps FROM "+tableName+" WHERE Username = '"+ username + "' AND Date = '" + localDate + "';");
 				result = ret.get(0);
 				response.setStatus(HttpServletResponse.SC_OK);
 				response.getWriter().write(result.get(0));

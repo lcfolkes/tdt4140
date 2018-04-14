@@ -58,7 +58,7 @@ public class UserScreenController implements Initializable{
 			e3.printStackTrace();
 		}
 		try {
-			getNationalAverage.setText("Today the average number of steps among users is " + http.getNationalAverage() + " steps");
+			getNationalAverage.setText("Today the average number of steps among users is " + http.getNationalAverage("DailySteps") + " steps");
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
@@ -67,7 +67,7 @@ public class UserScreenController implements Initializable{
 		recordUsernameButton.setOnAction((e) -> {
 			username = setUsername.getText();
 			try {
-				getDailyActivity.setText("You have walked " + (http.getTodaySteps(username) + " steps today"));
+				getDailyActivity.setText("You have walked " + (http.getTodaySteps(username, "DailySteps") + " steps today"));
 			} catch (Exception e1) {
 				e1.printStackTrace();
 				getDailyActivity.setText("You have no recorded data for today. Are you sure you entered the correct ID?");

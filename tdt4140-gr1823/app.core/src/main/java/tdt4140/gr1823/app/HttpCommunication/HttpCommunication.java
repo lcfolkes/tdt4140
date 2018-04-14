@@ -12,7 +12,7 @@ public class HttpCommunication {
 
 	// Skrevet test for denne
 	public int getRecommendedDailyActivity(String tableName) throws IOException {
-		HttpURLConnection con = createHttpConnection("http://localhost:8080/getRecommendedDailyActivityServlet/?tableName="+tableName);
+		HttpURLConnection con = createHttpConnection("http://localhost:8080/getRecommendedDailyActivityServlet?tableName="+tableName);
 		int status = con.getResponseCode();
 		String response = readResponse(new BufferedReader(new InputStreamReader(con.getInputStream()))).toString();
 		System.out.println(status);
@@ -20,8 +20,8 @@ public class HttpCommunication {
 	}
 	
 	// Skrevet test for denne
-	public double getDailyActivity(String Username, LocalDate Date) throws IOException{
-    		HttpURLConnection con = createHttpConnection("http://localhost:8080/dailyActivityServlet?username="+Username+"&localDate="+Date);
+	public double getDailyActivity(String Username, LocalDate Date, String tableName) throws IOException{
+    		HttpURLConnection con = createHttpConnection("http://localhost:8080/dailyActivityServlet?username="+Username+"&localDate="+Date+"&tableName="+tableName);
     		int status = con.getResponseCode();
     		String response = readResponse(new BufferedReader(new InputStreamReader(con.getInputStream()))).toString(); 
     		System.out.println(status);
@@ -29,8 +29,8 @@ public class HttpCommunication {
 	}   	
     	
 	
-	public double getNationalAverage() throws IOException {
-		HttpURLConnection con = createHttpConnection("http://localhost:8080/getNationalAverage");
+	public double getNationalAverage(String tableName) throws IOException {
+		HttpURLConnection con = createHttpConnection("http://localhost:8080/getNationalAverage/?tableName="+tableName);
 		int status = con.getResponseCode();
 		String response = readResponse(new BufferedReader(new InputStreamReader(con.getInputStream()))).toString();
 		System.out.println(status);
@@ -38,8 +38,8 @@ public class HttpCommunication {
 	}
 	
 
-	public double getTodaySteps(String Username) throws IOException {
-		return getDailyActivity(Username, LocalDate.now());
+	public double getTodaySteps(String Username, String tableName) throws IOException {
+		return getDailyActivity(Username, LocalDate.now(), tableName);
 	}
 
 	
@@ -80,10 +80,5 @@ public class HttpCommunication {
     		}
     		in.close();
     		return content;
-	}
-	
-	public static void main(String[] args) throws IOException {
-		HttpCommunication test = new HttpCommunication();
-		System.out.println(test.getDailyActivity("hilde@gmail.com", LocalDate.now()));
 	}
 }

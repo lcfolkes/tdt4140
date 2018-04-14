@@ -22,7 +22,7 @@ public class getRecommendedDailyActivityServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		try {
-			String tableName = request.getQueryString();
+			String tableName = request.getQueryString().split("=")[1];
 			
 			db.connect();
 			ArrayList<ArrayList<String>> list = db.retrieve("SELECT * FROM "+tableName+";");
