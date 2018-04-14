@@ -11,6 +11,7 @@ import javafx.scene.text.Text;
 import tdt4140.gr1823.app.core.User;
 import tdt4140.gr1823.app.db.SPManager;
 import tdt4140.gr1823.app.ui.SceneNavigator;
+import javafx.scene.control.PasswordField;
 
 public class FxSettingsController implements Initializable {
 	
@@ -32,7 +33,7 @@ public class FxSettingsController implements Initializable {
 	protected TextField username;
 	
 	@FXML 
-	protected TextField password;
+	protected PasswordField password;
 	
 	@FXML
 	protected Label errorLabel;

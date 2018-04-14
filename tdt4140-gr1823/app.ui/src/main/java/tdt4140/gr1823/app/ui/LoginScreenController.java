@@ -39,15 +39,13 @@ public class LoginScreenController implements Initializable {
 		errorLabel.setTextFill(Color.RED); //css styling of error label
 		
 		loginButton.setOnAction(e -> {
-			System.out.println("loginbutton");
 			try {
 				password = passwordField.getText();
-				username = usernameField.getText();
+				username = usernameField.getText();				
 			}
 			catch(NullPointerException e1) {
 				e1.printStackTrace();
 			}
-			//System.out.println(password + username);
 			if(validInput(username, password)) {
 				SceneNavigator.loadScene(SceneNavigator.SERVICEPROVIDER);
 			}
@@ -62,6 +60,9 @@ public class LoginScreenController implements Initializable {
 	}
 
 	private boolean validInput(String username, String password) {
+		if((username == null || password == null) || (password.equals("") || username.equals(""))){
+			return false;
+		}
 		return spManager.isValidPassword(username, password);
 	}
 		

@@ -39,6 +39,10 @@
 	-fx-background-image: url("https://helsedirektoratet.no/Style%20Library/images/bakgrunn_menneske.png");
 	/*-fx-background-opacity:0.6;*/
 }
+/*#logoLogin{
+	-fx-graphic: url("http://www.pasientsikkerhetsprogrammet.no/_public/2016/img/helsedirektoratet.png?_ts=15c7d696470");
+}*/
+
 .chart-bar{
 	-fx-background-color: #004D67;
 }
@@ -51,11 +55,11 @@
 	-fx-background-image: url("https://helsedirektoratet.no/Style%20Library/Images/logo-fb.png");
 }
 .default-color0.chart-series-line { -fx-stroke: #004D67; }
-.default-color0.chart-line-symbol { -fx-background-color: #e9967a, white; }
+.default-color0.chart-line-symbol { -fx-background-color: #004D67}
 
 .default-color0.chart-pie { -fx-pie-color: #004D67; }
-.default-color1.chart-pie { -fx-pie-color: #D3D3D3; }
-.default-color2.chart-pie { -fx-pie-color: #838077; }
+.default-color1.chart-pie { -fx-pie-color: #0193a7; /*#D3D3D3*/ }
+.default-color3.chart-pie { -fx-pie-color: #D3D3D3; }
 
 
 

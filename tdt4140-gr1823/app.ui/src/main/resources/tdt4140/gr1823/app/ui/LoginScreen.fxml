@@ -1,52 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <StackPane fx:id="loginScreen" stylesheets="tdt4140.gr1823.app.ui.gui.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1823.app.ui.LoginScreenController">
-
-<Pane>
-<children>
-      <Label layoutX="80.0" layoutY="205.0" text="Username:">
-         <font>
-            <Font name="Gill Sans" size="13.0" />
-         </font>
-      </Label>
-       <TextField fx:id="usernameField" layoutX="154.0" layoutY="200.0" promptText="Username">
-         <font>
-            <Font name="Gill Sans" size="13.0" />
-         </font>
-      </TextField>
-      <Label layoutX="80.0" layoutY="240.0" text="Password:">
-         <font>
-            <Font name="Gill Sans" size="13.0" />
-         </font>
-      </Label>
-      <PasswordField fx:id="passwordField" layoutX="154.0" layoutY="235.0" promptText="Password">
-         <font>
-            <Font name="Gill Sans" size="13.0" />
-         </font>
-      </PasswordField>
-      <Button fx:id="loginButton" layoutX="378.0" layoutY="234.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Login">
-         <font>
-            <Font name="Gill Sans" size="13.0" />
-         </font>
-      </Button>
-      <Label layoutX="80.0" layoutY="43.0" prefHeight="40.0" prefWidth="387.0" text="Et eller annet, hei heisann">
-         <font>
-            <Font name="Gill Sans" size="35.0" />
-         </font>
-      </Label>
-      <Label fx:id="errorLabel" layoutX="154.0" layoutY="290.0" prefHeight="27.0" prefWidth="200.0" text="Invalid username or password">
-         <font>
-            <Font name="Gill Sans" size="13.0" />
-         </font>
-      </Label>
-   </children>
-</Pane>
+   <GridPane prefHeight="600.0" prefWidth="900.0">
+      <columnConstraints>
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="264.2860870361328" minWidth="10.0" prefWidth="85.0" />
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="762.0" minWidth="10.0" prefWidth="671.0" />
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="585.86181640625" minWidth="10.0" prefWidth="144.0" />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints maxHeight="329.0867156982422" minHeight="10.0" prefHeight="178.14260864257812" vgrow="SOMETIMES" />
+         <RowConstraints maxHeight="329.0867156982422" minHeight="10.0" prefHeight="245.85739135742188" vgrow="SOMETIMES" />
+         <RowConstraints maxHeight="140.17251586914062" minHeight="10.0" prefHeight="90.99957275390625" vgrow="SOMETIMES" />
+         <RowConstraints maxHeight="74.00042724609375" minHeight="10.0" prefHeight="74.00042724609375" vgrow="SOMETIMES" />
+      </rowConstraints>
+      <children>
+      <Label fx:id="logoLogin" prefHeight="40.0" prefWidth="387.0" GridPane.columnIndex="1">
+            <graphic>
+               <ImageView fitHeight="150.0" fitWidth="738.0" pickOnBounds="true" preserveRatio="true" />
+               <image>
+         			 <Image url="http://www.pasientsikkerhetsprogrammet.no/_public/2016/img/helsedirektoratet.png?_ts=15c7d696470" />
+        			</image>
+            </graphic>
+       </Label>
+         <GridPane prefHeight="229.0" prefWidth="652.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+           <columnConstraints>
+             <ColumnConstraints hgrow="SOMETIMES" maxWidth="162.0" minWidth="10.0" prefWidth="162.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="224.0" minWidth="10.0" prefWidth="72.0" />
+             <ColumnConstraints hgrow="SOMETIMES" maxWidth="240.0" minWidth="0.0" prefWidth="240.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="93.6285400390625" minWidth="10.0" prefWidth="100.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="93.6285400390625" minWidth="10.0" prefWidth="100.0" />
+           </columnConstraints>
+           <rowConstraints>
+               <RowConstraints maxHeight="65.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="69.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints maxHeight="71.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="102.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+            <children>
+            <Label prefHeight="15.0" prefWidth="250.0" text="Username:" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Gill Sans" size="13.0" />
+               </font>
+            </Label>
+            <Label prefHeight="15.0" prefWidth="256.0" text="Password:" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Gill Sans" size="13.0" />
+               </font>
+            </Label>
+             <TextField fx:id="usernameField" promptText="Username" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Gill Sans" size="13.0" />
+               </font>
+            </TextField>
+            <PasswordField fx:id="passwordField" promptText="Password" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Gill Sans" size="13.0" />
+               </font>
+            </PasswordField>
+            <Button fx:id="loginButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="240.0" text="Login" GridPane.columnIndex="2" GridPane.rowIndex="6">
+               <font>
+                  <Font name="Gill Sans" size="13.0" />
+               </font>
+            </Button>
+            <Label fx:id="errorLabel" prefHeight="27.0" prefWidth="241.0" text="Invalid username or password" GridPane.columnIndex="2" GridPane.rowIndex="5">
+               <font>
+                  <Font name="Gill Sans" size="13.0" />
+               </font>
+                  <padding>
+                     <Insets left="50.0" />
+                  </padding>
+            </Label>
+            </children>
+         </GridPane>
+         <Label GridPane.columnIndex="1" />
+      </children>
+   </GridPane>
 </StackPane>
