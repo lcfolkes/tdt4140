@@ -1,9 +1,7 @@
 package tdt4140.gr1823.app.db;
 
 import java.sql.SQLException;
-import java.math.*;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 
 import tdt4140.gr1823.app.core.DailyActivity;
@@ -14,10 +12,13 @@ public class ActivityManager {
 	DBManager myCon;
 	int acceptDataSharing;
 	
+	/**This class handles all activity-related data 
+	Used to get daily activity and calculate national average etc. */
+	
 	public ActivityManager() {
 		myCon = new DBManager();
 	}
-	 //Method for getting daily steps based on username
+	 /**Method for getting daily steps based on username */
 	public double getDailyActivity(String Username, LocalDate Date, String TableName) throws SQLException {
 		myCon.connect();
 		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT Steps FROM " + TableName + " WHERE Username = '"+ Username + "' AND Date = '" + Date + "';");
@@ -26,36 +27,16 @@ public class ActivityManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		//String result = getElementInArray(ret);
 		ArrayList<String> result = ret.get(0);
 		return Math.floor(Double.parseDouble(result.get(0)));
 	}
 	
-	
+	 /**Method for getting the steps on todays date from username */
 	public double getTodaySteps(String Username, String tableName) throws SQLException {
 		return getDailyActivity(Username, LocalDate.now(), tableName);
 	}
 	
-	
-	
-	// SPRINT 3 - UPDATE
-	
-	public void deleteDailyActivity(String Username, LocalDate Date, String TableName) throws SQLException {
-		myCon.connect();
-		myCon.execute("DELETE FROM " + TableName + " WHERE Username = '"+ Username + "' AND Date = '" + Date + "';");
-		try {
-			myCon.disconnect();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	// SPRINT 3 - END of UPDATE
-	
-	
-	
-	
-    
+	 /**Method for adding a new DailyActivity-object to the database */
     public void addActivity(DailyActivity activity, String TableName) {
 	try {
 		 myCon.execute("INSERT INTO " + TableName + " VALUES ('"+ activity.getUser().getUsername() +"','"+ activity.getDate()+"', "+ activity.getSteps()+","+ activity.getUser().getSharing()+");");
@@ -64,6 +45,19 @@ public class ActivityManager {
 		}
     }
     
+	 /**Method for deleting a DailyActivity-object from the database */
+    public void deleteDailyActivity(String Username, LocalDate Date, String TableName) throws SQLException {
+		myCon.connect();
+		myCon.execute("DELETE FROM " + TableName + " WHERE Username = '"+ Username + "' AND Date = '" + Date + "';");
+		try {
+			myCon.disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+    
+	 /**Method for getting national average of steps from all users from the database */
     public double getNationalAverage(String TableName) throws SQLException {
     		myCon.connect();
     		ArrayList<ArrayList<String>>ret = myCon.retrieve("SELECT AVG(Steps) FROM "+TableName+";");
@@ -72,8 +66,8 @@ public class ActivityManager {
     		return Math.floor(Double.parseDouble(insideSecondArray));
     }
     
-    //This method is used in HomeScreenController to make the line chart for the historical data (national average last 12 months)
-    //Takes in the number of months you want to go back and calculate average for.
+    /**This method is used in HomeScreenController to make the line chart for the historical data (national average last 12 months)
+    Takes in the number of months you want to go back and calculate average for.*/
     public double getNationalAverageByMonth(int month) throws SQLException {
     		LocalDate today = LocalDate.now();
     		LocalDate prevMonthDate = today.minusMonths(month);
@@ -96,7 +90,7 @@ public class ActivityManager {
     		}
     }
     
-    //Delegater
+    /** This method is used in AnalyzeScreen to filter a result and get average steps based on the input. */
     public double filter(String ageFrom, String ageTo, String gender, String tableName1, String tableName2) throws NumberFormatException, SQLException{
     	
 	    	if(ageFrom.equals("") && ageTo.equals("") && gender.equals("NOT SPECIFIED")) {
@@ -113,19 +107,9 @@ public class ActivityManager {
 	    	}
     }
     
-  //this method should be moved to DBManager
-  //Helper-method to accsess the string placed inside retrieveArray from DB
-  	public static String getElementInArray(ArrayList<ArrayList<String>> retrieveArray) {
-      	ArrayList<String> insideFirstArray = retrieveArray.get(0);
-      	String insideSecondArray;
-      	insideSecondArray = insideFirstArray.get(0);
-      	if(insideSecondArray == null) {
-      		return"0";
-      	}
-      	return insideSecondArray;	
-      }
+    /** This method returns national average based on filter-input
+     * This should be called with example-input filterByGenderAge(20,60,MALE) */
     
-    //This should be called with example-input filter(20,60,MALE)
     private double filterByGenderAge(String ageFrom, String ageTo, String gender, String tableName1, String tableName2) throws NumberFormatException, SQLException { //TableName1 = DailySteps, TableName2 = Person. Vi tar inn table names for å kunne teste metodene på egne test-tabeller. 
     		Gender genderEnum = gender.equals("MALE") ? Gender.MALE : Gender.FEMALE;
     		ArrayList<ArrayList<String>> ret;
@@ -155,11 +139,14 @@ public class ActivityManager {
     				e.printStackTrace();
     			}
     		}
-    		String result = getElementInArray(ret);
-    		return Math.floor(Double.parseDouble(result));		
-	}  
+    		String result = DBManager.getElementInArray(ret);
+    		return Math.floor(Double.parseDouble(result));
+    		
+	}
     
-	//This should be called with example-input filter(5,80,null)
+    /** This method returns national average based on  age-filter-input 
+	 This should be called with example-input filterByAge(5,80) */
+ 
     private double filterByAge(String ageFrom, String ageTo, String tableName1, String tableName2) throws NumberFormatException, SQLException {
     		ArrayList<ArrayList<String>> ret;
     		if(ageFrom.isEmpty()) {
@@ -188,11 +175,14 @@ public class ActivityManager {
     				e.printStackTrace();
     			}
     		}
-    		String result = getElementInArray(ret);
+    		String result = DBManager.getElementInArray(ret);
     		System.out.println(result);
     		return Math.floor(Double.parseDouble(result));
     	
     }
+    
+    /** This method returns national average based on  gender.  
+	 This should be called with example-input filterbyGender(MALE) */
     
     private double filterByGender(String gender, String tableName1, String tableName2) throws NumberFormatException, SQLException {
     		Gender genderEnum = gender.equals("MALE") ? Gender.MALE : Gender.FEMALE;
@@ -204,18 +194,15 @@ public class ActivityManager {
     		} catch (SQLException e) {
     			e.printStackTrace();
     		}
-    		String result = getElementInArray(ret);
+    		String result = DBManager.getElementInArray(ret);
     		return Math.floor(Double.parseDouble(result));
     }
     
-    //Helper-method to convert specified age to date-intervals
+    /**Helper-method to convert specified age to date-intervals */
     public static LocalDate convertAgeToDate(int age){
     		LocalDate today = LocalDate.now();
     		LocalDate returnDate = LocalDate.of(today.getYear() - age, today.getMonthValue(), today.getDayOfMonth());
     		return returnDate;
     }
-    public static void main(String[] args) throws NumberFormatException, SQLException {
-		// ActivityManager am = new ActivityManager();
-		// System.out.println(am.("22","44",Gender.MALE));
-	}
+
 }

@@ -8,12 +8,14 @@ public class DailyActivity {
 	private int steps;
 	private LocalDate date;
 	
+	//Constructor for creating and setting up new daily activity for a user. 
 	public DailyActivity(User user,int steps, LocalDate date) {
 		this.setUser(user);
 		this.setSteps(steps);
 		this.setDate(date);
-		
 	}
+
+	//Getters and Setters for attributes
 
 	public int getSteps() {
 		return steps;
