@@ -8,18 +8,6 @@
     -fx-padding: 5px;
 }
 
-/* #sceneHolder {
-    -fx-background-color: lightgrey;
-    -fx-body-color : #F5F5F5;
-	-fx-outer-border : #cecece;
-}*/
-
-
-/*Background color different scenes*/
-/*.background{
-	-fx-background-image: url("https://helsedirektoratet.no/Style%20Library/Images/logo-fb.png");
-	-fx-opacity:0.6;
-}*/
  
 #analyzeScreen {
 	-fx-background-image: url("https://helsedirektoratet.no/Style%20Library/images/bakgrunn_menneske.png");
@@ -39,17 +27,27 @@
 	-fx-background-image: url("https://helsedirektoratet.no/Style%20Library/images/bakgrunn_menneske.png");
 	/*-fx-background-opacity:0.6;*/
 }
-/*#logoLogin{
-	-fx-graphic: url("http://www.pasientsikkerhetsprogrammet.no/_public/2016/img/helsedirektoratet.png?_ts=15c7d696470");
-}*/
+
+.scroll-pane > .viewport  { 
+	-fx-background-color: transparent;
+	-fx-background-image: url("https://helsedirektoratet.no/Style%20Library/images/bakgrunn_menneske.png");
+	
+}
+
+.scroll-pane {
+   -fx-background-color: transparent;
+}
+
+.grid-pane >.viewport{
+   -fx-background-color: transparent;
+}
+.grid-pane {
+   -fx-background-color: transparent;
+}
 
 .chart-bar{
 	-fx-background-color: #004D67;
 }
-
-/*.chart-pie{
-	-fx-background-image: url("https://helsedirektoratet.no/Style%20Library/Images/logo-fb.png");
-}*/
 
 .chart-series-line{
 	-fx-background-image: url("https://helsedirektoratet.no/Style%20Library/Images/logo-fb.png");
@@ -61,18 +59,6 @@
 .default-color1.chart-pie { -fx-pie-color: #0193a7; /*#D3D3D3*/ }
 .default-color3.chart-pie { -fx-pie-color: #D3D3D3; }
 
-
-
-/*
-#fxFiltering {
-    -fx-background-color: coral;
-}*/
-
-/*https://github.com/dicolar/jbootx/blob/master/src/main/resources/bootstrap3.css*/
-/* .root {
-	-fx-body-color : #F5F5F5;
-	-fx-outer-border : #cecece;
-}*/
 .button:focused, .toggle-button:focused,
 .split-menu-button:focused, .menu-button:focused,
 .number-button:focused,
@@ -507,6 +493,7 @@ VBox > .split-menu-button.last > .arrow-button {
 .tab-pane .tab-header-background {
 	-fx-background-color: #f4f4f4;
 }
+
 .tab-pane.plain .tab-header-background {
 	-fx-background-color: transparent;
 }
@@ -521,7 +508,7 @@ VBox > .split-menu-button.last > .arrow-button {
 }
 
 .tab-pane .tab-header-area .tab .tab-label {
-	-fx-text-fill: #337ab7;
+	-fx-text-fill: #004D67;
 }
 
 .tab-pane .tab-header-area .tab:hover {

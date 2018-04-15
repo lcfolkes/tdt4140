@@ -20,6 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
@@ -41,7 +42,8 @@ public class FxAnalyzeTest extends ApplicationTest {
 	 TextField text2;
 	 Button button;
 	 Label errorLabel;
-	
+	 BarChart barChart;
+	 
 	@BeforeClass
 	public static void headless() {
 	    	if (Boolean.valueOf(System.getProperty("gitlab-ci", "false"))) {
@@ -68,6 +70,8 @@ public class FxAnalyzeTest extends ApplicationTest {
 		text2 = (TextField) find("#textInput2");
 		button = (Button) find("#submitButton");
 		errorLabel = (Label) find("#errorLabel");
+		barChart = (BarChart) find("#barChart");
+		
     }
 	 
 	@After
@@ -92,6 +96,7 @@ public class FxAnalyzeTest extends ApplicationTest {
 		Assert.assertTrue(find("#cbGender") instanceof ComboBox);
 		Assert.assertTrue(find("#submitButton") instanceof Button);
 		Assert.assertTrue(find("#errorLabel") instanceof Label);
+		Assert.assertTrue(find("#barChart") instanceof BarChart);
     }
 	
     @Test

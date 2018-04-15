@@ -53,7 +53,7 @@ public class FxSettingsController implements Initializable {
 		incorrectInput.setVisible(false);
 		recActInput.setText(""); //default values
 		username.setPromptText("Username");  
-		username.setPromptText("Password");  
+		password.setPromptText("Password");  
 		//username.setText(""); 
 		//password.setText(""); 
 		
