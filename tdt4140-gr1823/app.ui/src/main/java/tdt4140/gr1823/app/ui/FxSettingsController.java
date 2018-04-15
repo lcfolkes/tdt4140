@@ -62,6 +62,11 @@ public class FxSettingsController implements Initializable {
 		
 		errorLabel.setVisible(false);
 		errorLabel.setTextFill(Color.RED);  //css styling of error label
+		recActButton.defaultButtonProperty().bind(recActButton.focusedProperty());
+		setUsernameButton.defaultButtonProperty().bind(setUsernameButton.focusedProperty());
+		setPasswordButton.defaultButtonProperty().bind(setPasswordButton.focusedProperty());
+
+
 		
 		recActButton.setOnAction(e -> {
 			try {

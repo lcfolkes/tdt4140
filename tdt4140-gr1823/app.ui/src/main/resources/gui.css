@@ -57,7 +57,7 @@
 
 .default-color0.chart-pie { -fx-pie-color: #004D67; }
 .default-color1.chart-pie { -fx-pie-color: #0193a7; /*#D3D3D3*/ }
-.default-color3.chart-pie { -fx-pie-color: #D3D3D3; }
+.default-color2.chart-pie { -fx-pie-color: #D3D3D3; }
 
 .button:focused, .toggle-button:focused,
 .split-menu-button:focused, .menu-button:focused,

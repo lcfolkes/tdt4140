@@ -38,6 +38,9 @@ public class LoginScreenController implements Initializable {
 		errorLabel.setVisible(false);
 		errorLabel.setTextFill(Color.RED); //css styling of error label
 		
+		loginButton.defaultButtonProperty().bind(loginButton.focusedProperty());
+
+		
 		loginButton.setOnAction(e -> {
 			try {
 				password = passwordField.getText();

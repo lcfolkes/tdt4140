@@ -99,7 +99,7 @@ public class ActivityManager {
     //Delegater
     public double filter(String ageFrom, String ageTo, String gender, String tableName1, String tableName2) throws NumberFormatException, SQLException{
     	
-	    	if(ageFrom.equals("") && ageTo.equals("") && gender.equals("")) {
+	    	if(ageFrom.equals("") && ageTo.equals("") && gender.equals("NOT SPECIFIED")) {
 	    		return getNationalAverage(tableName1);
 	    	}
 	    	else if(gender.equals("")){
@@ -156,10 +156,8 @@ public class ActivityManager {
     			}
     		}
     		String result = getElementInArray(ret);
-    		return Math.floor(Double.parseDouble(result));
-    		
-	}
-    
+    		return Math.floor(Double.parseDouble(result));		
+	}  
     
 	//This should be called with example-input filter(5,80,null)
     private double filterByAge(String ageFrom, String ageTo, String tableName1, String tableName2) throws NumberFormatException, SQLException {
