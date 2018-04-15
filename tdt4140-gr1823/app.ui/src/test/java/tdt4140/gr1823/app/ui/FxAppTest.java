@@ -1,7 +1,6 @@
 package tdt4140.gr1823.app.ui;
 
 import org.junit.BeforeClass;
-import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
 import javafx.fxml.FXMLLoader;
@@ -9,8 +8,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/** Test class for the application as a whole
+ * 
+ * @author Gruppe 23
+ *
+ */
 public class FxAppTest extends ApplicationTest {
 	
+	/**
+	 * Method needed for the tests to run by GitLab
+	 */
 	@BeforeClass
     public static void headless() {
         System.setProperty("prism.verbose", "true"); // optional
@@ -31,9 +38,4 @@ public class FxAppTest extends ApplicationTest {
         stage.setScene(scene);
         stage.show();
     }
-
-    /*@Test
-    public void testFxApp() {
-    }
-    */
 }

@@ -1,6 +1,5 @@
 package tdt4140.gr1823.app.ui;
 
-import java.awt.Label;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -9,142 +8,122 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import tdt4140.gr1823.app.db.ActivityManager;
 import tdt4140.gr1823.app.db.UserManager;
 
 public class HomeScreenController implements Initializable{
-	
 		
-	@FXML
-	protected Text title;
-		
-	@FXML
-	protected PieChart genderPieChart;
+	//Database manager objects used for communication with the database.
+	protected UserManager um = new UserManager();
+	protected ActivityManager am = new ActivityManager();
 	
+	//FXML objects with fx:id from FxSettingsScreen.fxml
 	@FXML
-	protected PieChart agePieChart;
-	
+	protected PieChart genderPieChart; //Pie chart showing the distribution of users by gender (male/female)
 	@FXML
-	protected BarChart<String, Integer> genderBarChart;
-	
+	protected PieChart agePieChart; //Pie chart showing the distribution of users by age into four age groups (0-20, 21-40, 41-60, 61-120)
 	@FXML
-	protected BarChart<String,Integer> ageBarChart;
-	
+	protected BarChart<String, Integer> genderBarChart; //Bar chart showing the average steps by gender (male/female)
 	@FXML
-	protected LineChart<Integer,Integer> lineChart;
-	
+	protected BarChart<String,Integer> ageBarChart; //Bar chart showing the average steps by gender (0-20, 21-40, 41-60, 61-120)
 	@FXML
-	protected Text numUsers;
-	
-	protected UserManager um;
-	protected ActivityManager am;
+	protected LineChart<Integer,Integer> lineChart; //Line chart showing the average number of steps in the last 12 months.
+	@FXML
+	protected Text numUsers; //Field showing the current amount of users
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {	
 	
-	//Number of Users
-	UserManager um = new UserManager();
-	int num = 0;
-	try {
-		num = um.getNumberOfUsers("Person");
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}
-	numUsers.setText(Integer.toString(num));
-	
-	//Pie charts
+		//Set the total number of users
+		UserManager um = new UserManager();
+		int num = 0;
+		try {
+			num = um.getNumberOfUsers("Person");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		numUsers.setText(Integer.toString(num));
 		
-	Double malePercentage = (double) 0;
-	try {
-		malePercentage = (double) ((um.getNumberOfUsers("Person","MALE")*100)/(um.getNumberOfUsers("Person")));
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}
-	
-	ObservableList<PieChart.Data> genderPieChartData =
-        FXCollections.observableArrayList(
-        new PieChart.Data("MALE", malePercentage),
-        new PieChart.Data("FEMALE", 100-malePercentage));
+		//Setting up the charts
+		
+		//Pie chart showing users by gender
+		Double malePercentage = (double) 0;
+		try {
+			malePercentage = (double) ((um.getNumberOfUsers("Person","MALE")*100)/(um.getNumberOfUsers("Person")));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		ObservableList<PieChart.Data> genderPieChartData = FXCollections.observableArrayList(new PieChart.Data("MALE", malePercentage), 
+				new PieChart.Data("FEMALE", 100-malePercentage));
 		genderPieChart.setData(genderPieChartData); 
 		
-	Double firstPercentage = (double) 0;
-	Double secondPercentage = (double) 0;
-	Double thirdPercentage = (double) 0;
-	Double fourthPercentage = (double) 0;
-	try {
-		firstPercentage = (double) ((um.getNumberOfUsers("Person","0","20")*100)/(um.getNumberOfUsers("Person")));
-		secondPercentage = (double) ((um.getNumberOfUsers("Person","21","40")*100)/(um.getNumberOfUsers("Person")));
-		thirdPercentage = (double) ((um.getNumberOfUsers("Person","41","60")*100)/(um.getNumberOfUsers("Person")));
-		fourthPercentage = (double) ((um.getNumberOfUsers("Person","61","120")*100)/(um.getNumberOfUsers("Person")));
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}
+		//Pie chart showing users by age group
+		Double firstPercentage = (double) 0; //0-20
+		Double secondPercentage = (double) 0; //21-40
+		Double thirdPercentage = (double) 0; //41-60
+		Double fourthPercentage = (double) 0; //61-120
+		try {
+			firstPercentage = (double) ((um.getNumberOfUsers("Person","0","20")*100)/(um.getNumberOfUsers("Person")));
+			secondPercentage = (double) ((um.getNumberOfUsers("Person","21","40")*100)/(um.getNumberOfUsers("Person")));
+			thirdPercentage = (double) ((um.getNumberOfUsers("Person","41","60")*100)/(um.getNumberOfUsers("Person")));
+			fourthPercentage = (double) ((um.getNumberOfUsers("Person","61","120")*100)/(um.getNumberOfUsers("Person")));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		ObservableList<PieChart.Data> agePieChartData =
+	        FXCollections.observableArrayList(
+	        new PieChart.Data("0-20", firstPercentage),
+	        new PieChart.Data("21-40", secondPercentage),
+			new PieChart.Data("41-60", thirdPercentage),
+			new PieChart.Data("60-120", fourthPercentage));
+		   	agePieChart.setData(agePieChartData); 
+		 
+	  //Gender Bar chart
+		int maleSteps = 0;
+		int femaleSteps = 0;
+		try {
+			maleSteps = (int) am.filter("", "", "MALE", "DailySteps", "Person");
+			femaleSteps = (int) am.filter("", "", "FEMALE", "DailySteps", "Person");
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	   XYChart.Series<String, Integer> genderData = new XYChart.Series<>();
+		   genderData.setName("GENDER");  
+		   genderData.getData().add(new XYChart.Data<>("MALE", maleSteps));
+		   genderData.getData().add(new XYChart.Data<>("FEMALE", femaleSteps));
+		   genderBarChart.getData().add(genderData);
 	  
-	ObservableList<PieChart.Data> agePieChartData =
-        FXCollections.observableArrayList(
-        new PieChart.Data("0-20", firstPercentage),
-        new PieChart.Data("21-40", secondPercentage),
-		new PieChart.Data("41-60", thirdPercentage),
-		new PieChart.Data("60-120", fourthPercentage));
-	   	agePieChart.setData(agePieChartData); 
-	 
-	
-  //Gender Bar chart
-	   	
-	ActivityManager am = new ActivityManager();
-	int maleSteps = 0;
-	int femaleSteps = 0;
-	try {
-		maleSteps = (int) am.filter("", "", "MALE", "DailySteps", "Person");
-		femaleSteps = (int) am.filter("", "", "FEMALE", "DailySteps", "Person");
-	} catch (NumberFormatException e) {
-		e.printStackTrace();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}
-	   	
-	   	
-   XYChart.Series<String, Integer> genderData = new XYChart.Series<>();
-	   genderData.setName("GENDER");  
-	   genderData.getData().add(new XYChart.Data<>("MALE", maleSteps));
-	   genderData.getData().add(new XYChart.Data<>("FEMALE", femaleSteps));
-	   genderBarChart.getData().add(genderData);
-  
-   //Age Bar chart
+	   //Age Bar chart
+		int firstSteps = 0;
+		int secondSteps = 0;
+		int thirdSteps = 0;
+		int fourthSteps = 0;
+		try {
+			firstSteps = (int) am.filter("0", "20", "", "DailySteps", "Person");
+			secondSteps = (int) am.filter("21", "40", "", "DailySteps", "Person");
+			thirdSteps = (int) am.filter("41", "60", "", "DailySteps", "Person");
+			fourthSteps = (int) am.filter("61", "120", "", "DailySteps", "Person");
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}        
+	   XYChart.Series<String, Integer> ageData = new XYChart.Series<>();
+		   ageData.setName("AGE");       
+		   ageData.getData().add(new XYChart.Data<>("0-20", firstSteps));
+		   ageData.getData().add(new XYChart.Data<>("21-40", secondSteps));
+		   ageData.getData().add(new XYChart.Data<>("41-60", thirdSteps));
+		   ageData.getData().add(new XYChart.Data<>("61-120", fourthSteps));
+		   ageBarChart.getData().add(ageData);
 	   
-	int firstSteps = 0;
-	int secondSteps = 0;
-	int thirdSteps = 0;
-	int fourthSteps = 0;
-	try {
-		firstSteps = (int) am.filter("0", "20", "", "DailySteps", "Person");
-		secondSteps = (int) am.filter("21", "40", "", "DailySteps", "Person");
-		thirdSteps = (int) am.filter("41", "60", "", "DailySteps", "Person");
-		fourthSteps = (int) am.filter("61", "120", "", "DailySteps", "Person");
-	} catch (NumberFormatException e) {
-		e.printStackTrace();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}   
-	      
-   XYChart.Series<String, Integer> ageData = new XYChart.Series<>();
-	   ageData.setName("AGE");       
-	   ageData.getData().add(new XYChart.Data<>("0-20", firstSteps));
-	   ageData.getData().add(new XYChart.Data<>("21-40", secondSteps));
-	   ageData.getData().add(new XYChart.Data<>("41-60", thirdSteps));
-	   ageData.getData().add(new XYChart.Data<>("61-120", fourthSteps));
-	   ageBarChart.getData().add(ageData);
-   
 	 
    //Line chart - last 12 months
-
 	   	int today = 0, one = 0,  two = 0, three = 0, four = 0, five = 0, six = 0, seven = 0, eight = 0, nine = 0, ten = 0, eleven = 0, twelve = 0;
 	try {
 		today = (int) am.getNationalAverageByMonth(0);
@@ -161,11 +140,9 @@ public class HomeScreenController implements Initializable{
 		eleven = (int) am.getNationalAverageByMonth(11);
 		twelve = (int) am.getNationalAverageByMonth(12);
 		 
-   
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
-	
 	XYChart.Series<Integer, Integer> averageData = new XYChart.Series<>();
 	   averageData.setName("Historical average");       
 	   averageData.getData().add(new XYChart.Data<>(0, twelve));
@@ -182,12 +159,10 @@ public class HomeScreenController implements Initializable{
 	   averageData.getData().add(new XYChart.Data<>(11, one));
 	   averageData.getData().add(new XYChart.Data<>(12, today));
 	   lineChart.getData().add(averageData);
-	   
 	   lineChart.getXAxis().setLabel("Months");
 	   lineChart.getYAxis().setLabel("Number of steps");
-	   
-	}//end initialize
-	
+	}
+
 }
 
 

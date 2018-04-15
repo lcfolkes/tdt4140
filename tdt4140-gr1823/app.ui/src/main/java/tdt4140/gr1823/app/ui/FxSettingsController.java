@@ -10,96 +10,109 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import tdt4140.gr1823.app.core.User;
 import tdt4140.gr1823.app.db.SPManager;
-import tdt4140.gr1823.app.ui.SceneNavigator;
 import javafx.scene.control.PasswordField;
 
+/** The class for controlling the settings window. This is where the user can change their username and password as well as log out. 
+ * The user can also update the recommended daily activity
+ * @author Gruppe 23
+ *
+ */
 public class FxSettingsController implements Initializable {
 	
+	//Use SPManager to communicate with the database
 	private SPManager SPManager = new SPManager();
 	 
+	//FXML objects with fx:id from FxSettingsScreen.fxml
 	@FXML
-	protected Button recActButton;
-	
+	protected Button recActButton; //Button for updating the recommended daily step count
 	@FXML
-	protected Button setUsernameButton;
-	
+	protected Button setUsernameButton; //Button for updating username
 	@FXML
-	protected Button setPasswordButton;
-	
+	protected Button setPasswordButton; //Button for updating password
 	@FXML 
-	protected TextField recActInput;
-	
+	protected TextField recActInput; //Text field for new recommended daily activity step count
 	@FXML 
-	protected TextField username;
-	
+	protected TextField username; //Text field for entering new username
 	@FXML 
-	protected PasswordField password;
-	
+	protected PasswordField password; //Text field for entering new password
 	@FXML
-	protected Label errorLabel;
-	
+	protected Label errorLabel; //Label for incorrect input (for recommended activity)
 	@FXML
-	protected Text recommendedActivity;
-	
+	protected Text recommendedActivity; //Text displaying current recommended daily activity
 	@FXML
-	protected Button logOutButton;
-	
+	protected Button logOutButton; //Button to log out
 	@FXML
-	protected Text incorrectInput;
+	protected Text incorrectInput; //Text for incorrect input (for password)
 	
 		
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {	
+		//Hide fields not to be shown from start
 		incorrectInput.setVisible(false);
-		recActInput.setText(""); //default values
+		errorLabel.setVisible(false);
+		
+		//Set default values and promt text
+		recActInput.setText("");
 		username.setPromptText("Username");  
 		username.setPromptText("Password");  
-		//username.setText(""); 
-		//password.setText(""); 
-		
-		String prevValue = Integer.toString(SPManager.getRecommendedDailyActivity("RecommendedDailyActivity"));
-		recommendedActivity.setText(prevValue); //error label gets displayed
-		
-		errorLabel.setVisible(false);
 		errorLabel.setTextFill(Color.RED);  //css styling of error label
 		
+		//Get current recommended activity from database and display it
+		String prevValue = Integer.toString(SPManager.getRecommendedDailyActivity("RecommendedDailyActivity"));
+		recommendedActivity.setText(prevValue);
+		
+		//PRocedures when buttons are pressed
 		recActButton.setOnAction(e -> {
 			try {
-				getChoice(recActInput);
+				updateRecAct(recActInput);
 			} catch (NumberFormatException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
-		});
-		
-		logOutButton.setOnAction(e -> {
-			SceneNavigator.loadScene(SceneNavigator.LOGINSCREEN);
+			}	
 		});
 		
 		setUsernameButton.setOnAction(e -> {
-			String newUsername = username.getText();
-			SPManager.updateUsername(newUsername, "User");
-			username.clear();
+			updateUsername();
 		});
 		
 		setPasswordButton.setOnAction(e -> {
-			incorrectInput.setVisible(false);
-			String newPassword = password.getText();
-			if (User.isValidPassword(newPassword)) {
-				SPManager.updatePassword(newPassword, "User");
-				password.clear();
-			} else {
-				incorrectInput.setVisible(true);
-				incorrectInput.setFill(Color.RED);
-			}
-			
+			updatePassword();
+		});
+		
+		//Obviously logs out
+		logOutButton.setOnAction(e -> {
+			SceneNavigator.loadScene(SceneNavigator.LOGINSCREEN);
 		});
 	}
 	
-	//checking if age group input is valid. ie. not a string unless empty string and not invalid integer
+	/** 
+	 * Method for updating password. First checks if new password meets requirements and then updates it in the database.
+	 */
+	private void updatePassword() {
+		incorrectInput.setVisible(false);
+		String newPassword = password.getText();
+		if (User.isValidPassword(newPassword)) {
+			SPManager.updatePassword(newPassword, "User");
+			password.clear();
+		} else {
+			incorrectInput.setVisible(true);
+			incorrectInput.setFill(Color.RED);
+		}
+	}
+
+	/** 
+	 * Method for updating username in database.
+	 */
+	private void updateUsername() {
+		String newUsername = username.getText();
+		SPManager.updateUsername(newUsername, "User");
+		username.clear();
+	}
+
+	/** 
+	 * Method for checking if the input is valid. Check if it is an integer.
+	 */
 	private boolean isValidInput(TextField textInput) {
 		String input = textInput.getText();
 		int inputInt;
@@ -118,8 +131,11 @@ public class FxSettingsController implements Initializable {
 		return true;
 	}
 	
-		
-	private void getChoice(TextField input) throws NumberFormatException, SQLException {
+	/** 
+	 * Method for updating the recommended daily activity. First uses {@link #isValidInput(TextField) isValidInput} to check if input is valid and then updates
+	 * in the database.
+	 */
+	private void updateRecAct(TextField input) throws NumberFormatException, SQLException {
 		recActInput.getStyleClass().remove("error");
 		
 		if(!(isValidInput(input))) {
