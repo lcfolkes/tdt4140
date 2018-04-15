@@ -30,6 +30,7 @@ public class UserScreen extends Application {
         launch(args);
     }
     
+    /** @return Scene-object **/
     public Scene getScene () {
     		return mainScene;
     }
