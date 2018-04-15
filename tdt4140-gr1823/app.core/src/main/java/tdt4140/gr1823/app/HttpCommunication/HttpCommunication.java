@@ -8,9 +8,12 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+/**This class handles all HTTP-communication against the database.  
+Used to get/set number of users, share-values, national average and recommended activity level */
+
 public class HttpCommunication {
 
-	// Skrevet test for denne
+	/** Gets the Recommended Daily Activity Level from the database over http */
 	public int getRecommendedDailyActivity(String tableName) throws IOException {
 		HttpURLConnection con = createHttpConnection("http://localhost:8080/getRecommendedDailyActivityServlet?tableName="+tableName);
 		int status = con.getResponseCode();
@@ -19,7 +22,7 @@ public class HttpCommunication {
 		return Integer.parseInt(response);
 	}
 	
-	// Skrevet test for denne
+	/** Gets the Daily Activity from the database over http */
 	public double getDailyActivity(String Username, LocalDate Date, String tableName) throws IOException{
     		HttpURLConnection con = createHttpConnection("http://localhost:8080/dailyActivityServlet?username="+Username+"&localDate="+Date+"&tableName="+tableName);
     		int status = con.getResponseCode();
@@ -28,7 +31,7 @@ public class HttpCommunication {
     		return Double.parseDouble(response);
 	}   	
     	
-	
+	/** Gets the National average from the database over http */
 	public double getNationalAverage(String tableName) throws IOException {
 		HttpURLConnection con = createHttpConnection("http://localhost:8080/getNationalAverage/?tableName="+tableName);
 		int status = con.getResponseCode();
@@ -37,13 +40,13 @@ public class HttpCommunication {
 		return Math.floor(Double.parseDouble(response));
 	}
 	
-
+	/** Gets todays steps from the databse over http */
 	public double getTodaySteps(String Username, String tableName) throws IOException {
 		return getDailyActivity(Username, LocalDate.now(), tableName);
 	}
 
 	
-	// Skrevet test for denne
+	/** Gets the Share value from the database over http */
 	public boolean getShareValue(String username, String tableName) throws IOException  { //Henter share value fra databasen. Her må tableName = Person/testPerson
 		HttpURLConnection con = createHttpConnection("http://localhost:8080/shareData/?username="+username+"&tableName="+tableName);
 		int status = con.getResponseCode();
@@ -58,7 +61,7 @@ public class HttpCommunication {
 		
 	}
 	
-	// Skrevet test for denne
+	/** Sets the Share value from the database over http */
 	public void setShareValue(String username, int share, String tableName) throws SQLException, IOException {
 		HttpURLConnection con = createHttpConnection("http://localhost:8080/shareData/?username="+username+"&share="+share+"&tableName="+tableName);
 		int status = con.getResponseCode();
