@@ -154,8 +154,8 @@ public class ActivityManagerTest {
 	
 	@Test
 	public void testFilterByGenderAge() throws Exception {
-		assertEquals(8100, A_Manager.filter("", "", "", "testDailySteps", "testPerson"), 1);
-		assertEquals(8100, A_Manager.filter("", "", "", "testDailySteps", "testPerson"), 1);
+		assertEquals(8100, A_Manager.filter("", "", "NOT SPECIFIED", "testDailySteps", "testPerson"), 1);
+		assertEquals(8100, A_Manager.filter("", "", "NOT SPECIFIED", "testDailySteps", "testPerson"), 1);
 		assertEquals(5833, A_Manager.filter("", "", "MALE", "testDailySteps", "testPerson"), 1);
 		assertEquals(11500, A_Manager.filter("", "", "FEMALE", "testDailySteps", "testPerson"), 1);	
 		assertEquals(15000, A_Manager.filter("", "50", "FEMALE", "testDailySteps", "testPerson"), 1);	
