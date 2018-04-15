@@ -19,6 +19,11 @@ public class ShareDataServlet extends HttpServlet {
 		db = new DBManager();
 	}
 	
+	/** Expects url-string with parameters username and tableName if the getShareValue-method is called upon.
+	 * Expects url-string with parameters username, shareValue and tableName if the setShareValue-method is called upon.
+	 * Returns the shareValue if getShareValue-method, just updates DB and returns response-code if setShareValue-method. 
+	 *   **/ 
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 			String[] queryString = request.getQueryString().split("&");
@@ -39,7 +44,6 @@ public class ShareDataServlet extends HttpServlet {
 					String username = queryString[0].split("=")[1];
 					int share = Integer.parseInt(queryString[1].split("=")[1]);
 					tableName = queryString[2].split("=")[1];
-					System.out.println(tableName);
 					db.execute("UPDATE "+tableName+" SET Share=" + share + " WHERE Username='"+username+"';");
 					response.setStatus(HttpServletResponse.SC_OK);
 					}				

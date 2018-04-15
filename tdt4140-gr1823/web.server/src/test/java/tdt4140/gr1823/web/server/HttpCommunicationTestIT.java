@@ -31,31 +31,32 @@ public class HttpCommunicationTestIT {
 		
 	}
 	
-
+	//Verifies that testUser1@gmail.com has sharevalue 1.
 	@Test
 	public void testGetShareValue() throws IOException, SQLException {
-		//Her sjekker vi at testUser1@gmail.com har sharevalue 1.
 		assertTrue(http.getShareValue("testUser1@gmail.com", "testPerson"));
 		}
-	
+	//Set shareValue to 0, verify the value has been changed, and set the shareValue back to 1.
 	@Test
 	public void testSetShareValue() throws SQLException, IOException {
 		http.setShareValue("testUser2@gmail.com", 0, "testPerson");
 		assertFalse(http.getShareValue("testUser2@gmail.com", "testPerson"));
 		http.setShareValue("testUser2@gmail.com", 1, "testPerson");
 	}
-
+	
+	//Asserts that we are able to get the recommended number of steps from DB.
 	@Test
 	public void testGetRecommendedDailyActivity() throws IOException {
 		assertEquals(10000, http.getRecommendedDailyActivity("testRecommendedDailyActivity"));
 	}
 
-	
+	//Asserts that we are able to get the dailyActivity of a user from DB.
 	@Test
 	public void testGetDailyActivity() throws IOException {
 		assertEquals(1000, http.getDailyActivity("testUser1@gmail.com", LocalDate.of(2018, 04, 9), "testDailySteps"), 1);
 	}
-
+	
+	//Asserts that we are able to get the national average number of steps from DB.
 	@Test
 	public void testGetNationalAverage() throws IOException {
 		assertEquals(8100, http.getNationalAverage("testDailySteps"), 1);
