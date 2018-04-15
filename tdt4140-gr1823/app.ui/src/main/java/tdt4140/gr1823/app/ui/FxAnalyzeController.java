@@ -70,10 +70,10 @@ public class FxAnalyzeController implements Initializable {
 		
 		errorLabel.setVisible(false);
 		errorLabel.setTextFill(Color.RED);  //css styling of error label
-		
-		//submitButton.getStyleClass().add("button.success");
-		
+				
 		initializeBarChart();
+		
+		submitButton.defaultButtonProperty().bind(submitButton.focusedProperty());
 		
 		submitButton.setOnAction(e -> {
 			try {
@@ -146,7 +146,7 @@ public class FxAnalyzeController implements Initializable {
 	private void getChoice(ComboBox<String> comboBox, TextField input1, TextField input2) {
 		textInput1.getStyleClass().remove("error");
 		textInput2.getStyleClass().remove("error");
-		
+				
 		if(!(isValidInput(input1) && isValidInput(input2) && isValidOrder(input1, input2))){
 			if (!isValidInput(input1)){
 				textInput1.getStyleClass().add("error");
@@ -182,9 +182,9 @@ public class FxAnalyzeController implements Initializable {
 			updateBarChart(result);
 			totalUsers = UManager.getNumberOfUsers("Person");
 			
-			if (fromAge.equals("") && toAge.equals("") && gender.equals("")) {
+			if (fromAge.equals("") && toAge.equals("") && gender.equals("NOT SPECIFIED")) {
 				numUsers = UManager.getNumberOfUsers("Person");
-			} else if (gender.equals("")) {
+			} else if (gender.equals("NOT SPECIFIED")) {
 				if (fromAge.equals("")) { fromAge = "0"; }
 				if (toAge.equals("")) { toAge = "120"; }
 				numUsers = UManager.getNumberOfUsers("Person", fromAge, toAge);

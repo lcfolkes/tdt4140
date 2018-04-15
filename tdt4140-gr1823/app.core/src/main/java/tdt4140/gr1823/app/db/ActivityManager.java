@@ -93,7 +93,7 @@ public class ActivityManager {
     /** This method is used in AnalyzeScreen to filter a result and get average steps based on the input. */
     public double filter(String ageFrom, String ageTo, String gender, String tableName1, String tableName2) throws NumberFormatException, SQLException{
     	
-	    	if(ageFrom.equals("") && ageTo.equals("") && gender.equals("")) {
+	    	if(ageFrom.equals("") && ageTo.equals("") && gender.equals("NOT SPECIFIED")) {
 	    		return getNationalAverage(tableName1);
 	    	}
 	    	else if(gender.equals("")){
