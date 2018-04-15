@@ -1,6 +1,5 @@
 package tdt4140.gr1823.app.core;
 
-import java.time.LocalDate;
 import java.util.regex.*;
 
 public class SPUser {
@@ -10,12 +9,10 @@ public class SPUser {
 		    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE); 
 	public static final Pattern VALID_PASSWORD_REGEX = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$");
 	
-	private String username; //use email as username. Have reused the same methods for set ang get emial for username. 
-	private String password; //setter with encapsulation and getter
+	private String username; 
+	private String password; //Password requirements are: minimum eight letters with one uppercase and one lowercase letter, and one digit.
 	
-	//CONSTRUCTORS
-	
-	//Constructor for creating and setting up new user
+	//Constructor for creating and setting up new Serviceprovider-User
 	public SPUser (String username, String password) throws Exception {
 		setUsername(username);
 		setPassword(password);
