@@ -17,6 +17,9 @@ public class nationalAverageServlet extends HttpServlet {
 		db = new DBManager();
 	}
 	
+	/** Expects url-string with parameter tableName, to tell which table to act on in DB.
+	 * Returns the nationalAverage aggregated by all the persons in the DB **/
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 			String tableName = request.getQueryString().split("=")[1];

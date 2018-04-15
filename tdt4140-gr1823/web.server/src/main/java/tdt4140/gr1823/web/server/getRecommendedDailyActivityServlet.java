@@ -19,6 +19,9 @@ public class getRecommendedDailyActivityServlet extends HttpServlet {
 		db = new DBManager();
 	}
 	
+	/** Expects url-string with parameter tableName, to tell which table to act on in DB
+	 * Returns the recommendedDailyActivity set by Helsedirketoratet in the DB **/
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		try {
