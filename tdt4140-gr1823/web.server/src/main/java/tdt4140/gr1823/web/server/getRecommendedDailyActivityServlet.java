@@ -29,7 +29,7 @@ public class getRecommendedDailyActivityServlet extends HttpServlet {
 			
 			db.connect();
 			ArrayList<ArrayList<String>> list = db.retrieve("SELECT * FROM "+tableName+";");
-			String result = ActivityManager.getElementInArray(list);
+			String result = DBManager.getElementInArray(list);
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.getWriter().write(result);
 		} catch (SQLException e) {

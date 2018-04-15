@@ -1,40 +1,41 @@
 package tdt4140.gr1823.app.db;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import tdt4140.gr1823.app.core.Gender;
-import tdt4140.gr1823.app.core.User;
 public class DBManager {
 	
 	private Connection myCon;
 	private Statement myStatement;
 	private ResultSet myResultSet;
 	
+	/**This class handles all database-functionality. 
+	All other classes in the db-package uses this class to:
+	connect, disconnect, retreive and execute queries. */
 	public DBManager() {
 	}
 	
+	/**Sets up a connection to the database */
 	public void connect() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			Properties p = new Properties ();
 			 p.put("user","erlenhst_DB");
 			 p.put("password","gruppe23");
-			 myCon = DriverManager.getConnection(
-			 "jdbc:mysql://mysql.stud.ntnu.no:3306/erlenhst_Database?useSSL=false",p); 
-			System.out.println("Succsessfully connected");
+			 myCon = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/erlenhst_Database?useSSL=false",p); 
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException("Unable to connect", e);
 		}
 	}
 	
+	/**Disconnects from the database */
 	public void disconnect() throws SQLException {
 		myCon.close();
 	}
 	
+	/**This metod is used to retrieve data from the database */
 	public ArrayList<ArrayList<String>> retrieve(String query) throws SQLException {
 		try {
 			connect();
@@ -59,7 +60,6 @@ public class DBManager {
 			}
 			returnList.add(innerList);
 		}
-		//System.out.println(returnList);
 		try {
 			disconnect();
 		} catch (SQLException e) {
@@ -68,20 +68,31 @@ public class DBManager {
 		return returnList;
 	}
 
+	/**This method is used to execute SQL-queries on the database	*/
+	public void execute(String query) throws SQLException{
+		try {
+			connect();
+            myStatement = myCon.createStatement();
+            myStatement.executeUpdate(query);
+            System.out.println("Success.");	            
+        } catch (Exception e) {
+        		e.printStackTrace();
+            System.out.println("The query failed. Check your sql syntax.");
+        } finally {
+        		disconnect();
+        }
+	}
 		
-		public void execute(String query) throws SQLException{
-			try {
-				connect();
-	            myStatement = myCon.createStatement();
-	            myStatement.executeUpdate(query);
-	            System.out.println("Success.");	            
-	        } catch (Exception e) {
-	        		e.printStackTrace();
-	            System.out.println("The query failed. Check your sql syntax.");
-	        } finally {
-	        		disconnect();
-	        }
-		}
-	
+	/**Helper-method to accsess the string placed inside retrieveArray from DB */
+	//This method is used in ActivityManager, SPManager and UserManager.
+  	public static String getElementInArray(ArrayList<ArrayList<String>> retrieveArray) {
+      	ArrayList<String> insideFirstArray = retrieveArray.get(0);
+      	String insideSecondArray;
+      	insideSecondArray = insideFirstArray.get(0);
+      	if(insideSecondArray == null) {
+      		return"0";
+      	}
+      	return insideSecondArray;	
+      }
 
 }
