@@ -2,6 +2,7 @@ package tdt4140.gr1823.app.ui;
 
 import static org.junit.Assert.*;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import org.junit.After;
@@ -81,11 +82,12 @@ public class LoginScreenTest extends ApplicationTest {
 	}
 	
 	@Test
-	public void testLabelVisible() {	
+	public void testLabelVisible() throws InterruptedException {	
 		//when typing wrong combo of username/password, label should be visible
-		clickOn(usernameField).write("hallaballa");
+		clickOn(usernameField).write("feilbrukernavn");
 		clickOn(passwordField).write("feilPassord");
 		clickOn(loginButton);
+		TimeUnit.SECONDS.sleep(1);
 		assertTrue(errorLabel.isVisible());	
 	}
 
