@@ -9,7 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import tdt4140.gr1823.app.core.User;
-import tdt4140.gr1823.app.db.SPManager;
+import tdt4140.gr1823.app.db.SPManager; 
 import javafx.scene.control.PasswordField;
 
 /** The class for controlling the settings window. This is where the user can change their username and password as well as log out. 

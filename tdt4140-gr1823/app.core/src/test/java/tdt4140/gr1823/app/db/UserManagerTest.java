@@ -122,14 +122,5 @@ public class UserManagerTest {
 		// Verify that the count increased when we deleted the user. 
 		assertEquals(count2-1, count3);
 		
-   }
-   
-   
-   
-   
-   
-   
-   
-   
-   
+   }  
 }

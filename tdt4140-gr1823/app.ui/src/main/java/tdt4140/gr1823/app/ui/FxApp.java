@@ -20,7 +20,7 @@ public class FxApp extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-    		primaryStage.setTitle("National step database"); //title of window
+    		primaryStage.setTitle("Helsedirektoratet - Activity monitor"); //title of window
     		primaryStage.setScene(createScene(loadMainPane()));
     	    primaryStage.setResizable(false);
     		primaryStage.show();
@@ -43,7 +43,6 @@ public class FxApp extends Application {
 	    	// Use scene navigator to connect the scenes
 	    	Pane mainPane = (Pane) loader.load(getClass().getResourceAsStream(SceneNavigator.FXAPP));
 	    FxAppController fxAppController = loader.getController();
-	    	System.out.println("appcontroller= " + fxAppController);
 	    	SceneNavigator.setMainController(fxAppController);
 	    	//The app obviously starts with the login screen
 	    	SceneNavigator.loadScene(SceneNavigator.LOGINSCREEN);
