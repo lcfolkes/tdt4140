@@ -1,20 +1,37 @@
 package tdt4140.gr1823.app.ui;
 
-import java.awt.Label;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
+import javafx.geometry.Side;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Data;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import tdt4140.gr1823.app.db.ActivityManager;
 import tdt4140.gr1823.app.db.UserManager;
@@ -32,10 +49,10 @@ public class HomeScreenController implements Initializable{
 	protected PieChart agePieChart;
 	
 	@FXML
-	protected BarChart<String, Integer> genderBarChart;
+	protected BarChart<String, Number> genderBarChart;
 	
 	@FXML
-	protected BarChart<String,Integer> ageBarChart;
+	protected BarChart<String,Number> ageBarChart;
 	
 	@FXML
 	protected LineChart<Integer,Integer> lineChart;
@@ -43,9 +60,21 @@ public class HomeScreenController implements Initializable{
 	@FXML
 	protected Text numUsers;
 	
+	@FXML
+	protected Label caption;
+	
+	@FXML 
+	protected ScrollPane homeScreen;
+	
+	@FXML
+	protected VBox mainVBox;
+	
+	@FXML
+	protected AnchorPane anchorPane;
+		
 	protected UserManager um;
 	protected ActivityManager am;
-
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {	
 	
@@ -73,16 +102,19 @@ public class HomeScreenController implements Initializable{
         new PieChart.Data("MALE", malePercentage),
         new PieChart.Data("FEMALE", 100-malePercentage));
 		genderPieChart.setData(genderPieChartData); 
+		setPercentagePieChart(genderPieChart);
+
 		
 	Double firstPercentage = (double) 0;
 	Double secondPercentage = (double) 0;
 	Double thirdPercentage = (double) 0;
 	Double fourthPercentage = (double) 0;
 	try {
-		firstPercentage = (double) ((um.getNumberOfUsers("Person","0","20")*100)/(um.getNumberOfUsers("Person")));
-		secondPercentage = (double) ((um.getNumberOfUsers("Person","21","40")*100)/(um.getNumberOfUsers("Person")));
-		thirdPercentage = (double) ((um.getNumberOfUsers("Person","41","60")*100)/(um.getNumberOfUsers("Person")));
-		fourthPercentage = (double) ((um.getNumberOfUsers("Person","61","120")*100)/(um.getNumberOfUsers("Person")));
+		int numberOfUsers = um.getNumberOfUsers("Person");
+		firstPercentage = (double) ((um.getNumberOfUsers("Person","0","20")*100)/numberOfUsers);
+		secondPercentage = (double) ((um.getNumberOfUsers("Person","21","40")*100)/numberOfUsers);
+		thirdPercentage = (double) ((um.getNumberOfUsers("Person","41","60")*100)/numberOfUsers);
+		fourthPercentage = (double) ((um.getNumberOfUsers("Person","61","120")*100)/numberOfUsers);
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
@@ -94,11 +126,14 @@ public class HomeScreenController implements Initializable{
 		new PieChart.Data("41-60", thirdPercentage),
 		new PieChart.Data("60-120", fourthPercentage));
 	   	agePieChart.setData(agePieChartData); 
+		setPercentagePieChart(agePieChart);
+
 	 
 	
   //Gender Bar chart
 	   	
 	ActivityManager am = new ActivityManager();
+	
 	int maleSteps = 0;
 	int femaleSteps = 0;
 	try {
@@ -111,12 +146,12 @@ public class HomeScreenController implements Initializable{
 	}
 	   	
 	   	
-   XYChart.Series<String, Integer> genderData = new XYChart.Series<>();
+   XYChart.Series<String, Number> genderData = new XYChart.Series<>();
 	   genderData.setName("GENDER");  
 	   genderData.getData().add(new XYChart.Data<>("MALE", maleSteps));
 	   genderData.getData().add(new XYChart.Data<>("FEMALE", femaleSteps));
 	   genderBarChart.getData().add(genderData);
-  
+
    //Age Bar chart
 	   
 	int firstSteps = 0;
@@ -134,14 +169,13 @@ public class HomeScreenController implements Initializable{
 		e.printStackTrace();
 	}   
 	      
-   XYChart.Series<String, Integer> ageData = new XYChart.Series<>();
+   XYChart.Series<String, Number> ageData = new XYChart.Series<>();
 	   ageData.setName("AGE");       
 	   ageData.getData().add(new XYChart.Data<>("0-20", firstSteps));
 	   ageData.getData().add(new XYChart.Data<>("21-40", secondSteps));
 	   ageData.getData().add(new XYChart.Data<>("41-60", thirdSteps));
 	   ageData.getData().add(new XYChart.Data<>("61-120", fourthSteps));
 	   ageBarChart.getData().add(ageData);
-   
 	 
    //Line chart - last 12 months
 
@@ -183,12 +217,31 @@ public class HomeScreenController implements Initializable{
 	   averageData.getData().add(new XYChart.Data<>(12, today));
 	   lineChart.getData().add(averageData);
 	   
-	   lineChart.getXAxis().setLabel("Months");
+	   lineChart.getXAxis().setLabel("Month");
 	   lineChart.getYAxis().setLabel("Number of steps");
+	   lineChart.setLegendSide(Side.BOTTOM);
 	   
-	}//end initialize
+	   }
 	
-}
+	public void setPercentagePieChart(PieChart pieChart) {
+		caption.setTextFill(Color.WHITE);
+		for (final PieChart.Data data : pieChart.getData()) {
+		    data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED,
+		        new EventHandler<MouseEvent>() {
+		            @Override public void handle(MouseEvent e) {
+		                caption.setTranslateX(e.getSceneX()-10);
+		                caption.setTranslateY(e.getSceneY()-95 + 0.51*homeScreen.getVvalue()*mainVBox.getHeight());
+		                caption.toFront();
+		                caption.setText(String.valueOf(data.getPieValue()) + "%");
+		             }
+		        });
+		}
+	}
+
+}//end initializable
+
+
+	
 
 
 

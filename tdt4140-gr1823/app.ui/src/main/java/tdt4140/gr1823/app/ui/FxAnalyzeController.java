@@ -9,12 +9,14 @@ import javafx.fxml.Initializable;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.Chart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import tdt4140.gr1823.app.db.ActivityManager;
@@ -50,17 +52,17 @@ public class FxAnalyzeController implements Initializable {
 	@FXML
 	protected Text numUsersText;
 	
+	@FXML
+	protected Label caption;
 	
 	@FXML
-	protected BarChart<String,Integer> barChart;
+	protected BarChart<String,Number> barChart;
 	
-	Series<String, Integer> chartData = new Series<>();
+	Series<String, Number> chartData = new Series<>();
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		System.out.println("Loading user data...");
-		
-		numUsersText.setVisible(false);
+				numUsersText.setVisible(false);
 		
 		cbGender.setItems(genders);
 		cbGender.setValue("NOT SPECIFIED"); //default value
@@ -160,8 +162,7 @@ public class FxAnalyzeController implements Initializable {
 			}
 			errorLabel.setVisible(true); //error label gets displayed
 			averageLabel.setText("");
-			System.out.println("Invalid input. Please try again");
-		}
+			}
 		else {
 			errorLabel.setVisible(false);
 			textInput1.getStyleClass().remove("error");
@@ -177,7 +178,6 @@ public class FxAnalyzeController implements Initializable {
 			
 			try {
 				rs = activityManager.filter(fromAge, toAge, gender, "DailySteps", "Person");
-			System.out.println(fromAge + toAge +  gender);
 			result = (int) rs;
 			updateBarChart(result);
 			totalUsers = UManager.getNumberOfUsers("Person");
