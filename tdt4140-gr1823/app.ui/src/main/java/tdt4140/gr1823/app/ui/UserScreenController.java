@@ -21,36 +21,37 @@ public class UserScreenController implements Initializable{
 	
 	
 	@FXML
-	protected Text getDailyActivity;
+	protected Text getDailyActivity; //placeholder to show the daily activity of a user. 
 	
 	@FXML
-	protected TextField setUsername;
+	protected TextField setUsername; //TextField to type in username
 	
 	@FXML
-	protected Button recordUsernameButton;
+	protected Button recordUsernameButton; //Button to click after typed username (login-button)
 	
 	@FXML
-	protected Text getRecActivity;
+	protected Text getRecActivity; //placeholder to show the recommended daily activity set by Helsedirektoratet.
 	
 	@FXML
-	protected Text getNationalAverage;
+	protected Text getNationalAverage; //placeholder to show the national average of number of steps.
 	
 	@FXML
-	protected CheckBox yesBox;
+	protected CheckBox yesBox; //Box to tell whether or not the user wants to share their step-data
 	
 	@FXML
-	protected CheckBox noBox;
+	protected CheckBox noBox;	//Box to tell whether or not the user wants to share their step-data
 	
 	@FXML
-	protected Text acceptDataSharingText;
+	protected Text acceptDataSharingText; //information box
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//Hide the fields before login of a user
 		acceptDataSharingText.setVisible(false);
 		yesBox.setVisible(false);
 		noBox.setVisible(false);
-		//getDailyActivity.setText("Enter user ID below to see your step count for the day");
 		
+		//Fill the placeholders getRecActivity and getNationalAverage with values from DB
 		try {
 			getRecActivity.setText("The recommended activity level is " + http.getRecommendedDailyActivity("RecommendedDailyActivity") + " steps");
 		} catch (IOException e3) {
@@ -62,8 +63,12 @@ public class UserScreenController implements Initializable{
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
+		
+		//Prompt text inside username-field to indicate that the user should type in their username 
 		setUsername.setPromptText("Username");
 		
+		//Whenever recordUsernameButton is hit, do the following: 
+		//Update the number of steps walked today by the user. Display info on whether or not the user share his/hers step-data
 		recordUsernameButton.setOnAction((e) -> {
 			username = setUsername.getText();
 			try {
@@ -93,6 +98,7 @@ public class UserScreenController implements Initializable{
 		
 	}
 	
+	//Updates the DB-column "Share" for the specified user to match the state of the check-boxes. 
 	@FXML
 	private void handleYesBox() {
 		try {
@@ -111,6 +117,7 @@ public class UserScreenController implements Initializable{
 		}
 	}
 	
+	//Updates the DB-column "Share" for the specified user to match the state of the check-boxes. 
 	@FXML
 	private void handleNoBox() {
 		try {

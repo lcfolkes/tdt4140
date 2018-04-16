@@ -19,6 +19,9 @@ public class getRecommendedDailyActivityServlet extends HttpServlet {
 		db = new DBManager();
 	}
 	
+	/** Expects url-string with parameter tableName, to tell which table to act on in DB
+	 * Returns the recommendedDailyActivity set by Helsedirketoratet in the DB **/
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		try {
@@ -26,7 +29,7 @@ public class getRecommendedDailyActivityServlet extends HttpServlet {
 			
 			db.connect();
 			ArrayList<ArrayList<String>> list = db.retrieve("SELECT * FROM "+tableName+";");
-			String result = ActivityManager.getElementInArray(list);
+			String result = DBManager.getElementInArray(list);
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.getWriter().write(result);
 		} catch (SQLException e) {

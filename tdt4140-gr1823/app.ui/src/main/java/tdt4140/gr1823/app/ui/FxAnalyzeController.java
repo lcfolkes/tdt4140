@@ -63,6 +63,7 @@ public class FxAnalyzeController implements Initializable {
 		cbGender.setItems(genders);
 		errorLabel.setTextFill(Color.RED);  //css styling of error label
 		initializeBarChart();
+		submitButton.defaultButtonProperty().bind(submitButton.focusedProperty()); //Press enter
 		
 		//Setting default values
 		cbGender.setValue("NOT SPECIFIED"); 

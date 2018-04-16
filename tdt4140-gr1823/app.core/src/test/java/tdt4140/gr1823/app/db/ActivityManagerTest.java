@@ -1,22 +1,14 @@
 package tdt4140.gr1823.app.db;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue; //Sprint 3
-
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import com.mysql.jdbc.exceptions.MySQLSyntaxErrorException;
-
 import tdt4140.gr1823.app.core.DailyActivity;
 import tdt4140.gr1823.app.core.Gender;
 import tdt4140.gr1823.app.core.User;
@@ -85,14 +77,6 @@ public class ActivityManagerTest {
 		testUserDailyActivity = new DailyActivity(testUser, 12000, LocalDate.now()); //Sprint 3
 	}
 	
-	
-	
-//	@After
-//	public void tearDown() throws Exception {
-//	}
-//	
-	
-	
 	@Test
 	public void testGetNationalAverage() throws SQLException {
 		Double a = (double) A_Manager.getNationalAverage("testDailySteps");
@@ -105,32 +89,24 @@ public class ActivityManagerTest {
 		A_Manager.myCon.connect();
 		ArrayList<ArrayList<String>>ret = A_Manager.myCon.retrieve("SELECT AVG(Steps) FROM testDailySteps;");
 		A_Manager.myCon.disconnect();
-		String element = ActivityManager.getElementInArray(ret);
+		String element = DBManager.getElementInArray(ret);
 		Double a = (double) Double.parseDouble(element);
 		Assert.assertTrue(a instanceof Double);
 		
 		ArrayList<ArrayList<String>> test = A_Manager.myCon.retrieve("SELECT kolonne1 FROM testGetElement;");
-		Assert.assertEquals(ActivityManager.getElementInArray(test), "0");
+		Assert.assertEquals(DBManager.getElementInArray(test), "0");
 	}
-	
-//	@Test
-//	public void testAddActivity() throws SQLException {
-//		//A_Manager.addActivity(activity);
-//	}
-	
+		
 	@Test
 	public void testConvertAgeToDate() {
 		int age = 20;
-		LocalDate ld = A_Manager.convertAgeToDate(age);
+		LocalDate ld = ActivityManager.convertAgeToDate(age);
 		LocalDate today = LocalDate.now();
 		Assert.assertEquals(LocalDate.of(today.getYear() -20, today.getMonthValue(), today.getDayOfMonth()),ld);
 	}
 	
 	
-	// #SPRINT 3 UPDATE (below this mark)
-	// Implemented by Tor and Anders
-
-	@Test //UPDATED from AMANDAs original.
+	@Test
 	public void testGetDailyActivity() throws SQLException{
 		assertEquals(A_Manager.getDailyActivity(testUser2.getUsername(), LocalDate.of(2018, 04, 9), "testDailySteps"), 4500, 1);
 	}
@@ -154,16 +130,15 @@ public class ActivityManagerTest {
 	
 	@Test
 	public void testFilterByGenderAge() throws Exception {
-		assertEquals(8100, A_Manager.filter("", "", "", "testDailySteps", "testPerson"), 1);
-		assertEquals(8100, A_Manager.filter("", "", "", "testDailySteps", "testPerson"), 1);
+		assertEquals(8100, A_Manager.filter("", "", "NOT SPECIFIED", "testDailySteps", "testPerson"), 1);
+		assertEquals(8100, A_Manager.filter("", "", "NOT SPECIFIED", "testDailySteps", "testPerson"), 1);
 		assertEquals(5833, A_Manager.filter("", "", "MALE", "testDailySteps", "testPerson"), 1);
 		assertEquals(11500, A_Manager.filter("", "", "FEMALE", "testDailySteps", "testPerson"), 1);	
 		assertEquals(15000, A_Manager.filter("", "50", "FEMALE", "testDailySteps", "testPerson"), 1);	
 		assertEquals(8250, A_Manager.filter("20", "", "MALE", "testDailySteps", "testPerson"), 1);	
 		assertEquals(12000, A_Manager.filter("20", "50", "MALE", "testDailySteps", "testPerson"), 1);	
 	}
-	
-	
+
 }
 
 

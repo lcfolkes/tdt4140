@@ -13,11 +13,18 @@ import tdt4140.gr1823.app.db.DBManager;
 
 public class dailyActivityServlet extends HttpServlet {
 	
+	
 	private DBManager db; 
+	
+	//Creates an instance of DBManager to handle database communication.
 	@Override
 	public void init() {
 		db = new DBManager();
 	}
+	
+	/**Expects url-string with three parameters; Username, localDate and tableName (the table to act on in the DB)
+	Use these parameters to handle the wanted SQL call to the DB.
+	Return the result in the response. **/
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

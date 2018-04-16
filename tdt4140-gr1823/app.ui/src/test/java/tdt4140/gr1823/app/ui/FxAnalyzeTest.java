@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -67,10 +68,12 @@ public class FxAnalyzeTest extends ApplicationTest {
 	@Before
     public void setUp() {
         /* Just retrieving the tested widgets from the GUI. */    
+		comboBox = ((ComboBox) find ("#cbGender"));
 		text1 = (TextField) find("#ageFromField");
 		text2 = (TextField) find("#ageToField");
 		button = (Button) find("#submitButton");
 		errorLabel = (Label) find("#errorLabel");
+		
     }
 	 
 	@After
@@ -94,6 +97,7 @@ public class FxAnalyzeTest extends ApplicationTest {
 		Assert.assertTrue(find("#cbGender") instanceof ComboBox);
 		Assert.assertTrue(find("#submitButton") instanceof Button);
 		Assert.assertTrue(find("#errorLabel") instanceof Label);
+		Assert.assertTrue(find("#barChart") instanceof BarChart);
     }
 	
     @Test

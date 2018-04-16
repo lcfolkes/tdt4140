@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -21,9 +22,8 @@ public class FxApp extends Application {
     public void start(Stage primaryStage) throws Exception {
     		primaryStage.setTitle("National step database"); //title of window
     		primaryStage.setScene(createScene(loadMainPane()));
+    	    primaryStage.setResizable(false);
     		primaryStage.show();
-    		System.out.println("java version: "+System.getProperty("java.version"));
-    		System.out.println("javafx.version: " + System.getProperty("javafx.version"));
     }
     
     private Scene createScene(Pane pane) {

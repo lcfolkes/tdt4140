@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.regex.*;
 
-// Lagt til for å kunne commit'e.
 public class User {
 	
 	//Attributes
@@ -12,15 +11,12 @@ public class User {
 		    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE); 
 	public static final Pattern VALID_PASSWORD_REGEX = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$");
 	
-	private String username; //use email as username. Have reused the same methods for set ang get emial for username. 
-	private String password; //setter with encapsulation and getter
+	private String username; //Email is used as username. 
+	private String password; //Password requirements are: minimum eight letters with one uppercase and one lowercase letter, and one digit.
 	private String name; //
-	private LocalDate b_Date; //er på formatet til localDate(year, month, day)
-	private Gender gender; //getGender and in constructor
-	private int share;
-
-	
-	//CONSTRUCTORS
+	private LocalDate b_Date; //is on the format LocalDate(yyyy-mm-dd)
+	private Gender gender; 
+	private int share; //Share-value spesifies if a user wants to share his/hers step-data.
 	
 	//Constructor for creating and setting up new user
 	public User (String username, String password, String name, LocalDate b_Date, Gender gender,int share) throws Exception {
