@@ -2,9 +2,7 @@ package tdt4140.gr1823.app.db;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import tdt4140.gr1823.app.core.SPUser;
-import tdt4140.gr1823.app.core.User;
 
 public class SPManager {
 
@@ -48,11 +46,8 @@ public class SPManager {
     public int getRecommendedDailyActivity(String tableName) {
     	try {
 			ArrayList<ArrayList<String>> list = myCon.retrieve("SELECT * FROM "+tableName+";");
-			int a = Integer.parseInt(DBManager.getElementInArray(list));
-			System.out.println(a);
 			return Integer.parseInt(DBManager.getElementInArray(list));
 		} catch (SQLException e) {
-			System.out.println("ERROR: Can't retrieve data. Check syntax..");
 			e.printStackTrace();
 		} 
     	return 0; //Just need this for syntax

@@ -2,8 +2,6 @@ package tdt4140.gr1823.app.db;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import tdt4140.gr1823.app.core.Gender;
 import tdt4140.gr1823.app.core.User;
 
 public class UserManager {
