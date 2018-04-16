@@ -1,49 +1,51 @@
 package tdt4140.gr1823.app.ui;
 
-//import static org.junit.Assert.assertThat;
 import static org.hamcrest.MatcherAssert.assertThat;
-
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
-import org.testfx.matcher.base.NodeMatchers;
 import org.testfx.matcher.control.ComboBoxMatchers;
-import org.testfx.util.WaitForAsyncUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
-import org.junit.Assert;
 import tdt4140.gr1823.app.ui.FxAnalyzeController;
 
+import org.junit.Assert;
 
+/** Test class for the analyze screen
+ * 
+ * @author Gruppe 23
+ *
+ */
 public class FxAnalyzeTest extends ApplicationTest {
 	
 	 private FxAnalyzeController testController; 
-	 public ExpectedException exception; 
-	 ComboBox<String> comboBox;
-	 TextField text1;
-	 TextField text2;
-	 Button button;
-	 Label errorLabel;
-	 BarChart barChart;
 	 
+	 //FXML objects with fx:id from FxAnalyzeScreen 
+	 public ExpectedException exception; 
+	 public ComboBox<String> comboBox;
+	 public TextField text1;
+	 public TextField text2;
+	 public Button button;
+	 public Label errorLabel;
+	
+	/**
+	 * Method needed for the tests to run by GitLab
+	 */
 	@BeforeClass
 	public static void headless() {
 	    	if (Boolean.valueOf(System.getProperty("gitlab-ci", "false"))) {
@@ -62,15 +64,15 @@ public class FxAnalyzeTest extends ApplicationTest {
 	    stage.show();
 	    stage.toFront();
     }
+	
 	@Before
     public void setUp() {
         /* Just retrieving the tested widgets from the GUI. */    
-		comboBox = (ComboBox) find("#cbGender");
-		text1 = (TextField) find("#textInput1");
-		text2 = (TextField) find("#textInput2");
+		comboBox = ((ComboBox) find ("#cbGender"));
+		text1 = (TextField) find("#ageFromField");
+		text2 = (TextField) find("#ageToField");
 		button = (Button) find("#submitButton");
 		errorLabel = (Label) find("#errorLabel");
-		barChart = (BarChart) find("#barChart");
 		
     }
 	 
@@ -90,9 +92,8 @@ public class FxAnalyzeTest extends ApplicationTest {
     @Test
 	public void testFieldExist() {
 		/* Testing if all fields exist*/
-
-		Assert.assertTrue(find("#textInput1") instanceof TextField);
-		Assert.assertTrue(find("#textInput2") instanceof TextField);
+		Assert.assertTrue(find("#ageFromField") instanceof TextField);
+		Assert.assertTrue(find("#ageToField") instanceof TextField);
 		Assert.assertTrue(find("#cbGender") instanceof ComboBox);
 		Assert.assertTrue(find("#submitButton") instanceof Button);
 		Assert.assertTrue(find("#errorLabel") instanceof Label);
@@ -104,17 +105,6 @@ public class FxAnalyzeTest extends ApplicationTest {
     		/*correct number of items*/
     		assertThat(comboBox, ComboBoxMatchers.hasItems(3));
     } 
-
-    /*@Test
-    public void containsItems() {
- 	   //in order
- 	   assertThat(comboBox, ComboBoxMatchers.containsItems("","MALE", "FEMALE"));
- 	   //not in order
- 	   assertThat(comboBox, ComboBoxMatchers.containsItems("MALE","FEMALE", ""));
- 	   //partial
- 	   assertThat(comboBox, ComboBoxMatchers.containsItems("", "FEMALE"));
-    }
-    */ 
     
     @Test
     public void containsExactlyItems() {
@@ -127,9 +117,8 @@ public class FxAnalyzeTest extends ApplicationTest {
     @Test
     public void testControllerConnection() throws InterruptedException {
 	    	try {
-	    		comboBox = (ComboBox) find("#cbGender");
-	    		text1 = (TextField) find("#textInput1");
-	    		text2 = (TextField) find("#textInput2");
+	    		text1 = (TextField) find("#ageFromField");
+	    		text2 = (TextField) find("#ageToField");
 	    		button = (Button) find("#submitButton");
 	    		errorLabel = (Label) find("#errorLabel");
 	    		

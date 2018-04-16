@@ -71,8 +71,8 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                          <TextField fx:id="textInput1" alignment="CENTER" prefHeight="27.0" prefWidth="70.0" promptText="From" />
-                                          <TextField fx:id="textInput2" alignment="CENTER" prefHeight="27.0" prefWidth="70.0" promptText="To" GridPane.columnIndex="2" />
+                                          <TextField fx:id="ageFromField" alignment="CENTER" prefHeight="27.0" prefWidth="70.0" promptText="From" />
+                                          <TextField fx:id="ageToField" alignment="CENTER" prefHeight="27.0" prefWidth="70.0" promptText="To" GridPane.columnIndex="2" />
                                  </children>
                               </GridPane>
                            </children>

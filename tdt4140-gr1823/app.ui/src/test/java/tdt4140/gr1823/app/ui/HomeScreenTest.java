@@ -19,20 +19,27 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import tdt4140.gr1823.app.db.ActivityManager;
 import tdt4140.gr1823.app.db.UserManager;
 import javafx.scene.Node;
 
+/** Test class for the home screen
+ * 
+ * @author Gruppe 23
+ *
+ */
 public class HomeScreenTest extends ApplicationTest{
 
+	/**
+	 * Method needed for the tests to run by GitLab
+	 */
 	@BeforeClass
 	public static void headless() {
     	if (Boolean.valueOf(System.getProperty("gitlab-ci", "false"))) {
     		GitlabCISupport.headless(); }
 	}
-	
 	
 	public void start(Stage stage) throws Exception {
 		Parent mainNode = FXMLLoader.load(UserScreen.class.getResource("FxHomeScreen.fxml"));
@@ -45,11 +52,9 @@ public class HomeScreenTest extends ApplicationTest{
 	public void tearDown() throws Exception {
 		FxToolkit.hideStage();
 		release(new KeyCode[] {});
-		//release(new MouseButton[] {});
+		release(new MouseButton[] {});
 	}
 	
-
-
 	@Before
     public void setUp() {
     }
@@ -73,7 +78,6 @@ public class HomeScreenTest extends ApplicationTest{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public <T extends Node> T find(final String query) {

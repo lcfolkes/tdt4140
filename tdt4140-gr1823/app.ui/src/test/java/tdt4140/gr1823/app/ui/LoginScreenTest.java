@@ -2,6 +2,7 @@ package tdt4140.gr1823.app.ui;
 
 import static org.junit.Assert.*;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import org.junit.After;
@@ -22,7 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
-import static org.junit.Assert.*;
+
 public class LoginScreenTest extends ApplicationTest {
 	
 	private TextField usernameField;
@@ -65,11 +66,6 @@ public class LoginScreenTest extends ApplicationTest {
 		release(new MouseButton[] {});
 	}
 
-	//Hjelpemetode for å finne JavaFX elementer på ID
-	
-	public <T extends Node> T find(final String query) {
-		return lookup(query).query();
-	}
 	
 	@Test
 	public void testFieldExists() {
@@ -86,22 +82,17 @@ public class LoginScreenTest extends ApplicationTest {
 	}
 	
 	@Test
-	public void testLabelVisible() {	
+	public void testLabelVisible() throws InterruptedException {	
 		//when typing wrong combo of username/password, label should be visible
-		clickOn(usernameField).write("hallaballa");
+		clickOn(usernameField).write("feilbrukernavn");
 		clickOn(passwordField).write("feilPassord");
 		clickOn(loginButton);
+		TimeUnit.SECONDS.sleep(1);
 		assertTrue(errorLabel.isVisible());	
 	}
-	
-//	@Test
-//	public void checkCorrectLogin() {
-//		loader = new FXMLLoader(getClass().getResource("ServiceProvider.fxml"));
-//		clickOn(usernameField).write("helsedirektoratet");
-//		clickOn(passwordField).write("gruppe23");
-//		clickOn(loginButton);
-//		//assertEquals(loader.getController().toString(), testController.toString());
-//		//assertEquals("MainScreen.fxml", loader.getResources().);
-//	}
 
+	//Hjelpemetode for å finne JavaFX elementer på ID
+	public <T extends Node> T find(final String query) {
+		return lookup(query).query();
+	}
 }

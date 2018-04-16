@@ -1,18 +1,14 @@
 package tdt4140.gr1823.app.ui;
 
-import java.awt.List;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.Chart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.*;
@@ -23,63 +19,67 @@ import tdt4140.gr1823.app.db.ActivityManager;
 import tdt4140.gr1823.app.db.SPManager;
 import tdt4140.gr1823.app.db.UserManager;
 
+
+/** This class controls the analyze screen in the app. This is where the user selects which segments it wants to see the average for
+ * 
+ * @author Gruppe23
+ *
+ */
 public class FxAnalyzeController implements Initializable {
 	
-	private ActivityManager activityManager = new ActivityManager();
+	//Database manager objects used for communication with the database.
+	private ActivityManager ActivityManager = new ActivityManager();
 	private SPManager SPManager = new SPManager();
 	private UserManager UManager = new UserManager();
 		
 	ObservableList<String> genders = FXCollections.observableArrayList("NOT SPECIFIED","MALE", "FEMALE"); 
-     
+    
+	//FXML objects with fx:id from FxAnalyzeScreen 
 	@FXML
-	protected Button submitButton;
-	
+	protected Button submitButton; //Button for submitting selection of segment
 	@FXML 
-	protected ComboBox<String> cbGender;
-	
+	protected ComboBox<String> cbGender; //Pull down menu for gender
 	@FXML 
-	protected TextField textInput1; //referenced id: textInput1 in FXML
-	
+	protected TextField ageFromField; //Lower boundary for age of user segment
 	@FXML 
-	protected TextField textInput2;
-	
+	protected TextField ageToField; //Upper boundary for age of user segment
 	@FXML
-	protected Label errorLabel;
-	
+	protected Label errorLabel; //Label for incorrect input
 	@FXML
-	protected Label averageLabel;
-	
+	protected Label averageLabel; //Field displaying the average number of steps of the user segment
 	@FXML
 	protected Text numUsersText;
 	
 	@FXML
 	protected Label caption;
 	
+	//Bar chart with three bars (National average, Recommended average and the average of the selected segment)
 	@FXML
-	protected BarChart<String,Number> barChart;
-	
-	Series<String, Number> chartData = new Series<>();
+	protected BarChart<String,Integer> barChart;
+	Series<String, Integer> chartData = new Series<>();
 	
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-				numUsersText.setVisible(false);
-		
-		cbGender.setItems(genders);
-		cbGender.setValue("NOT SPECIFIED"); //default value
-		
-		textInput1.setText(""); //default value 
-		textInput2.setText(""); //default value
-		
+	public void initialize(URL location, ResourceBundle resources) {		
+		//Hide fields not to be shown before selection is made
+		numUsersText.setVisible(false);
 		errorLabel.setVisible(false);
+		
+		//Set properties
+		cbGender.setItems(genders);
 		errorLabel.setTextFill(Color.RED);  //css styling of error label
-				
 		initializeBarChart();
+		submitButton.defaultButtonProperty().bind(submitButton.focusedProperty()); //Press enter
 		
-		submitButton.defaultButtonProperty().bind(submitButton.focusedProperty());
+		//Setting default values
+		cbGender.setValue("NOT SPECIFIED"); 
+		ageFromField.setText(""); 
+		ageToField.setText(""); 
 		
+
+		//When the submit button is pressed the updateSegment method runs
 		submitButton.setOnAction(e -> {
 			try {
-				getChoice(cbGender, textInput1, textInput2);
+				updateSegment(cbGender, ageFromField, ageToField);
 			} catch (NumberFormatException e1) {
 				e1.printStackTrace();
 			}
@@ -87,6 +87,10 @@ public class FxAnalyzeController implements Initializable {
 	}
 	
 	//checking if age group input is valid. ie. not a string unless empty string and not invalid integer
+	/** Checks if the input is valid, specifically the age group input. Input has to be an integer between 0-120 or can be empty 
+	 * @param 
+	 * @return boolean value
+	 */
 	private boolean isValidInput(TextField textInput) {
 		String input = textInput.getText();
 		int inputInt;
@@ -105,75 +109,89 @@ public class FxAnalyzeController implements Initializable {
 		return true;
 	}
 	
-	private boolean isValidOrder(TextField textInput1, TextField textInput2) {
+	/** Checks if the input is valid, specifically the age group input. Input has to be in ascending order.
+	 * @param 
+	 * @return boolean value
+	 */
+	private boolean isValidOrder(TextField ageFromField, TextField ageToField) {
 			try {
-				return Integer.parseInt(textInput1.getText()) < Integer.parseInt(textInput2.getText());
+				return Integer.parseInt(ageFromField.getText()) < Integer.parseInt(ageToField.getText());
 				}
 			catch(NumberFormatException e) {
-				if(textInput1.getText().isEmpty() || textInput2.getText().isEmpty()){
+				if(ageFromField.getText().isEmpty() || ageToField.getText().isEmpty()){
 					return true;
 				}
 			}
-		
 		return false;
 	}
 	
+	/** Method for initializing bar chart with recommended daily steps and national average
+	 */
 	private void initializeBarChart() {
+		//Set default as zero
 		int nationalAverage = 0;
 		int recDailyActivity = 0;
+		
+		//Fetch data from database
 		try {
-			nationalAverage = (int) activityManager.getNationalAverage("DailySteps");
+			nationalAverage = (int) ActivityManager.getNationalAverage("DailySteps");
 			recDailyActivity = (int) SPManager.getRecommendedDailyActivity("RecommendedDailyActivity");
 		} catch (NumberFormatException f) {
 			f.printStackTrace();
 		} catch (SQLException g) {
 			g.printStackTrace();
 		}
+		
+		//Set format and data
 		chartData.getData().clear();
-		barChart.setLegendVisible(false);
-		//chartData.setName("Compare results");       
+		barChart.setLegendVisible(false);       
 		chartData.getData().add(new XYChart.Data<>("National average", nationalAverage));
 		chartData.getData().add(new XYChart.Data<>("Recommended daily activity", recDailyActivity));
 		chartData.getData().add(new XYChart.Data<>("Filter result", 0));
 		barChart.getData().add(chartData);
 	}
 	
+	/** Updates bar char with data from the selection
+	 */
 	private void updateBarChart (int rs) {
 		chartData.getData().remove(2);
 		chartData.getData().add(new XYChart.Data<>("Filter result", rs));
 	}
  
-	//To get the values of the selected items. Both gender and age
-	//Need to implement method that returns enum Gender object? 
-	private void getChoice(ComboBox<String> comboBox, TextField input1, TextField input2) {
-		textInput1.getStyleClass().remove("error");
-		textInput2.getStyleClass().remove("error");
-				
+	/** Take in segment selection and find number of users in section as well as update bar graph
+	 */
+	private void updateSegment(ComboBox<String> comboBox, TextField input1, TextField input2) {
+		//Removes potential error fields from last selection
+		ageFromField.getStyleClass().remove("error");
+		ageToField.getStyleClass().remove("error");
+		
 		if(!(isValidInput(input1) && isValidInput(input2) && isValidOrder(input1, input2))){
 			if (!isValidInput(input1)){
-				textInput1.getStyleClass().add("error");
+				ageFromField.getStyleClass().add("error");
 			}
 			if (!isValidInput(input2)){
-				textInput2.getStyleClass().add("error");
+				ageToField.getStyleClass().add("error");
 			}
 			else if(!isValidOrder(input1, input2)){
-				textInput1.getStyleClass().add("error");
-				textInput2.getStyleClass().add("error");
+				ageFromField.getStyleClass().add("error");
+				ageToField.getStyleClass().add("error");
 			}
 			errorLabel.setVisible(true); //error label gets displayed
 			averageLabel.setText("");
-			}
+		}
 		else {
 			errorLabel.setVisible(false);
-			textInput1.getStyleClass().remove("error");
-			textInput2.getStyleClass().remove("error");
+			ageFromField.getStyleClass().remove("error");
+			ageToField.getStyleClass().remove("error");
 			
 			String gender = comboBox.getValue();
 			String fromAge = input1.getText();
 			String toAge = input2.getText();
 			double rs;
-			Integer numUsers = 0;
 			int result = 0;
+			
+			//Part for finding number of users in segment
+			Integer numUsers = 0;
 			int totalUsers = 0;
 			
 			try {
@@ -191,26 +209,23 @@ public class FxAnalyzeController implements Initializable {
 			} else if (fromAge.equals("") && toAge.equals("")) {
 				numUsers = UManager.getNumberOfUsers("Person", gender);
 			} else {
+				if (fromAge.equals("")) { fromAge = "0"; }
+				if (toAge.equals("")) { toAge = "120"; }
 				numUsers = UManager.getNumberOfUsers("Person", fromAge, toAge, gender);				
 			}
-			
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			//BarChart.getData().add(chartData);
-			
 			numUsersText.setText(numUsers + "/" + totalUsers);
-			numUsersText.setVisible(true);
-				
+			numUsersText.setVisible(true);	
 			if(result != 0){
 				averageLabel.setText(Integer.toString(result));
 			}
 			else{
-				averageLabel.setText("Cannot find data for this request in the database.");
-			}
-			
+				averageLabel.setText("N/A");
+			}	
 		}
 	}
 }
