@@ -31,23 +31,24 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import tdt4140.gr1823.app.db.ActivityManager;
+import tdt4140.gr1823.app.db.ActivityManager; 
 import tdt4140.gr1823.app.db.UserManager;
 
 public class HomeScreenController implements Initializable{
 		
 	//Database manager objects used for communication with the database.
-	protected UserManager um = new UserManager();
-	protected ActivityManager am = new ActivityManager();
+	protected UserManager um;
+	protected ActivityManager am;;
 	
 	//FXML objects with fx:id from FxSettingsScreen.fxml
 	@FXML
 	protected PieChart genderPieChart; //Pie chart showing the distribution of users by gender (male/female)
-	@FXML
-	protected BarChart<String, Number> genderBarChart;
+	
+	@FXML 
+	protected PieChart agePieChart;
 	
 	@FXML
-	protected BarChart<String,Number> ageBarChart;
+	protected BarChart<String, Integer> genderBarChart;
 	
 	@FXML
 	protected BarChart<String,Integer> ageBarChart; //Bar chart showing the average steps by gender (0-20, 21-40, 41-60, 61-120)
@@ -65,9 +66,10 @@ public class HomeScreenController implements Initializable{
 	
 	@FXML
 	protected AnchorPane anchorPane;
+	
+	@FXML
+	protected LineChart lineChart;
 		
-	protected UserManager um;
-	protected ActivityManager am;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {	
@@ -124,7 +126,7 @@ public class HomeScreenController implements Initializable{
 	
   //Gender Bar chart
 	   	
-	ActivityManager am = new ActivityManager();
+	am = new ActivityManager();
 	
 	int maleSteps = 0;
 	int femaleSteps = 0;
@@ -138,7 +140,7 @@ public class HomeScreenController implements Initializable{
 	}
 	   	
 	   	
-   XYChart.Series<String, Number> genderData = new XYChart.Series<>();
+   XYChart.Series<String, Integer> genderData = new XYChart.Series<>();
 	   genderData.setName("GENDER");  
 	   genderData.getData().add(new XYChart.Data<>("MALE", maleSteps));
 	   genderData.getData().add(new XYChart.Data<>("FEMALE", femaleSteps));
@@ -161,7 +163,7 @@ public class HomeScreenController implements Initializable{
 		e.printStackTrace();
 	}   
 	      
-   XYChart.Series<String, Number> ageData = new XYChart.Series<>();
+   XYChart.Series<String, Integer> ageData = new XYChart.Series<>();
 	   ageData.setName("AGE");       
 	   ageData.getData().add(new XYChart.Data<>("0-20", firstSteps));
 	   ageData.getData().add(new XYChart.Data<>("21-40", secondSteps));

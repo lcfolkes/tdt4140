@@ -27,8 +27,7 @@ public class HttpCommunicationTestIT {
 	
 	@Before
 	public void setUp() throws Exception {
-		http = new HttpCommunication();		
-		
+		http = new HttpCommunication();			
 	}
 	
 	//Verifies that testUser1@gmail.com has sharevalue 1.

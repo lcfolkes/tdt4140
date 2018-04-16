@@ -195,7 +195,7 @@ public class FxAnalyzeController implements Initializable {
 			int totalUsers = 0;
 			
 			try {
-				rs = activityManager.filter(fromAge, toAge, gender, "DailySteps", "Person");
+				rs = ActivityManager.filter(fromAge, toAge, gender, "DailySteps", "Person");
 			result = (int) rs;
 			updateBarChart(result);
 			totalUsers = UManager.getNumberOfUsers("Person");
