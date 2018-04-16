@@ -5,6 +5,12 @@ Project Description
 =======
 The application gathers data about individuals daily activity level represented through their number of steps walked. The information is stored in a remote database, and the application allows for filtering, comparison and presentation of the data through a GUI. The application is created for the Norwegian Directorate of Health ("Helsedirektoratet") with the purpose of enabling research and monitoring of Norwegians exercise- and activity levels. 
 The origin of the project was through the course [TDT4140 - Software Engineering](https://www.ntnu.edu/studies/courses/TDT4140#tab=omEmnet) at the Norwegian University of Science and Technology in 2018. 
+Login
+=======
+In order to log in and use the application, use the following;   
+- Username: helsedirektoratet   
+- Password: Helsedirektoratet1   
+
 Requirements
 =======
 The application was created through the [Eclipse IDE](http://www.eclipse.org/downloads/eclipse-packages/). The [Operating Instructions](#operating-instructions) below is created with the Eclipse IDE in mind. 
