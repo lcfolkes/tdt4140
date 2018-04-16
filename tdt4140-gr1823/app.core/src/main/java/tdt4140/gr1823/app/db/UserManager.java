@@ -55,7 +55,7 @@ public class UserManager {
    
    /** Gets number of users based on all attributes */
    public int getNumberOfUsers(String tableName, String ageFrom, String ageTo, String gender) throws SQLException { //Tar inn Person-tabellen
-		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT COUNT(*) FROM "+tableName+" WHERE B_Date >= '" + ActivityManager.convertAgeToDate(Integer.parseInt(ageTo)+1)+ "' AND B_Date < '" + ActivityManager.convertAgeToDate(Integer.parseInt(ageFrom)+1)+ " AND Gender = '" + gender +"';");
+		ArrayList<ArrayList<String>> ret = myCon.retrieve("SELECT COUNT(*) FROM "+tableName+" WHERE B_Date >= '" + ActivityManager.convertAgeToDate(Integer.parseInt(ageTo)+1)+ "' AND B_Date < '" + ActivityManager.convertAgeToDate(Integer.parseInt(ageFrom)+1)+ "' AND Gender = '" + gender +"';");
   		return Integer.parseInt(DBManager.getElementInArray(ret));
   }
    
