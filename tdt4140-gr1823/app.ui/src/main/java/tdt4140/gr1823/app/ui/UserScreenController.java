@@ -15,7 +15,7 @@ import tdt4140.gr1823.app.HttpCommunication.HttpCommunication;;
 
 public class UserScreenController implements Initializable{
 	
-	private HttpCommunication http = new HttpCommunication();
+	private HttpCommunication http = new HttpCommunication(); 
 	
 	private String username;
 	

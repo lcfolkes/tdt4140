@@ -6,11 +6,13 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import tdt4140.gr1823.app.db.ActivityManager;
@@ -46,7 +48,10 @@ public class FxAnalyzeController implements Initializable {
 	@FXML
 	protected Label averageLabel; //Field displaying the average number of steps of the user segment
 	@FXML
-	protected Text numUsersText; //Get the number of users in the selected user segment
+	protected Text numUsersText;
+	
+	@FXML
+	protected Label caption;
 	
 	//Bar chart with three bars (National average, Recommended average and the average of the selected segment)
 	@FXML
@@ -191,7 +196,6 @@ public class FxAnalyzeController implements Initializable {
 			
 			try {
 				rs = ActivityManager.filter(fromAge, toAge, gender, "DailySteps", "Person");
-			System.out.println(fromAge + toAge +  gender);
 			result = (int) rs;
 			updateBarChart(result);
 			totalUsers = UManager.getNumberOfUsers("Person");

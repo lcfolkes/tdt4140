@@ -13,104 +13,115 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<ScrollPane stylesheets="tdt4140.gr1823.app.ui.gui.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1823.app.ui.HomeScreenController">
- <content>  
-      <VBox prefHeight="1089.0" prefWidth="871.0" stylesheets="tdt4140.gr1823.app.ui.gui.css">
+<ScrollPane fx:id="homeScreen" stylesheets="tdt4140.gr1823.app.ui.gui.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1823.app.ui.HomeScreenController">
+ <content>
+ <AnchorPane fx:id="anchorPane">
          <children>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <Label fx:id="caption" text="" />  
+            <VBox fx:id="mainVBox" prefHeight="1089.0" prefWidth="871.0" stylesheets="tdt4140.gr1823.app.ui.gui.css">
                <children>
+                  <Label prefHeight="60.0" prefWidth="378.0" text="OVERVIEW">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                  </Label>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label prefHeight="18.0" prefWidth="921.0" style="-fx-background-color: lightgrey; -fx-font-size: 20;" text="User demographics" />
-                        <HBox minHeight="-Infinity" prefHeight="200.0" prefWidth="849.0">
+                        <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <PieChart fx:id="genderPieChart" prefHeight="335.0" prefWidth="301.0" title="Gender" />
-                              <PieChart fx:id="agePieChart" prefHeight="175.0" prefWidth="305.0" title="Age" />
-                              <VBox prefHeight="160.0" prefWidth="199.0">
+                              <Label prefHeight="18.0" prefWidth="921.0" style="-fx-background-color: lightgrey; -fx-font-size: 20;" text="User Demographics" />
+                              <HBox minHeight="-Infinity" prefHeight="200.0" prefWidth="849.0">
                                  <children>
-                                    <Label alignment="BASELINE_CENTER" prefHeight="30.0" prefWidth="211.0" style="-fx-font-size: 16;" text="Number of users">
-                                       <VBox.margin>
-                                          <Insets top="40.0" />
-                                       </VBox.margin>
-                                       <padding>
-                                          <Insets bottom="10.0" />
-                                       </padding>
-                                    </Label>
-                                    <Text fx:id="numUsers" fill="#0d2b96" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 24;" text="Number" textAlignment="CENTER" wrappingWidth="196.2345428466797">
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
-                                       </VBox.margin>
-                                    </Text>
+                                    <PieChart fx:id="genderPieChart" prefHeight="335.0" prefWidth="301.0" title="Gender" />
+                                    <PieChart fx:id="agePieChart" prefHeight="175.0" prefWidth="305.0" title="Age" />
+                                    <VBox prefHeight="160.0" prefWidth="199.0">
+                                       <children>
+                                          <Label alignment="BASELINE_CENTER" prefHeight="30.0" prefWidth="211.0" style="-fx-font-size: 16;" text="Number of users">
+                                             <VBox.margin>
+                                                <Insets top="40.0" />
+                                             </VBox.margin>
+                                             <padding>
+                                                <Insets bottom="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <Text fx:id="numUsers" fill="#0d2b96" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 24;" text="Number" textAlignment="CENTER" wrappingWidth="196.2345428466797">
+                                             <VBox.margin>
+                                                <Insets top="10.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                    </VBox>
                                  </children>
-                              </VBox>
+                              </HBox>
                            </children>
-                        </HBox>
-                     </children>
-                     <padding>
-                        <Insets top="30.0" />
-                     </padding>
-                  </VBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label prefHeight="18.0" prefWidth="875.0" style="-fx-background-color: lightgrey; -fx-font-size: 20;" text="Daily step count by user group" />
-                        <HBox minHeight="-Infinity" prefHeight="250.0" prefWidth="200.0">
+                           <padding>
+                              <Insets top="30.0" />
+                           </padding>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <BarChart fx:id="genderBarChart" title="Gender">
-                                 <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis side="LEFT" />
-                                 </yAxis>
-                              </BarChart>
-                              <BarChart fx:id="ageBarChart" title="Age">
-                                 <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis side="LEFT" />
-                                 </yAxis>
-                              </BarChart>
-                           </children>
-                        </HBox>
-                     </children>
-                     <padding>
-                        <Insets top="30.0" />
-                     </padding>
-                  </VBox>
-                  <VBox>
-                     <children>
-                        <Label prefHeight="18.0" prefWidth="1018.0" style="-fx-background-color: lightgrey; -fx-font-size: 20;" text="Historical data" />
-                        <HBox>
-                           <children>
-                              <AnchorPane prefHeight="387.0" prefWidth="854.0">
+                              <Label prefHeight="18.0" prefWidth="875.0" style="-fx-background-color: lightgrey; -fx-font-size: 20;" text="Daily Steps by User Group" />
+                              <HBox minHeight="-Infinity" prefHeight="250.0" prefWidth="200.0">
                                  <children>
-                                    <LineChart fx:id="lineChart" layoutX="81.0" layoutY="28.0" prefHeight="310.0" prefWidth="674.0" title="National average last 12 months">
+                                    <BarChart fx:id="genderBarChart" title="Gender">
                                        <xAxis>
-                                          <NumberAxis side="BOTTOM" style="-fx-tick-label-font-size: 15;" />
+                                          <CategoryAxis side="BOTTOM" />
                                        </xAxis>
                                        <yAxis>
-                                          <NumberAxis side="LEFT" style="-fx-tick-label-font-size: 15;" />
+                                          <NumberAxis side="LEFT" />
                                        </yAxis>
-                                    </LineChart>
+                                    </BarChart>
+                                    <BarChart fx:id="ageBarChart" title="Age">
+                                       <xAxis>
+                                          <CategoryAxis side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis side="LEFT" />
+                                       </yAxis>
+                                    </BarChart>
                                  </children>
-                              </AnchorPane>
+                              </HBox>
                            </children>
-                        </HBox>
+                           <padding>
+                              <Insets top="30.0" />
+                           </padding>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="1018.0" style="-fx-background-color: lightgrey; -fx-font-size: 20;" text="Historical Data" />
+                              <HBox>
+                                 <children>
+                                    <AnchorPane prefHeight="387.0" prefWidth="854.0">
+                                       <children>
+                                          <LineChart fx:id="lineChart" layoutX="81.0" layoutY="28.0" prefHeight="310.0" prefWidth="674.0" title="National Average Last 12 Months">
+                                             <xAxis>
+                                                <NumberAxis side="BOTTOM" style="-fx-tick-label-font-size: 15;" />
+                                             </xAxis>
+                                             <yAxis>
+                                                <NumberAxis side="LEFT" style="-fx-tick-label-font-size: 15;" />
+                                             </yAxis>
+                                          </LineChart>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets top="30.0" />
+                           </padding>
+                        </VBox>
                      </children>
-                     <padding>
-                        <Insets top="30.0" />
-                     </padding>
                   </VBox>
+                  <Label prefHeight="40.0" prefWidth="870.0" text="Note: This graph shows the national average over the last 12 months, starting from this month (nr. 12) and moving backwards." textAlignment="CENTER" />
                </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
+               </padding>
             </VBox>
-            <Label prefHeight="40.0" prefWidth="870.0" text="Note: This graph shows the national average over the last 12 months, starting from this month (nr. 12) and moving backwards." textAlignment="CENTER" />
          </children>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
-         </padding>
-      </VBox>
+         </AnchorPane>
     </content>
 </ScrollPane>
